@@ -82,6 +82,10 @@ public class Player {
         return turn;
     }
 
+    public void addProperty(Space space){
+        this.properties.add(space);
+    }
+
     public void setTurn(boolean turn) {
         this.turn = turn;
     }

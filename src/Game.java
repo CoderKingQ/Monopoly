@@ -36,38 +36,125 @@ public class Game {
             players.add(new Player(pName));
         }
         this.gameNotOver = true;
-        this.die = new Dice();
     }
 
     /** play is how you play the game
      *
      */
-    public void play(){// most work needs to be done here to make the game playable
+    public void play() {// most work needs to be done here to make the game playable
         System.out.println("----Welcome All to the Game of Monopoly----");
         System.out.println("----You all start with $1500 and on GO ----");
-        while(gameNotOver){
-            for(Player player: players){
+        while (gameNotOver) {
+            for (Player player : players) {
                 player.setTurn(true);
                 boolean turnStart = true;
                 Scanner scanner = new Scanner(System.in);
-                while(player.isTurn()) {
+                this.die = new Dice();
+                while (player.isTurn()) {
                     if (turnStart) {// a players first turn
+
                         System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses pass Command");
                         String option = scanner.nextLine();
-                        if (option.equals("roll")){
+                        if (option.equals("roll")) {
                             die.roll();
-                            player.setLocation(die.getCurrentRoll() + player.getLocation());
-                            System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
 
-                            if(die.isDoubles() != true){
-                                player.setTurn(false);
+                            player.setLocation(die.getCurrentRoll() + player.getLocation());
+
+                            System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+                            if(board.get(player.getLocation()).getOwner() == null && ((board.get(player.getLocation()) instanceof Property) ||(board.get(player.getLocation()) instanceof Railroad)||(board.get(player.getLocation()) instanceof Utilities))){
+                                System.out.println("Do you want to buy or pass on this property:\n buy pass");
+                                option = scanner.nextLine();
+                                if(option.equals("buy")){
+                                    player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
+                                    System.out.println("You now have: " + player.getMoney());
+                                    board.get(player.getLocation()).setOwner(player);
+                                    player.addProperty(board.get(player.getLocation()));
+                                }
+                                else{
+                                    player.setTurn(false);
+                                }
                             }
-                        } else if (option.equals("pass")){
+                            else if(board.get(player.getLocation()) instanceof Event){
+                                player.setMoney(player.getMoney() - ((Event) board.get(player.getLocation())).getPayment());
+                                System.out.println("You now have: " + player.getMoney());
+
+                            }
+                            else if(board.get(player.getLocation()).getOwner() != null){
+                                System.out.println("Someone already owns this");
+                                if((board.get(player.getLocation()) instanceof Railroad)){
+                                    if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
+                                        player.setMoney(player.getMoney() - 25);
+                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 25);
+                                    }
+                                    else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 2){
+                                        player.setMoney(player.getMoney() - 50);
+                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 50);
+                                    }
+                                    else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 3){
+                                        player.setMoney(player.getMoney() - 100);
+                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 100);
+                                    }
+                                    else{
+                                        player.setMoney(player.getMoney() - 200);
+                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
+                                    }
+
+                                }
+                                if (board.get(player.getLocation()) instanceof Property){
+
+                                    player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
+                                    System.out.println("You now have: " + player.getMoney());
+                                    System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
+
+                                }
+
+                            }
+
+
+                            else{
+                                //jail
+                            }
+                            //is this a property? a railroad? a utility? or another space?
+                            //is this owned or unowned
+                            //do you wish to buy it? pass on it? or do you need to pay someone
+
+
+                            if (die.isDoubles() != true) {
+                                player.setTurn(false);
+                            } else {
+                                System.out.println("you just rolled a double watch out!" + 2 + " more and you will go to jail");
+                                System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\n Time to roll again");
+                                die.roll();
+
+                                player.setLocation(die.getCurrentRoll() + player.getLocation());
+                                System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+
+                                if (die.isDoubles() != true) {
+                                    player.setTurn(false);
+                                } else {
+                                    System.out.println("you just rolled a double watch out!" + 1 + " more and you will go to jail");
+                                    System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\n Time to roll again");
+                                    die.roll();
+
+                                    player.setLocation(die.getCurrentRoll() + player.getLocation());
+                                    System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+
+                                    if (die.isDoubles() != true) {
+                                        player.setTurn(false);
+                                    } else {
+                                        System.out.println("Go To Jail");
+                                        //jail task
+                                        player.setTurn(false);
+
+                                    }
+
+                                }
+                            }
+                        }
+                        else if (option.equals("pass")){
                             player.setTurn(false);
                         }
-                    } else { // a players additional turn if they roll a double
-                        System.out.println(player.getName() + " it is your turn what do you want to do:\n roll buyHouses Command");
-                        String option = scanner.nextLine();
                     }
                 }
             }
