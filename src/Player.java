@@ -63,8 +63,8 @@ public class Player {
     public void setLocation(int location) {
         if (location > 39){
             System.out.println("You passed GO collect $200");
-            setMoney(getMoney() + 200);
-            System.out.println("You currently have: " + getMoney());
+            setMoney(this.money + 200);
+            System.out.println("You currently have: " + this.money);
             this.location =location - 39;
         } else {
             this.location = location;
