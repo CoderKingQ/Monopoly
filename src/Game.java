@@ -77,7 +77,7 @@ public class Game {
                                     player.addProperty(board.get(player.getLocation()));
                                 }
                                 else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
-                                    player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
+                                    player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
                                     System.out.println("You now have: " + player.getMoney());
                                     board.get(player.getLocation()).setOwner(player);
                                     player.addProperty(board.get(player.getLocation()));
