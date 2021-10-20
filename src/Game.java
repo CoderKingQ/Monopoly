@@ -64,8 +64,20 @@ public class Game {
                             if(board.get(player.getLocation()).getOwner() == null && ((board.get(player.getLocation()) instanceof Property) ||(board.get(player.getLocation()) instanceof Railroad)||(board.get(player.getLocation()) instanceof Utilities))){
                                 System.out.println("Do you want to buy or pass on this property:\n buy pass");
                                 option = scanner.nextLine();
-                                if(option.equals("buy")){
+                                if(option.equals("buy") && (board.get(player.getLocation()) instanceof Property)){
                                     player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
+                                    System.out.println("You now have: " + player.getMoney());
+                                    board.get(player.getLocation()).setOwner(player);
+                                    player.addProperty(board.get(player.getLocation()));
+                                }
+                                else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Utilities)){
+                                    player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
+                                    System.out.println("You now have: " + player.getMoney());
+                                    board.get(player.getLocation()).setOwner(player);
+                                    player.addProperty(board.get(player.getLocation()));
+                                }
+                                else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
+                                    player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
                                     System.out.println("You now have: " + player.getMoney());
                                     board.get(player.getLocation()).setOwner(player);
                                     player.addProperty(board.get(player.getLocation()));
@@ -107,6 +119,13 @@ public class Game {
                                     System.out.println("You now have: " + player.getMoney());
                                     System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
 
+                                }
+                                if((board.get(player.getLocation()) instanceof Utilities)){
+                                    int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
+                                    player.setMoney(player.getMoney() - cost);
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
+                                    System.out.println("You now have: " + player.getMoney());
+                                    System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
                                 }
 
                             }
