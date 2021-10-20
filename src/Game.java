@@ -10,7 +10,7 @@ public class Game {
     public static void main(String[] args) {
         Game g = new Game(2);
         g.generateBoard();
-        g.printBoard();
+        //g.printBoard();
         g.printBoardStatus();
 
         /*
@@ -23,6 +23,10 @@ public class Game {
         g.play();
     }
 
+    /** Game's constructor creating a new game
+     *
+     * @param NOPlayers the number of players playing
+     */
     public Game (int NOPlayers){
         this.players = new ArrayList<Player>();
         for(int i = 0; i < NOPlayers; i++){
@@ -35,7 +39,10 @@ public class Game {
         this.die = new Dice();
     }
 
-    public void play(){
+    /** play is how you play the game
+     *
+     */
+    public void play(){// most work needs to be done here to make the game playable
         System.out.println("----Welcome All to the Game of Monopoly----");
         System.out.println("----You all start with $1500 and on GO ----");
         while(gameNotOver){
@@ -67,25 +74,36 @@ public class Game {
         }
     }
 
+    /** generateBoard creates a new board using the BoardGenerator class to generate a new board
+     *
+     */
     public void generateBoard(){
         board = new BoardGenerator().generate();
     }
 
+    /** printBoard prints the entire current board of monopoly
+
+     */
     public void printBoard(){
         for(Space space: board){
             System.out.println(space.getName() + " " + space.getLocation() + "\n");
         }
     }
 
+    /** printBoardStatus prints the status of all players, what they own, how much money they have and where they are
+
+     */
     public void printBoardStatus(){
         System.out.println("----Board Status----");
         for (Player player : players){
             System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\n And the following properties: \n" );
-            if(player.getProperties().isEmpty()){
+            if(player.getProperties().isEmpty()){ // check if player has no properties
                 System.out.println("No Properties found");
-            }else for(Space property: player.getProperties()){
-                if(property.getClass().equals(Property.class)){
+            }else for(Space property: player.getProperties()){ // go through all players properties
+                if(property.getClass().equals(Property.class)){ // print set properties
                     System.out.println(property.getName() + "with "+ property.getHouses() + " houses\n");
+                } else { // print utillities and railroads
+                    System.out.println(property.getName());
                 }
 
             }

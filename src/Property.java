@@ -6,7 +6,6 @@ public class Property extends Space{
     private int rent;
     private int houses;
 
-
     public Property(int location, String name, String set, int cost, int rent) {
         super(location, name);
         this.cost = cost;

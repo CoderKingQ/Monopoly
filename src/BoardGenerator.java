@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class BoardGenerator {
 
-    public ArrayList<Space> generate(){
+    public ArrayList<Space> generate(){ // creates the entire board of monopoly
         ArrayList<Space> board = new ArrayList<Space>();
         board.add(new Event(0, "GO", 0));
         board.add(new Property(1,"Mediterranean Avenue", "Brown", 60, 2));

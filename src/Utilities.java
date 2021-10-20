@@ -10,7 +10,7 @@ public class Utilities extends Space{
     }
 
     public int getRent(Dice die){
-        int utilities = getOwner().getNoRailroads();
+        int utilities = getOwner().getNoUtilities();
         if (utilities == 1){
             return 4 * die.getCurrentRoll();
         } else return 10 * die.getCurrentRoll();
