@@ -5,12 +5,17 @@ public class Player {
     private int location;
     private int money;
     private String name;
+    private boolean playing;
+    private boolean turn;
 
     public Player(String name) {
         this.name = name;
         this.properties = new ArrayList<Space>();
         this.money = 1500;
-        location = 0;
+        this.location = 0;
+        this.playing = true;
+        this.turn = false;
+
     }
 
     //Get number of railroads
@@ -49,5 +54,35 @@ public class Player {
 
     public ArrayList<Space> getProperties() {
         return properties;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location) {
+        if (location > 39){
+            System.out.println("You passed GO collect $200");
+            int around = location + this.location;
+            this.location = around - 39;
+        } else {
+            this.location = location;
+        }
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
+    }
+
+    public boolean isTurn() {
+        return turn;
+    }
+
+    public void setTurn(boolean turn) {
+        this.turn = turn;
     }
 }

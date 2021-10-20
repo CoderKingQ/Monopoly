@@ -4,14 +4,11 @@ import java.util.Scanner;
 public class Game {
     private ArrayList<Space> board;
     private ArrayList<Player> players;
-
-    public void generateBoard(){
-        board = new BoardGenerator().generate();
-    }
+    private boolean gameNotOver;
+    private Dice die;
 
     public static void main(String[] args) {
-        Game g = new Game(4);
-        Dice d = new Dice();
+        Game g = new Game(2);
         g.generateBoard();
         g.printBoard();
         g.printBoardStatus();
@@ -23,6 +20,7 @@ public class Game {
         }
 
          */
+        g.play();
     }
 
     public Game (int NOPlayers){
@@ -33,6 +31,44 @@ public class Game {
             String pName = scanner.nextLine();
             players.add(new Player(pName));
         }
+        this.gameNotOver = true;
+        this.die = new Dice();
+    }
+
+    public void play(){
+        System.out.println("----Welcome All to the Game of Monopoly----");
+        System.out.println("----You all start with $1500 and on GO ----");
+        while(gameNotOver){
+            for(Player player: players){
+                player.setTurn(true);
+                boolean turnStart = true;
+                Scanner scanner = new Scanner(System.in);
+                while(player.isTurn()) {
+                    if (turnStart) {// a players first turn
+                        System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses pass Command");
+                        String option = scanner.nextLine();
+                        if (option.equals("roll")){
+                            die.roll();
+                            player.setLocation(die.getCurrentRoll() + player.getLocation());
+                            System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+
+                            if(die.isDoubles() != true){
+                                player.setTurn(false);
+                            }
+                        } else if (option.equals("pass")){
+                            player.setTurn(false);
+                        }
+                    } else { // a players additional turn if they roll a double
+                        System.out.println(player.getName() + " it is your turn what do you want to do:\n roll buyHouses Command");
+                        String option = scanner.nextLine();
+                    }
+                }
+            }
+        }
+    }
+
+    public void generateBoard(){
+        board = new BoardGenerator().generate();
     }
 
     public void printBoard(){
@@ -53,7 +89,7 @@ public class Game {
                 }
 
             }
-            System.out.println("--End of Player: "+ player.getName() + "--");
+            System.out.println("The Player is currently on " + board.get(player.getLocation()).getName() +"\n--End of Player "+ player.getName() + "--");
         }
         System.out.println("----End of Board Status----");
     }
