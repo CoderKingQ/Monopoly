@@ -24,5 +24,8 @@ This project is divided into four milestones.
 For milestone 1, 
 
 # Future Milestones:
+As the project progresses, there would be a GUI-based vesrion. here there would be the addition of the view and the controller.
+More features such as House, hotels and special properties would be added. also players would then be able to play with A.I's
+Finally, The game would have a save/load feature and international versions with custon street names, values and currencies would be implemented
 
 # Rules of the game:
