@@ -11,9 +11,10 @@ Raul Hoyos-Jimenez
 Ese Iyamu
 
 # Deliverables
-Project Code:  
+Project Code: The project code consist of ... classes...   
 UML Class Diagram:  
-UML Sequence Diagram:  
+UML Sequence Diagrams:
+  There are ... sequence diagrams for when a player buys a property, rents a property, goes bankrupt...
 
 # Description of the project:
 The goal of this project is to reproduce a simplified version of the game Monopoly. In this project,
