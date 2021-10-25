@@ -8,8 +8,16 @@ public class Game {
     private Dice die;
     private Player winner;
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        Game g = new Game(2);
+        Scanner scanner = new Scanner(System.in);
+        int NOPlayers;
+        System.out.println("Enter number of players:" );
+        NOPlayers = scanner.nextInt();
+        Game g = new Game(NOPlayers);
         g.generateBoard();
         g.play();
     }
@@ -133,6 +141,10 @@ public class Game {
         System.out.println("Congratulations " + winner.getName() + " you won the game of monopoly");
     }
 
+    /**
+     *
+     * @param player
+     */
     private void payRailroadTax(Player player) {
         if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
             player.setMoney(player.getMoney() - 25);
@@ -152,6 +164,10 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @param player
+     */
     private void payUtilityTax(Player player) {
         int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
         player.setMoney(player.getMoney() - cost);
@@ -160,6 +176,10 @@ public class Game {
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
 
+    /**
+     *
+     * @param player
+     */
     private void payPropertyTax(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
         board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
@@ -167,6 +187,10 @@ public class Game {
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
 
+    /**
+     *
+     * @param player
+     */
     private void playerBuyRailroad(Player player) {
         player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
@@ -174,6 +198,10 @@ public class Game {
         player.addProperty(board.get(player.getLocation()));
     }
 
+    /**
+     *
+     * @param player
+     */
     private void playerBuyUtilities(Player player) {
         player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
@@ -181,6 +209,10 @@ public class Game {
         player.addProperty(board.get(player.getLocation()));
     }
 
+    /**
+     *
+     * @param player
+     */
     private void playerBuyProperty(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
