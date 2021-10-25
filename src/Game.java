@@ -9,7 +9,10 @@ public class Game {
     private Player winner;
 
     public static void main(String[] args) {
-        Game g = new Game(2);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("To Start Monopoly please enter the number of players you wish to play with (ideally 2-8)");
+        int NOPlayers = scanner.nextInt();
+        Game g = new Game(NOPlayers);
         g.generateBoard();
         g.play();
     }
