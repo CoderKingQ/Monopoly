@@ -68,6 +68,7 @@ public class Game {
                             }
                             else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
                                 playerBuyRailroad(player);
+                                //test
                             }
                             else{
                                 player.setTurn(false);
