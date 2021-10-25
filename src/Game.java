@@ -8,8 +8,16 @@ public class Game {
     private Dice die;
     private Player winner;
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
-        Game g = new Game(2);
+        Scanner scanner = new Scanner(System.in);
+        int NOPlayers;
+        System.out.println("Enter number of players:" );
+        NOPlayers = scanner.nextInt();
+        Game g = new Game(NOPlayers);
         g.generateBoard();
         g.play();
     }
@@ -132,6 +140,7 @@ public class Game {
 
         System.out.println("Congratulations " + winner.getName() + " you won the game of monopoly");
     }
+
     /**
      * payRailroadTax Pays owner of Railroad from the current player and sets new values for money.
      * @return void
@@ -155,6 +164,7 @@ public class Game {
             board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
         }
     }
+
     /**
      * payUtilityTax Pays owner of Utility from the current player and sets new values for money.
      * @return void
@@ -167,6 +177,7 @@ public class Game {
         System.out.println("You now have: " + player.getMoney());
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
+
     /**
      * payPropertyTax Pays owner of property from the current player and sets new values for money.
      * @return void
@@ -178,6 +189,8 @@ public class Game {
         System.out.println("You now have: " + player.getMoney());
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
+
+
     /**
      * playerBuyRailroad buys a Railroad for the current player and sets new values for money and ownership.
      * @return void
@@ -189,6 +202,7 @@ public class Game {
         board.get(player.getLocation()).setOwner(player);
         player.addProperty(board.get(player.getLocation()));
     }
+
     /**
      * playerBuyUtilities buys a utility for the current player and sets new values for money and ownership.
      * @return void
@@ -200,6 +214,7 @@ public class Game {
         board.get(player.getLocation()).setOwner(player);
         player.addProperty(board.get(player.getLocation()));
     }
+
     /**
      * playerBuyProperty buys a property for the current player and sets new values for money and ownership.
      * @return void
