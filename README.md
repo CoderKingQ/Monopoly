@@ -34,6 +34,8 @@ There are 3 sequence diagrams that show the interaction for when a player
   - rents a property 
   - goes bankrupt
 
+# Issues that would be addressed:
+
 # Future Milestones:
 As the project progresses, there would be a GUI-based vesrion. here there would be the addition of the view and the controller.
 More features such as House, hotels and special properties would be added. Also players would then be able to play with A.I's
