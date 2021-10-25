@@ -4,7 +4,7 @@
 
 Date: 25/10/21
 
-# Teammates:
+# Team Members:
 Quinton Tracey  
 Jestan Brar  
 Raul Hoyos-Jimenez  
@@ -12,10 +12,26 @@ Ese Iyamu
  
 # Deliverables
 Project Code:
-  The project code consist of ... classes...   
+  The project code consist of 11 classes:
+  - Board Generator 
+  - Command
+  - Dice
+  - Event
+  - GamE
+  - Jail
+  - Player
+  - Property
+  - Railroad
+  - Space
+  - Utility  
+
 UML Class Diagram:  
-UML Sequence Diagrams:
-  There are ... sequence diagrams for when a player buys a property, rents a property, goes bankrupt...
+
+UML Sequence Diagram:
+  There are 3 sequence diagrams that show the interaction for when a player 
+  - buys a property 
+  - rents a property 
+  - goes bankrupt...
 
 # Future Milestones:
 As the project progresses, there would be a GUI-based vesrion. here there would be the addition of the view and the controller.
