@@ -4,7 +4,11 @@ public class Space {
     private int houses;
     private Player owner;
 
-
+    /** The constructor for space
+     *
+     * @param location
+     * @param name
+     */
     public Space(int location, String name){
         this.location = location;
         this.name = name;

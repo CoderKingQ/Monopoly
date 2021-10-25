@@ -10,16 +10,6 @@ public class Game {
     public static void main(String[] args) {
         Game g = new Game(2);
         g.generateBoard();
-        //g.printBoard();
-        g.printBoardStatus();
-
-        /*
-        for(int i = 0; i < 10; i++){
-            d.roll();
-            System.out.println(d.getCurrentRoll());
-        }
-
-         */
         g.play();
     }
 
@@ -50,10 +40,10 @@ public class Game {
                 boolean turnStart = true;
                 Scanner scanner = new Scanner(System.in);
                 this.die = new Dice();
-                while (player.isTurn()) {
+                while (player.isTurn() && player.isPlaying()) { //check if its there turn and if they are still in the game
                     if (turnStart) {// a players first turn
 
-                        System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses pass Command");
+                        System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses pass status");
                         String option = scanner.nextLine();
                         if (option.equals("roll")) {
                             die.roll();
@@ -61,6 +51,7 @@ public class Game {
                             player.setLocation(die.getCurrentRoll() + player.getLocation());
 
                             System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+                            //land on a property and check if its purchasable
                             if(board.get(player.getLocation()).getOwner() == null && ((board.get(player.getLocation()) instanceof Property) ||(board.get(player.getLocation()) instanceof Railroad)||(board.get(player.getLocation()) instanceof Utilities))){
                                 System.out.println("Do you want to buy or pass on this property:\n buy pass");
                                 option = scanner.nextLine();
@@ -85,12 +76,12 @@ public class Game {
                                 else{
                                     player.setTurn(false);
                                 }
-                            }
+                            } // You land on an event space
                             else if(board.get(player.getLocation()) instanceof Event){
                                 player.setMoney(player.getMoney() - ((Event) board.get(player.getLocation())).getPayment());
                                 System.out.println("You now have: " + player.getMoney());
 
-                            }
+                            } // you land on someone elses railroad
                             else if(board.get(player.getLocation()).getOwner() != null){
                                 System.out.println("Someone already owns this");
                                 if((board.get(player.getLocation()) instanceof Railroad)){
@@ -111,7 +102,7 @@ public class Game {
                                         board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
                                     }
 
-                                }
+                                } // you land on someones property
                                 if (board.get(player.getLocation()) instanceof Property){
 
                                     player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
@@ -119,7 +110,7 @@ public class Game {
                                     System.out.println("You now have: " + player.getMoney());
                                     System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
 
-                                }
+                                } // you land on someones utility
                                 if((board.get(player.getLocation()) instanceof Utilities)){
                                     int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
                                     player.setMoney(player.getMoney() - cost);
@@ -128,11 +119,18 @@ public class Game {
                                     System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
                                 }
 
+                                if(player.getMoney() <= 0){ // bankruptcy
+                                    System.out.println("Oh no " + player.getName() + " you ran out of money! You lose.");
+                                    player.setPlaying(false);
+                                }
+
+                            } else if (option.equals("status")){ // prints the status of each of the players
+                                printBoardStatus();
                             }
 
 
                             else{
-                                //jail
+                                //jail not yet
                             }
                             //is this a property? a railroad? a utility? or another space?
                             //is this owned or unowned

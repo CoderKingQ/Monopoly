@@ -3,6 +3,10 @@ import java.util.ArrayList;
 
 public class BoardGenerator {
 
+    /** The board generator generates the board for the game
+     *
+     * @return Arraylist<Space>, board
+     */
     public ArrayList<Space> generate(){ // creates the entire board of monopoly
         ArrayList<Space> board = new ArrayList<Space>();
         board.add(new Event(0, "GO", 0));
