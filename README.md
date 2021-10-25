@@ -23,6 +23,6 @@ This project is divided into four milestones.
 ## Milestone 1
 For milestone 1, 
 
-# Futere Milestones:
+# Future Milestones:
 
 # Rules of the game:
