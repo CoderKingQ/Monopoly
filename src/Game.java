@@ -18,7 +18,7 @@ public class Game {
      * @param NOPlayers the number of players playing
      */
     public Game (int NOPlayers){
-        this.players = new ArrayList<Player>();
+        this.players = new ArrayList<>();
         for(int i = 0; i < NOPlayers; i++){
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter Player " + (i +1) + "'s name: " );
@@ -40,139 +40,109 @@ public class Game {
                 boolean turnStart = true;
                 Scanner scanner = new Scanner(System.in);
                 this.die = new Dice();
-                while (player.isTurn() && player.isPlaying()) { //check if its there turn and if they are still in the game
-                    if (turnStart) {// a players first turn
+                while (player.isTurn() && player.isPlaying() && die.getDoubleCount() <= 2) { //check if its there turn and if they are still in the game
 
-                        System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses pass status");
-                        String option = scanner.nextLine();
-                        if (option.equals("roll")) {
-                            die.roll();
+                    System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses status");
+                    String option = scanner.nextLine();
+                    if (option.equals("roll")) {
+                        die.roll();
+                        if(die.getDoubleCount() > 2){
+                            System.out.println("Oh no you rolled three doubles go to jail!");
+                            player.setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+                            player.setTurn(false);
+                            break;
+                        }
 
-                            player.setLocation(die.getCurrentRoll() + player.getLocation());
+                        player.setLocation(die.getCurrentRoll() + player.getLocation());
 
-                            System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
-                            //land on a property and check if its purchasable
-                            if(board.get(player.getLocation()).getOwner() == null && ((board.get(player.getLocation()) instanceof Property) ||(board.get(player.getLocation()) instanceof Railroad)||(board.get(player.getLocation()) instanceof Utilities))){
-                                System.out.println("Do you want to buy or pass on this property:\n buy pass");
-                                option = scanner.nextLine();
-                                if(option.equals("buy") && (board.get(player.getLocation()) instanceof Property)){
-                                    player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
-                                    System.out.println("You now have: " + player.getMoney());
-                                    board.get(player.getLocation()).setOwner(player);
-                                    player.addProperty(board.get(player.getLocation()));
+                        System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
+                        //land on a property and check if its purchasable
+                        if(board.get(player.getLocation()).getOwner() == null && ((board.get(player.getLocation()) instanceof Property) ||(board.get(player.getLocation()) instanceof Railroad)||(board.get(player.getLocation()) instanceof Utilities))){
+                            System.out.println("Do you want to buy or pass on this property:\n buy pass");
+                            option = scanner.nextLine();
+                            if(option.equals("buy") && (board.get(player.getLocation()) instanceof Property)){
+                                player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
+                                System.out.println("You now have: " + player.getMoney());
+                                board.get(player.getLocation()).setOwner(player);
+                                player.addProperty(board.get(player.getLocation()));
+                            }
+                            else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Utilities)){
+                                player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
+                                System.out.println("You now have: " + player.getMoney());
+                                board.get(player.getLocation()).setOwner(player);
+                                player.addProperty(board.get(player.getLocation()));
+                            }
+                            else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
+                                player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
+                                System.out.println("You now have: " + player.getMoney());
+                                board.get(player.getLocation()).setOwner(player);
+                                player.addProperty(board.get(player.getLocation()));
+                            }
+                            else{
+                                player.setTurn(false);
+                            }
+                        } // You land on an event space
+                        else if(board.get(player.getLocation()) instanceof Event){
+                            player.setMoney(player.getMoney() - ((Event) board.get(player.getLocation())).getPayment());
+                            System.out.println("You now have: " + player.getMoney());
+
+                        } // you land on someone elses railroad
+                        else if(board.get(player.getLocation()).getOwner() != null){
+                            System.out.println("Someone already owns this");
+                            if((board.get(player.getLocation()) instanceof Railroad)){
+                                if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
+                                    player.setMoney(player.getMoney() - 25);
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 25);
                                 }
-                                else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Utilities)){
-                                    player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
-                                    System.out.println("You now have: " + player.getMoney());
-                                    board.get(player.getLocation()).setOwner(player);
-                                    player.addProperty(board.get(player.getLocation()));
+                                else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 2){
+                                    player.setMoney(player.getMoney() - 50);
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 50);
                                 }
-                                else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
-                                    player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
-                                    System.out.println("You now have: " + player.getMoney());
-                                    board.get(player.getLocation()).setOwner(player);
-                                    player.addProperty(board.get(player.getLocation()));
+                                else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 3){
+                                    player.setMoney(player.getMoney() - 100);
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 100);
                                 }
                                 else{
-                                    player.setTurn(false);
+                                    player.setMoney(player.getMoney() - 200);
+                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
                                 }
-                            } // You land on an event space
-                            else if(board.get(player.getLocation()) instanceof Event){
-                                player.setMoney(player.getMoney() - ((Event) board.get(player.getLocation())).getPayment());
+
+                            } // you land on someones property
+                            if (board.get(player.getLocation()) instanceof Property){
+
+                                player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
+                                board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
                                 System.out.println("You now have: " + player.getMoney());
+                                System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
 
-                            } // you land on someone elses railroad
-                            else if(board.get(player.getLocation()).getOwner() != null){
-                                System.out.println("Someone already owns this");
-                                if((board.get(player.getLocation()) instanceof Railroad)){
-                                    if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
-                                        player.setMoney(player.getMoney() - 25);
-                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 25);
-                                    }
-                                    else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 2){
-                                        player.setMoney(player.getMoney() - 50);
-                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 50);
-                                    }
-                                    else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 3){
-                                        player.setMoney(player.getMoney() - 100);
-                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 100);
-                                    }
-                                    else{
-                                        player.setMoney(player.getMoney() - 200);
-                                        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
-                                    }
-
-                                } // you land on someones property
-                                if (board.get(player.getLocation()) instanceof Property){
-
-                                    player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
-                                    System.out.println("You now have: " + player.getMoney());
-                                    System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
-
-                                } // you land on someones utility
-                                if((board.get(player.getLocation()) instanceof Utilities)){
-                                    int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
-                                    player.setMoney(player.getMoney() - cost);
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
-                                    System.out.println("You now have: " + player.getMoney());
-                                    System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
-                                }
-
-                                if(player.getMoney() <= 0){ // bankruptcy
-                                    System.out.println("Oh no " + player.getName() + " you ran out of money! You lose.");
-                                    player.setPlaying(false);
-                                }
-
-                            } else if (option.equals("status")){ // prints the status of each of the players
-                                printBoardStatus();
+                            } // you land on someones utility
+                            if((board.get(player.getLocation()) instanceof Utilities)){
+                                int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
+                                player.setMoney(player.getMoney() - cost);
+                                board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
+                                System.out.println("You now have: " + player.getMoney());
+                                System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
                             }
 
-
-                            else{
-                                //jail not yet
+                            if(player.getMoney() <= 0){ // bankruptcy
+                                System.out.println("Oh no " + player.getName() + " you ran out of money! You lose.");
+                                player.setPlaying(false);
                             }
-                            //is this a property? a railroad? a utility? or another space?
-                            //is this owned or unowned
-                            //do you wish to buy it? pass on it? or do you need to pay someone
 
-
-                            if (die.isDoubles() != true) {
-                                player.setTurn(false);
-                            } else {
-                                System.out.println("you just rolled a double watch out!" + 2 + " more and you will go to jail");
-                                System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\n Time to roll again");
-                                die.roll();
-
-                                player.setLocation(die.getCurrentRoll() + player.getLocation());
-                                System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
-
-                                if (die.isDoubles() != true) {
-                                    player.setTurn(false);
-                                } else {
-                                    System.out.println("you just rolled a double watch out!" + 1 + " more and you will go to jail");
-                                    System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\n Time to roll again");
-                                    die.roll();
-
-                                    player.setLocation(die.getCurrentRoll() + player.getLocation());
-                                    System.out.println("You rolled a " + die.getCurrentRoll() + " and landed on " + board.get(player.getLocation()).getName());
-
-                                    if (die.isDoubles() != true) {
-                                        player.setTurn(false);
-                                    } else {
-                                        System.out.println("Go To Jail");
-                                        //jail task
-                                        player.setTurn(false);
-
-                                    }
-
-                                }
-                            }
                         }
-                        else if (option.equals("pass")){
-                            player.setTurn(false);
-                        }
+
+
                     }
+                    else if (option.equals("pass")){ // pass player turn
+                        player.setTurn(false);
+                    } else if (option.equals("status")){ // prints the status of each of the players
+                        this.printBoardStatus();
+                    }
+
+                    if(die.isDoubles()){ // if they get doubles make sure they go again
+                        player.setTurn(true);
+                    }
+
                 }
             }
         }

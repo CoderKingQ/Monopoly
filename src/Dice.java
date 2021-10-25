@@ -3,7 +3,7 @@ import java.util.Random;
 public class Dice {
     private int currentRoll;
     private boolean doubles;
-    private int doublecount = 0;
+    private int doubleCount = 0;
 
     public int rollDie(){
         Random rn = new Random();
@@ -14,7 +14,10 @@ public class Dice {
         doubles = false;
         int d1 = rollDie();
         int d2 = rollDie();
-        if (d1 == d2) doubles = true;
+        if (d1 == d2){
+            doubles = true;
+            doubleCount++;
+        }
         System.out.println(d1);
         System.out.println(d2);
         currentRoll = d1 + d2;
@@ -26,12 +29,11 @@ public class Dice {
     }
 
     public boolean isDoubles() {
-        doublecount++;
         return doubles;
     }
 
-    public int getDoublecount() {
-        return doublecount;
+    public int getDoubleCount() {
+        return doubleCount;
     }
 
 }
