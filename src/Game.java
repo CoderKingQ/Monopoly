@@ -132,7 +132,11 @@ public class Game {
 
         System.out.println("Congratulations " + winner.getName() + " you won the game of monopoly");
     }
-
+    /**
+     * payRailroadTax Pays owner of Railroad from the current player and sets new values for money.
+     * @return void
+     * @param player
+     */
     private void payRailroadTax(Player player) {
         if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
             player.setMoney(player.getMoney() - 25);
@@ -151,7 +155,11 @@ public class Game {
             board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
         }
     }
-
+    /**
+     * payUtilityTax Pays owner of Utility from the current player and sets new values for money.
+     * @return void
+     * @param player
+     */
     private void payUtilityTax(Player player) {
         int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
         player.setMoney(player.getMoney() - cost);
@@ -159,28 +167,44 @@ public class Game {
         System.out.println("You now have: " + player.getMoney());
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
-
+    /**
+     * payPropertyTax Pays owner of property from the current player and sets new values for money.
+     * @return void
+     * @param player
+     */
     private void payPropertyTax(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
         board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
         System.out.println("You now have: " + player.getMoney());
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
-
+    /**
+     * playerBuyRailroad buys a Railroad for the current player and sets new values for money and ownership.
+     * @return void
+     * @param player
+     */
     private void playerBuyRailroad(Player player) {
         player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
         board.get(player.getLocation()).setOwner(player);
         player.addProperty(board.get(player.getLocation()));
     }
-
+    /**
+     * playerBuyUtilities buys a utility for the current player and sets new values for money and ownership.
+     * @return void
+     * @param player
+     */
     private void playerBuyUtilities(Player player) {
         player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
         board.get(player.getLocation()).setOwner(player);
         player.addProperty(board.get(player.getLocation()));
     }
-
+    /**
+     * playerBuyProperty buys a property for the current player and sets new values for money and ownership.
+     * @return void
+     * @param player
+     */
     private void playerBuyProperty(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
