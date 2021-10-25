@@ -142,7 +142,8 @@ public class Game {
     }
 
     /**
-     *
+     * payRailroadTax Pays owner of Railroad from the current player and sets new values for money.
+     * @return void
      * @param player
      */
     private void payRailroadTax(Player player) {
@@ -165,7 +166,8 @@ public class Game {
     }
 
     /**
-     *
+     * payUtilityTax Pays owner of Utility from the current player and sets new values for money.
+     * @return void
      * @param player
      */
     private void payUtilityTax(Player player) {
@@ -177,7 +179,8 @@ public class Game {
     }
 
     /**
-     *
+     * payPropertyTax Pays owner of property from the current player and sets new values for money.
+     * @return void
      * @param player
      */
     private void payPropertyTax(Player player) {
@@ -187,8 +190,10 @@ public class Game {
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
 
+
     /**
-     *
+     * playerBuyRailroad buys a Railroad for the current player and sets new values for money and ownership.
+     * @return void
      * @param player
      */
     private void playerBuyRailroad(Player player) {
@@ -199,7 +204,8 @@ public class Game {
     }
 
     /**
-     *
+     * playerBuyUtilities buys a utility for the current player and sets new values for money and ownership.
+     * @return void
      * @param player
      */
     private void playerBuyUtilities(Player player) {
@@ -210,7 +216,8 @@ public class Game {
     }
 
     /**
-     *
+     * playerBuyProperty buys a property for the current player and sets new values for money and ownership.
+     * @return void
      * @param player
      */
     private void playerBuyProperty(Player player) {
