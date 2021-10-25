@@ -27,6 +27,7 @@ public class Game {
      * @param NOPlayers the number of players playing
      */
     public Game (int NOPlayers){
+        this.die = new Dice();
         this.players = new ArrayList<>();
         for(int i = 0; i < NOPlayers; i++){
             Scanner scanner = new Scanner(System.in);
@@ -47,7 +48,8 @@ public class Game {
             for (Player player : players) {
                 player.setTurn(true);
                 Scanner scanner = new Scanner(System.in);
-                this.die = new Dice();
+                die.resetDoubles();
+
                 while (player.isTurn() && player.isPlaying() && die.getDoubleCount() <= 2) { //check if its there turn and if they are still in the game
 
                     System.out.println(player.getName() + " it is your turn and are currently on " + board.get(player.getLocation()).getName() + "\nWhat do you want to do:\n roll buyHouses status");
@@ -117,24 +119,32 @@ public class Game {
                         this.printBoardStatus();
                     }
 
+
+
                     if(die.isDoubles()){ // if they get doubles make sure they go again
                         player.setTurn(true);
+                    } else {
+                        player.setTurn(false);
                     }
 
                 }
             }
 
-            for(Player player: players){ // check if game over by number of still playing players
-                int x = 0;
+
+            int x = 0; // check if game over by number of still playing players
+            for(Player player: players){
+
                 if(player.isPlaying() == true){
                     winner = player;
-                    x ++;
-                }
-                if(x <= 1){
-
-                    gameNotOver = false;
+                    x++;
                 }
             }
+            if(x <= 1){
+
+                gameNotOver = false;
+            } // end of check
+
+
 
         }
 
@@ -176,6 +186,7 @@ public class Game {
         board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
         System.out.println("You now have: " + player.getMoney());
         System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
+
     }
 
     /**
@@ -249,12 +260,12 @@ public class Game {
     public void printBoardStatus(){
         System.out.println("----Board Status----");
         for (Player player : players){
-            System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\n And the following properties: \n" );
+            System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\nAnd the following properties: \n" );
             if(player.getProperties().isEmpty()){ // check if player has no properties
                 System.out.println("No Properties found");
             }else for(Space property: player.getProperties()){ // go through all players properties
                 if(property.getClass().equals(Property.class)){ // print set properties
-                    System.out.println(property.getName() + "with "+ property.getHouses() + " houses\n");
+                    System.out.println(property.getName() + " with "+ property.getHouses() + " houses");
                 } else { // print utillities and railroads
                     System.out.println(property.getName());
                 }

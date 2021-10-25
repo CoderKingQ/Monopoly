@@ -36,4 +36,8 @@ public class Dice {
         return doubleCount;
     }
 
+    public void resetDoubles(){
+        doubleCount = 0;
+    }
+
 }
