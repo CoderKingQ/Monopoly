@@ -61,22 +61,13 @@ public class Game {
                             System.out.println("Do you want to buy or pass on this property:\n buy pass");
                             option = scanner.nextLine();
                             if(option.equals("buy") && (board.get(player.getLocation()) instanceof Property)){
-                                player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
-                                System.out.println("You now have: " + player.getMoney());
-                                board.get(player.getLocation()).setOwner(player);
-                                player.addProperty(board.get(player.getLocation()));
+                                playerBuyProperty(player);
                             }
                             else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Utilities)){
-                                player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
-                                System.out.println("You now have: " + player.getMoney());
-                                board.get(player.getLocation()).setOwner(player);
-                                player.addProperty(board.get(player.getLocation()));
+                                playerBuyUtilities(player);
                             }
                             else if(option.equals("buy") && (board.get(player.getLocation()) instanceof Railroad)){
-                                player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
-                                System.out.println("You now have: " + player.getMoney());
-                                board.get(player.getLocation()).setOwner(player);
-                                player.addProperty(board.get(player.getLocation()));
+                                playerBuyRailroad(player);
                             }
                             else{
                                 player.setTurn(false);
@@ -146,6 +137,27 @@ public class Game {
                 }
             }
         }
+    }
+
+    private void playerBuyRailroad(Player player) {
+        player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
+        System.out.println("You now have: " + player.getMoney());
+        board.get(player.getLocation()).setOwner(player);
+        player.addProperty(board.get(player.getLocation()));
+    }
+
+    private void playerBuyUtilities(Player player) {
+        player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
+        System.out.println("You now have: " + player.getMoney());
+        board.get(player.getLocation()).setOwner(player);
+        player.addProperty(board.get(player.getLocation()));
+    }
+
+    private void playerBuyProperty(Player player) {
+        player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
+        System.out.println("You now have: " + player.getMoney());
+        board.get(player.getLocation()).setOwner(player);
+        player.addProperty(board.get(player.getLocation()));
     }
 
     /** generateBoard creates a new board using the BoardGenerator class to generate a new board
