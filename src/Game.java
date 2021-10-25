@@ -6,6 +6,7 @@ public class Game {
     private ArrayList<Player> players;
     private boolean gameNotOver;
     private Dice die;
+    private Player winner;
 
     public static void main(String[] args) {
         Game g = new Game(2);
@@ -37,7 +38,6 @@ public class Game {
         while (gameNotOver) {
             for (Player player : players) {
                 player.setTurn(true);
-                boolean turnStart = true;
                 Scanner scanner = new Scanner(System.in);
                 this.die = new Dice();
                 while (player.isTurn() && player.isPlaying() && die.getDoubleCount() <= 2) { //check if its there turn and if they are still in the game
@@ -145,7 +145,22 @@ public class Game {
 
                 }
             }
+
+            for(Player player: players){ // check if game over by number of still playing players
+                int x = 0;
+                if(player.isPlaying() == true){
+                    winner = player;
+                    x ++;
+                }
+                if(x <= 1){
+
+                    gameNotOver = false;
+                }
+            }
+
         }
+
+        System.out.println("Congratulations " + winner.getName() + " you won the game of monopoly");
     }
 
     /** generateBoard creates a new board using the BoardGenerator class to generate a new board
