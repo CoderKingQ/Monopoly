@@ -82,38 +82,16 @@ public class Game {
                         else if(board.get(player.getLocation()).getOwner() != null){
                             System.out.println("Someone already owns this");
                             if((board.get(player.getLocation()) instanceof Railroad)){
-                                if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
-                                    player.setMoney(player.getMoney() - 25);
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 25);
-                                }
-                                else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 2){
-                                    player.setMoney(player.getMoney() - 50);
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 50);
-                                }
-                                else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 3){
-                                    player.setMoney(player.getMoney() - 100);
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 100);
-                                }
-                                else{
-                                    player.setMoney(player.getMoney() - 200);
-                                    board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
-                                }
+                                payRailroadTax(player);
 
                             } // you land on someones property
                             if (board.get(player.getLocation()) instanceof Property){
 
-                                player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
-                                board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
-                                System.out.println("You now have: " + player.getMoney());
-                                System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
+                                payPropertyTax(player);
 
                             } // you land on someones utility
                             if((board.get(player.getLocation()) instanceof Utilities)){
-                                int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
-                                player.setMoney(player.getMoney() - cost);
-                                board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
-                                System.out.println("You now have: " + player.getMoney());
-                                System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
+                                payUtilityTax(player);
                             }
 
                             if(player.getMoney() <= 0){ // bankruptcy
@@ -138,6 +116,40 @@ public class Game {
                 }
             }
         }
+    }
+
+    private void payRailroadTax(Player player) {
+        if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
+            player.setMoney(player.getMoney() - 25);
+            board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 25);
+        }
+        else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 2){
+            player.setMoney(player.getMoney() - 50);
+            board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 50);
+        }
+        else if(board.get(player.getLocation()).getOwner().getNoRailroads() == 3){
+            player.setMoney(player.getMoney() - 100);
+            board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 100);
+        }
+        else{
+            player.setMoney(player.getMoney() - 200);
+            board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + 200);
+        }
+    }
+
+    private void payUtilityTax(Player player) {
+        int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
+        player.setMoney(player.getMoney() - cost);
+        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + cost);
+        System.out.println("You now have: " + player.getMoney());
+        System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
+    }
+
+    private void payPropertyTax(Player player) {
+        player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
+        board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
+        System.out.println("You now have: " + player.getMoney());
+        System.out.println(board.get(player.getLocation()).getOwner().getName() + " You now have: " + board.get(player.getLocation()).getOwner().getMoney());
     }
 
     private void playerBuyRailroad(Player player) {
