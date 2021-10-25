@@ -10,8 +10,8 @@ Jestan Brar
 Raul Hoyos-Jimenez  
 Ese Iyamu
  
-# Deliverables
-Project Code:
+# Deliverables:
+### Project Code:  
   The project code consist of 11 classes:
   - Board Generator 
   - Command
@@ -25,13 +25,14 @@ Project Code:
   - Space
   - Utility  
 
-UML Class Diagram:  
+### UML Class Diagram:  
+A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes and their attributes and methods, and also the relationship between classes.
 
-UML Sequence Diagram:
-  There are 3 sequence diagrams that show the interaction for when a player 
+### UML Sequence Diagram:
+There are 3 sequence diagrams that show the interaction for when a player 
   - buys a property 
   - rents a property 
-  - goes bankrupt...
+  - goes bankrupt
 
 # Future Milestones:
 As the project progresses, there would be a GUI-based vesrion. here there would be the addition of the view and the controller.
