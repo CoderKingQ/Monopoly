@@ -9,7 +9,10 @@ Quinton Tracey
 Jestan Brar  
 Raul Hoyos-Jimenez  
 Ese Iyamu
- 
+
+#MILESTONE 1
+In this milestone, players are able to play the game via keyboard.
+
 # Deliverables:
 ### Project Code:  
   The project code consist of 11 classes:
@@ -17,7 +20,7 @@ Ese Iyamu
   - Command
   - Dice
   - Event
-  - GamE
+  - Game
   - Jail
   - Player
   - Property
@@ -26,7 +29,7 @@ Ese Iyamu
   - Utility  
 
 ### UML Class Diagram:  
-A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes and their attributes and methods, and also the relationship between classes.
+A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes their attributes and methods. It also shows the relationship between classes.
 
 ### UML Sequence Diagram:
 There are 3 sequence diagrams that show the interaction for when a player 
@@ -34,11 +37,13 @@ There are 3 sequence diagrams that show the interaction for when a player
   - rents a property 
   - goes bankrupt
 
-# Issues that would be addressed:
+# Issues to be addressed:
 
-# Future Milestones:
-As the project progresses, there would be a GUI-based vesrion. here there would be the addition of the view and the controller.
-More features such as House, hotels and special properties would be added. Also players would then be able to play with A.I's
-Finally, The game would have a save/load feature and international versions with custon street names, values and currencies would be implemented
+# Future Milestones/Roadmap:
+As the project progresses, the following would be added:    
+A GUI-based vesrion of the game (addition of the View and the Controller).     
+Features such as House, hotels and special properties would be added.   
+Players would be able to play with A.I's. 
+The game would have a save/load feature and international versions with custon street names, values and currencies would be implemented. 
 
 
