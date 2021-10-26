@@ -32,13 +32,12 @@ In this milestone, players are able to play the game via keyboard. The player is
 A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes, their attributes and methods. It also shows the relationship between classes.
 
 ### UML Sequence Diagram:
-There are 3 sequence diagrams that show the interaction for when a player 
-  - buys a property 
-  - rents a property 
-  - goes bankrupt
+There are 2 sequence diagrams that show the interaction for when a player 
+  - buys a property/railroad/utility
+  - pays rent on a property and goes bankrupt
 
-# Issues to be addressed:
-
+# Issues to be addressed
+- Organize code better
 
 # Future Milestones/Roadmap:
 As the project progresses, the following would be added:    
