@@ -94,18 +94,18 @@ public class Game {
                             player.setMoney(player.getMoney() - ((Event) board.get(player.getLocation())).getPayment());
                             System.out.println("You now have: " + player.getMoney());
 
-                        } // you land on someone elses railroad
+                        } // you land on an owned railroad
                         else if(board.get(player.getLocation()).getOwner() != null){
                             System.out.println("Someone already owns this");
                             if((board.get(player.getLocation()) instanceof Railroad)){
                                 payRailroadTax(player);
 
-                            } // you land on someones property
+                            } // you land on an owned property
                             if (board.get(player.getLocation()) instanceof Property){
 
                                 payPropertyTax(player);
 
-                            } // you land on someones utility
+                            } // you land on an owned utility
                             if((board.get(player.getLocation()) instanceof Utilities)){
                                 payUtilityTax(player);
                             }
@@ -263,7 +263,7 @@ public class Game {
             }else for(Space property: player.getProperties()){ // go through all players properties
                 if(property.getClass().equals(Property.class)){ // print set properties
                     System.out.println(property.getName() + "with "+ property.getHouses() + " houses\n");
-                } else { // print utillities and railroads
+                } else { // print utilities and railroads
                     System.out.println(property.getName());
                 }
 

@@ -1,10 +1,17 @@
 import java.util.Random;
 
+/** This class represents the dice used in the game
+ *
+ */
 public class Dice {
     private int currentRoll;
     private boolean doubles;
     private int doubleCount = 0;
 
+    /** Rolls the dice
+     *
+     * @return int
+     */
     public int rollDie(){
         Random rn = new Random();
         return rn.nextInt(6) + 1; // Rolling a single dice
@@ -24,14 +31,26 @@ public class Dice {
         return getCurrentRoll();
     }
 
+    /**Returns currentRoll
+     *
+     * @return int
+     */
     public int getCurrentRoll() {
         return currentRoll;
     }
 
+    /** Returns if we have a double or not
+     *
+     * @return  boolean
+     */
     public boolean isDoubles() {
         return doubles;
     }
 
+    /**
+     *
+     * @return int
+     */
     public int getDoubleCount() {
         return doubleCount;
     }
