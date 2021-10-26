@@ -8,7 +8,7 @@ public class Game {
     private Dice die;
     private Player winner;
 
-    /**
+    /** main to run the game
      *
      * @param args
      * @return void
