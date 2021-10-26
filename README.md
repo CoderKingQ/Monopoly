@@ -38,9 +38,7 @@ There are 3 sequence diagrams that show the interaction for when a player
   - goes bankrupt
 
 # Issues to be addressed:
-- Passing turn to the next player
-- (Printing the status of the player and not every player)*
-- 
+
 
 # Future Milestones/Roadmap:
 As the project progresses, the following would be added:    
