@@ -1,6 +1,9 @@
 //test
 import java.util.ArrayList;
 
+/**
+ * Class BoardGenerator represents/creates the monopoly board
+ */
 public class BoardGenerator {
 
     /** The board generator generates the board for the game
