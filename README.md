@@ -10,8 +10,8 @@ Jestan Brar
 Raul Hoyos-Jimenez  
 Ese Iyamu
 
-#MILESTONE 1
-In this milestone, players are able to play the game via keyboard.
+# MILESTONE 1
+In this milestone, players are able to play the game via keyboard. The player is able to roll the dice and depending on the state of the space on the board where they land, they would be able to do the following:- pass on a property, purchase a property, pay rent if owned by another player. The player would also be able to check their status in the game. Once their turn is over, they would pass the dice to the next player.
 
 # Deliverables:
 ### Project Code:  
@@ -29,7 +29,7 @@ In this milestone, players are able to play the game via keyboard.
   - Utility  
 
 ### UML Class Diagram:  
-A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes their attributes and methods. It also shows the relationship between classes.
+A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes, their attributes and methods. It also shows the relationship between classes.
 
 ### UML Sequence Diagram:
 There are 3 sequence diagrams that show the interaction for when a player 
@@ -38,6 +38,9 @@ There are 3 sequence diagrams that show the interaction for when a player
   - goes bankrupt
 
 # Issues to be addressed:
+- Passing turn to the next player
+- (Printing the status of the player and not every player)*
+- 
 
 # Future Milestones/Roadmap:
 As the project progresses, the following would be added:    
