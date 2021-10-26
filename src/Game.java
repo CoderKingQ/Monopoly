@@ -11,12 +11,20 @@ public class Game {
     /**
      *
      * @param args
+     * @return void
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int NOPlayers;
-        System.out.println("Enter number of players:" );
+        int minPlayers = 2;
+        int maxPlayers = 8;
+        System.out.println("Hello, enter number of players:" );
         NOPlayers = scanner.nextInt();
+        while (NOPlayers < 2 || NOPlayers > 8 ){
+            System.out.println("Number of player must be between 2 and 8 players");
+            System.out.println("Enter number of players:" );
+            NOPlayers = scanner.nextInt();
+        }
         Game g = new Game(NOPlayers);
         g.generateBoard();
         g.play();
