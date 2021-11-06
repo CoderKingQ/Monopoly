@@ -3,13 +3,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MonopolyFrame extends JFrame implements MonopolyView{
-    private final int BoardLength = 10;
+    private final int BoardLength = 11;
 
     MonopolyModel model;
 
     private JPanel top;
     private JPanel bot;
-
+    private JPanel[][] spaces;
 
     public MonopolyFrame(){
         super("Monopoly 0.5");
@@ -40,6 +40,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
         MonopolyController mc = new MonopolyController(model);
 
+        spaces = new JPanel[BoardLength][BoardLength];
+
         //buttons
         JButton rollB = new JButton("Roll");
         rollB.setActionCommand("roll");
@@ -57,6 +59,63 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         bot.add(new JPanel());
         bot.add(new JPanel());
         bot.add(statusB);
+        //add grab color
+
+        //loop and create the panels in a grid
+        for (int i = 0; i < BoardLength; i++) {
+            for (int j = 0; j < BoardLength; j++) {
+                JPanel space = new JPanel();
+                spaces[i][j] = space;
+                top.add(space);
+            }
+        }
+        //for first row
+        for(int j = 0; j < BoardLength; j++){
+            String temp = model.getBoard().get(j).getName();
+            JLabel pName = new JLabel(temp);
+            pName.setFont(new Font("Verdana",1,12));
+
+            spaces[0][j].add(pName);
+            spaces[0][j].setBackground(Color.BLUE);
+            spaces[0][j].setBorder(BorderFactory.createLineBorder(Color.black));
+        }
+
+        int count2 = 30;
+        //for last row
+        for(int j = 0; j < BoardLength; j++){
+            String temp = model.getBoard().get(count2).getName();
+            JLabel pName = new JLabel(temp);
+            pName.setFont(new Font("Verdana",1,12));
+            spaces[10][j].add(pName);
+            spaces[10][j].setBackground(Color.RED);
+            spaces[10][j].setBorder(BorderFactory.createLineBorder(Color.black));
+            count2--;
+        }
+
+        int count3 = 39;
+        //for first column
+        for(int i = 1; i < (BoardLength-1); i++){
+            String temp = model.getBoard().get(count3).getName();
+            JLabel pName = new JLabel(temp);
+            pName.setFont(new Font("Verdana",1,12));
+            spaces[i][0].add(pName);
+            spaces[i][0].setBackground(Color.GREEN);
+            spaces[i][0].setBorder(BorderFactory.createLineBorder(Color.black));
+            count3--;
+
+        }
+        //for second column
+        int count = 11;
+        for(int i = 1; i < (BoardLength-1); i++){
+            String temp = model.getBoard().get(count).getName();
+            JLabel a = new JLabel(temp);
+            a.setFont(new Font("Verdana",1,12));
+            spaces[i][10].add(a);
+            spaces[i][10].setBackground(Color.PINK);
+            spaces[i][10].setBorder(BorderFactory.createLineBorder(Color.black));
+            count++;
+        }
+
 
         this.setVisible(true);
     }

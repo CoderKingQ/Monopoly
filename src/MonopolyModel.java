@@ -35,13 +35,17 @@ public class MonopolyModel {
         g.play();
     }
 
+    public ArrayList<Space> getBoard(){
+        return this.board;
+    }
+
     /** Game's constructor creating a new game
      *
      *
      */
     public MonopolyModel (ArrayList<String> names){
         this.die = new Dice();
-
+        this.generateBoard();
         this.players = new ArrayList<>();
         for(int i = 0; i < names.size(); i++){
             players.add(new Player(names.get(i)));
@@ -85,6 +89,10 @@ public class MonopolyModel {
 
     public void removeMonopolyView(MonopolyView view){
         views.remove(view);
+    }
+
+    public void generateBoard(){
+        board = new BoardGenerator().generate();
     }
 
     public ArrayList<Player> getPlayers(){
