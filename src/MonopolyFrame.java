@@ -75,10 +75,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int j = 0; j < BoardLength; j++){
             String temp = model.getBoard().get(j).getName();
             JLabel pName = new JLabel(temp);
-            pName.setFont(new Font("Verdana",1,12));
+            pName.setFont(new Font("Verdana",1,11));
             spaces[0][j].add(pName);
             if(model.getBoard().get(j) instanceof Property){
+                JLabel price = new JLabel("Price:  "+ String.valueOf(((Property) model.getBoard().get(j)).getCost()));
+                JLabel rent = new JLabel("Rent: "+ String.valueOf(((Property) model.getBoard().get(j)).getRent()));
+                rent.setFont(new Font("Verdana",1,10));
+                price.setFont(new Font("Verdana",1,10));
+                spaces[0][j].add(rent);
+                spaces[0][j].add(price);
                 spaces[0][j].setBackground(Color.decode(((Property) model.getBoard().get(j)).getSet()));
+
+
             }
             spaces[0][j].setBorder(BorderFactory.createLineBorder(Color.black));
         }
@@ -88,9 +96,15 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int j = 0; j < BoardLength; j++){
             String temp = model.getBoard().get(count2).getName();
             JLabel pName = new JLabel(temp);
-            pName.setFont(new Font("Verdana",1,12));
+            pName.setFont(new Font("Verdana",1,11));
             spaces[10][j].add(pName);
             if(model.getBoard().get(count2) instanceof Property){
+                JLabel price = new JLabel("Price:  "+ String.valueOf(((Property) model.getBoard().get(count2)).getCost()));
+                JLabel rent = new JLabel("Rent: "+ String.valueOf(((Property) model.getBoard().get(count2)).getRent()));
+                rent.setFont(new Font("Verdana",1,10));
+                price.setFont(new Font("Verdana",1,10));
+                spaces[10][j].add(rent);
+                spaces[10][j].add(price);
                 spaces[10][j].setBackground(Color.decode(((Property) model.getBoard().get(count2)).getSet()));
             }
             spaces[10][j].setBorder(BorderFactory.createLineBorder(Color.black));
@@ -102,9 +116,15 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int i = 1; i < (BoardLength-1); i++){
             String temp = model.getBoard().get(count3).getName();
             JLabel pName = new JLabel(temp);
-            pName.setFont(new Font("Verdana",1,12));
+            pName.setFont(new Font("Verdana",1,11));
             spaces[i][0].add(pName);
             if(model.getBoard().get(count3) instanceof Property){
+                JLabel price = new JLabel("Price:  "+ String.valueOf(((Property) model.getBoard().get(count3)).getCost()));
+                JLabel rent = new JLabel("Rent: "+ String.valueOf(((Property) model.getBoard().get(count3)).getRent()));
+                rent.setFont(new Font("Verdana",1,10));
+                price.setFont(new Font("Verdana",1,10));
+                spaces[i][0].add(rent);
+                spaces[i][0].add(price);
                 spaces[i][0].setBackground(Color.decode(((Property) model.getBoard().get(count3)).getSet()));
             }
             spaces[i][0].setBorder(BorderFactory.createLineBorder(Color.black));
@@ -115,10 +135,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         int count = 11;
         for(int i = 1; i < (BoardLength-1); i++){
             String temp = model.getBoard().get(count).getName();
-            JLabel a = new JLabel(temp);
-            a.setFont(new Font("Verdana",1,12));
+            JLabel a = new JLabel("<html>" + temp + "</html>");
+            a.setFont(new Font("Verdana",1,11));
             spaces[i][10].add(a);
+
             if(model.getBoard().get(count) instanceof Property){
+                JLabel price = new JLabel("Price:  "+ String.valueOf(((Property) model.getBoard().get(count)).getCost()));
+                JLabel rent = new JLabel("Rent: "+ String.valueOf(((Property) model.getBoard().get(count)).getRent()));
+                rent.setFont(new Font("Verdana",1,10));
+                price.setFont(new Font("Verdana",1,10));
+                spaces[i][10].add(rent);
+                spaces[i][10].add(price);
                 spaces[i][10].setBackground(Color.decode(((Property) model.getBoard().get(count)).getSet()));
             }
             spaces[i][10].setBorder(BorderFactory.createLineBorder(Color.black));
