@@ -99,4 +99,7 @@ public class MonopolyModel {
         return players;
     }
 
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
