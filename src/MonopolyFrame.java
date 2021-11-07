@@ -35,6 +35,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
         top = new JPanel(new GridLayout(BoardLength, BoardLength));
         bot = new JPanel(new GridLayout(1,5));
+        JPanel prop = new JPanel(new GridLayout(2, 0));
         this.add(top, BorderLayout.CENTER);
         this.add(bot, BorderLayout.PAGE_END);
 
@@ -66,6 +67,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             for (int j = 0; j < BoardLength; j++) {
                 JPanel space = new JPanel();
                 spaces[i][j] = space;
+                space.add(prop);
                 top.add(space);
             }
         }
@@ -74,9 +76,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             String temp = model.getBoard().get(j).getName();
             JLabel pName = new JLabel(temp);
             pName.setFont(new Font("Verdana",1,12));
-
             spaces[0][j].add(pName);
-            spaces[0][j].setBackground(Color.BLUE);
+            if(model.getBoard().get(j) instanceof Property){
+                spaces[0][j].setBackground(Color.decode(((Property) model.getBoard().get(j)).getSet()));
+            }
             spaces[0][j].setBorder(BorderFactory.createLineBorder(Color.black));
         }
 
@@ -87,7 +90,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             JLabel pName = new JLabel(temp);
             pName.setFont(new Font("Verdana",1,12));
             spaces[10][j].add(pName);
-            spaces[10][j].setBackground(Color.RED);
+            if(model.getBoard().get(count2) instanceof Property){
+                spaces[10][j].setBackground(Color.decode(((Property) model.getBoard().get(count2)).getSet()));
+            }
             spaces[10][j].setBorder(BorderFactory.createLineBorder(Color.black));
             count2--;
         }
@@ -99,7 +104,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             JLabel pName = new JLabel(temp);
             pName.setFont(new Font("Verdana",1,12));
             spaces[i][0].add(pName);
-            spaces[i][0].setBackground(Color.GREEN);
+            if(model.getBoard().get(count3) instanceof Property){
+                spaces[i][0].setBackground(Color.decode(((Property) model.getBoard().get(count3)).getSet()));
+            }
             spaces[i][0].setBorder(BorderFactory.createLineBorder(Color.black));
             count3--;
 
@@ -111,7 +118,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             JLabel a = new JLabel(temp);
             a.setFont(new Font("Verdana",1,12));
             spaces[i][10].add(a);
-            spaces[i][10].setBackground(Color.PINK);
+            if(model.getBoard().get(count) instanceof Property){
+                spaces[i][10].setBackground(Color.decode(((Property) model.getBoard().get(count)).getSet()));
+            }
             spaces[i][10].setBorder(BorderFactory.createLineBorder(Color.black));
             count++;
         }
