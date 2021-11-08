@@ -173,11 +173,11 @@ public class MonopolyModel {
     }
 
     public void payPropertyRent() {
-        int cost = ((Property) board.get(players.get(currentPlayer).getLocation())).getRent();
+        int cost = ((Property) board.get(this.getPlayer().getLocation())).getRent();
         //add money to landlord
-        ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner().addMoney(cost);
+        ((Property) board.get(this.getPlayer().getLocation())).getOwner().addMoney(cost);
         //remove rent from current player
-        players.get(currentPlayer).removeMoney(cost);
+        this.getPlayer().removeMoney(cost);
     }
     public void payRailroadRent(){
         //NoOfRailroads = 1,2,3,4
@@ -208,7 +208,7 @@ public class MonopolyModel {
     }
     public void payUtilitiesRent(){
         //cost of rent
-        int cost = ((Utilities) board.get(this.getPlayer().getLocation())).getRent(die);
+       int cost = ((Utilities) board.get(this.getPlayer().getLocation())).getRent(die);
         //add money to landlord
         ((Utilities) board.get(this.getPlayer().getLocation())).getOwner().addMoney(cost);
         //remove rent from current player
