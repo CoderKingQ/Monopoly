@@ -8,7 +8,7 @@ public class modelTests extends TestCase {
     //optional fixtures
 
     //testcases
-
+/*
      public void testRoll(){
          players = new ArrayList<String>();
          players.add("Paul");
@@ -16,7 +16,7 @@ public class modelTests extends TestCase {
      MonopolyModel model = new MonopolyModel(players);
 
      }
-
+*/
      public void testBuyRailroad(){
          players = new ArrayList<String>();
          players.add("Paul");
