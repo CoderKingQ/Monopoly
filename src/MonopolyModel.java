@@ -58,33 +58,41 @@ public class MonopolyModel {
 
 
             //check if property is purchasable and what kind it is
-            bought = false;
-            if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Property)) {
-                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
-                    if (((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
-                        buyProperty();
+
+                if((board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
+                    if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                        if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
+                            if (((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                                buyProperty();
+                            }
+                        }
                     }
                 }
-            } else if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)) {
-                //TODO
-                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
-                    if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
-                        buyRailroad();
+                if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
+                if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                        if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                            if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                                buyRailroad();
+                            }
+                        }
                     }
                 }
-            } else if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)) {
-                //TODO
-                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
-                    if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
-                        buyUtilities();
-                    }
-                }
+                if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
+                    if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+
+                        if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                            if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                                buyUtilities();
+                            }
+                        }
 
 
-            } else if (players.get(currentPlayer).isTurn() == false) {
-                nextTurn();
-                die.resetDoubles();
-            }
+                    }
+                }
+        }
+        else if (players.get(currentPlayer).isTurn() == false) {
+            nextTurn();
+            die.resetDoubles();
         }
     }
 
@@ -103,15 +111,15 @@ public class MonopolyModel {
      *
      */
     public void payPlayer(){
-        if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+        if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && !(players.get(currentPlayer).equals( ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner()))){
             payPropertyRent();
         }
 
-        if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+        if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && !(players.get(currentPlayer).equals(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner()))){
             payRailroadRent();
         }
 
-        if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+        if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && !(players.get(currentPlayer) .equals(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()))){
             payUtilitiesRent();
         }
     }
@@ -152,14 +160,11 @@ public class MonopolyModel {
     }
     private void payUtilitiesRent(){
         //cost of rent
-        int cost = ((Utilities) board.get(players.get(currentPlayer).getLocation())).getRent();
+        int cost = ((Utilities) board.get(players.get(currentPlayer).getLocation())).getRent(die);
         //add money to landlord
         ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + cost);
         //remove rent from current player
         players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - cost);
-
-
-
     }
 
     /**
