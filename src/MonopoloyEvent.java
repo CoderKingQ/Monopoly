@@ -1,3 +1,4 @@
+/*
 import java.util.EventObject;
 
 public class MonopoloyEvent extends EventObject {
@@ -9,3 +10,4 @@ public class MonopoloyEvent extends EventObject {
         this.player= player;
     }
 }
+*/

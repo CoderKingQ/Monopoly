@@ -131,10 +131,27 @@ public class MonopolyModel {
     }
 
     private void payPropertyRent() {
+        int cost = ((Property) board.get(players.get(currentPlayer).getLocation())).getRent();
+        //add money to landlord
+        ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + cost);
+        //remove rent from current player
+        players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - cost);
     }
     private void payRailroadRent(){
+        //NoOfRailroads = 1
+        //((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 25);
+
     }
     private void payUtilitiesRent(){
+        //cost of rent
+        int cost = ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney();
+        //add money to landlord
+        ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + cost);
+        //remove rent from current player
+        players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - cost);
+
+
+
     }
 
     /**
@@ -213,11 +230,13 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
+        bought = true;
     }
     private void buyRailroad() {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
         ((Railroad) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
+        bought = true;
     }
 
 
@@ -226,5 +245,6 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+        bought = true;
     }
 }
