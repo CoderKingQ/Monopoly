@@ -239,13 +239,13 @@ public class MonopolyModel {
     }
      */
 
-    private void buyUtilities(){
+    public void buyUtilities(){
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
-        ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
+        ((Utilities) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
 
     }
-    private void buyRailroad() {
+    public void buyRailroad() {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
         ((Railroad) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
@@ -253,7 +253,7 @@ public class MonopolyModel {
     }
 
 
-    private void buyProperty(){
+    public void buyProperty(){
         //set the properties owner
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
