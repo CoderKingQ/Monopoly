@@ -1,5 +1,3 @@
-import sun.nio.ch.Util;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +7,8 @@ public class MonopolyModel {
     private boolean gameNotOver;
     private Dice die;
     private Player winner;
-
-    private boolean bought;
-
     public int currentPlayer;
-
     private List<MonopolyView> views;
-
     public ArrayList<Space> getBoard(){
         return this.board;
     }
@@ -87,12 +80,6 @@ public class MonopolyModel {
                     }
                 }
 
-                if (bought) { // && player has enough money
-                    buyProperty();
-                    players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
-                    //printBoardStatus();
-
-                }
 
             } else if (players.get(currentPlayer).isTurn() == false) {
                 nextTurn();
@@ -116,7 +103,6 @@ public class MonopolyModel {
      *
      */
     public void payPlayer(){
-        //TODO
         if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner())){
             payPropertyRent();
         }
@@ -138,13 +124,35 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - cost);
     }
     private void payRailroadRent(){
-        //NoOfRailroads = 1
-        //((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 25);
+        //NoOfRailroads = 1,2,3,4
+        if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getNoRailroads() == 1) {
+            //pay Railroad rent to landlord
+            ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 25);
+            //remove rent from current player
+            players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - 25);
+        } else if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getNoRailroads() == 2){
+            //pay rent to landlord
+            ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 50);
+            //remove rent from current player
+            players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - 50);
 
+        } else if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getNoRailroads() == 3){
+            //pay rent to landlord
+            ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 100);
+            //remove rent from current player
+            players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - 100);
+
+        }else{
+            //pay rent to landlord
+            ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + 200);
+            //remove rent from current player
+            players.get(currentPlayer).setMoney( players.get(currentPlayer).getMoney() - 200);
+
+        }
     }
     private void payUtilitiesRent(){
         //cost of rent
-        int cost = ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney();
+        int cost = ((Utilities) board.get(players.get(currentPlayer).getLocation())).getRent();
         //add money to landlord
         ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().setMoney(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner().getMoney() + cost);
         //remove rent from current player
@@ -198,9 +206,6 @@ public class MonopolyModel {
         return currentPlayer;
     }
 
-    public boolean isBought() {
-        return bought;
-    }
 
     /** remove me after how we used to print status
 
@@ -230,13 +235,13 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
-        bought = true;
+
     }
     private void buyRailroad() {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
         ((Railroad) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
-        bought = true;
+
     }
 
 
@@ -245,6 +250,5 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
-        bought = true;
     }
 }
