@@ -9,7 +9,7 @@ public class MonopolyModel {
     private Dice die;
     private Player winner;
 
-    public Player currentPlayer;
+    public int currentPlayer;
 
     private List<MonopolyView> views;
 
@@ -58,28 +58,79 @@ public class MonopolyModel {
     /** how a person will play their turn
      *
      */
-    public void play(Player player) {
+    public void play(int player) {
 
 
-        if(player.isTurn() == false) {
-            nextTurn();
+
+    }
+
+    /** how a person will play their turn
+     *
+     */
+    public void roll(int player) {
+        die.roll();
+        if(die.getDoubleCount() > 2){
+            //System.out.println("Oh no you rolled three doubles go to jail!");
+            players.get(player).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            players.get(player).setTurn(false);
         }
+
+        if(players.get(player).isTurn()){
+            players.get(player).setLocation(players.get(player).getLocation() + die.getCurrentRoll());
+            if(board.get(players.get(player).getLocation()).getOwner() == null && ((board.get(players.get(player).getLocation()) instanceof Property) ||(board.get(players.get(player).getLocation()) instanceof Railroad)||(board.get(players.get(player).getLocation()) instanceof Utilities))){
+
+            }
+        }else if(players.get(player).isTurn() == false) {
+            nextTurn();
+            die.resetDoubles();
+        }
+    }
+
+    /** combine all player info into a string to send to frame
+     *
+     * @return
+     */
+    public String status(){
+        String allinfo = "";
+
+        return allinfo;
+    }
+
+    /** get yes or no from frame and do buying operations
+     *
+     */
+    public void buyProperty(){
+
+    }
+
+    /**
+     *
+     */
+    public void payPlayer(){
+
+    }
+
+    /**
+     *
+     */
+    public void payEvent(){
+
     }
 
     private void nextTurn() {
         int i = 0;
         for(Player player : players){
             if(players.equals(currentPlayer)){
-             break;
+                break;
             } else i++;
 
         }
 
         //setting the current player
         if(i + 1 < players.size()){
-            currentPlayer = players.get(i);
+            currentPlayer = i;
         } else {
-            currentPlayer = players.get(0);
+            currentPlayer = 0;
         }
     }
 
@@ -99,7 +150,7 @@ public class MonopolyModel {
         return players;
     }
 
-    public Player getCurrentPlayer() {
+    public int getCurrentPlayer() {
         return currentPlayer;
     }
 }

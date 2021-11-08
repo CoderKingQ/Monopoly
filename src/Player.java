@@ -12,6 +12,7 @@ public class Player {
      *
      * @param name String, name of the player
      */
+
     public Player(String name) {
         this.name = name;
         this.properties = new ArrayList<Space>();
