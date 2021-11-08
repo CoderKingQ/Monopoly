@@ -36,6 +36,7 @@ public class Dice {
      *
      * @return int, currentRoll
      */
+
     public int getCurrentRoll() {
         return currentRoll;
     }
