@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class MonopolyFrame extends JFrame implements MonopolyView{
     private final int BoardLength = 11;
 
+
     MonopolyModel model;
 
     private JPanel top;
@@ -242,7 +243,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     }
 
     public boolean handleBuyProperty(Space space){
-        System.out.println("hello1");
         int result = JOptionPane.showConfirmDialog(this,"Would you like to buy " + space.getName() + "?", "Would you like to buy property",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);

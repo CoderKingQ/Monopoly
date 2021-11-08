@@ -1,5 +1,6 @@
 public class Railroad extends Space{
     private int cost = 200;
+    private Player owner;
 
     /** The constructor for Railroad
      *
@@ -8,6 +9,7 @@ public class Railroad extends Space{
      */
     public Railroad(int location, String name) {
         super(location, name);
+        this.owner = null;
     }
 
     /** getCost returns the cost of the Railroad
@@ -31,6 +33,22 @@ public class Railroad extends Space{
         } else if(railroads == 3){
             return 100;
         } else return 200;
+    }
+
+    /** getOwner returns the player that owns that space
+     *
+     * @return Player, owner
+     */
+    public Player getOwner() {
+        return owner;
+    }
+
+    /** setOwner sets the owner of the space
+     *
+     * @param owner Player, the player to own the space
+     */
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 
 }

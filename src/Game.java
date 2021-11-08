@@ -1,3 +1,5 @@
+
+/**
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,11 +10,7 @@ public class Game {
     private Dice die;
     private Player winner;
 
-    /** main to run the game
-     *
-     * @param args
-     * @return void
-     */
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int NOPlayers;
@@ -30,10 +28,7 @@ public class Game {
         g.play();
     }
 
-    /** Game's constructor creating a new game
-     *
-     * @param NOPlayers the number of players playing
-     */
+
     public Game (int NOPlayers){
         this.die = new Dice();
         this.players = new ArrayList<>();
@@ -46,9 +41,7 @@ public class Game {
         this.gameNotOver = true;
     }
 
-    /** play is how you play the game
-     *
-     */
+
     public void play() {// most work needs to be done here to make the game playable
         System.out.println("----Welcome All to the Game of Monopoly----");
         System.out.println("----You all start with $1500 and on GO ----");
@@ -159,11 +152,7 @@ public class Game {
         System.out.println("Congratulations " + winner.getName() + " you won the game of monopoly");
     }
 
-    /**
-     * payRailroadTax Pays owner of Railroad from the current player and sets new values for money.
-     * @return void
-     * @param player
-     */
+
     private void payRailroadTax(Player player) {
         if(board.get(player.getLocation()).getOwner().getNoRailroads() == 1){
             player.setMoney(player.getMoney() - 25);
@@ -183,11 +172,7 @@ public class Game {
         }
     }
 
-    /**
-     * payUtilityTax Pays owner of Utility from the current player and sets new values for money.
-     * @return void
-     * @param player
-     */
+
     private void payUtilityTax(Player player) {
         int cost = ((Utilities) board.get(player.getLocation())).getRent(die);
         player.setMoney(player.getMoney() - cost);
@@ -197,11 +182,7 @@ public class Game {
 
     }
 
-    /**
-     * payPropertyTax Pays owner of property from the current player and sets new values for money.
-     * @return void
-     * @param player
-     */
+
     private void payPropertyTax(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getRent());
         board.get(player.getLocation()).getOwner().setMoney(board.get(player.getLocation()).getOwner().getMoney() + ((Property) board.get(player.getLocation())).getRent());
@@ -210,11 +191,7 @@ public class Game {
     }
 
 
-    /**
-     * playerBuyRailroad buys a Railroad for the current player and sets new values for money and ownership.
-     * @return void
-     * @param player
-     */
+
     private void playerBuyRailroad(Player player) {
         player.setMoney(player.getMoney() - ((Railroad) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
@@ -222,11 +199,7 @@ public class Game {
         player.addProperty(board.get(player.getLocation()));
     }
 
-    /**
-     * playerBuyUtilities buys a utility for the current player and sets new values for money and ownership.
-     * @return void
-     * @param player
-     */
+
     private void playerBuyUtilities(Player player) {
         player.setMoney(player.getMoney() - ((Utilities) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
@@ -234,11 +207,7 @@ public class Game {
         player.addProperty(board.get(player.getLocation()));
     }
 
-    /**
-     * playerBuyProperty buys a property for the current player and sets new values for money and ownership.
-     * @return void
-     * @param player
-     */
+
     private void playerBuyProperty(Player player) {
         player.setMoney(player.getMoney() - ((Property) board.get(player.getLocation())).getCost());
         System.out.println("You now have: " + player.getMoney());
@@ -246,25 +215,19 @@ public class Game {
         player.addProperty(board.get(player.getLocation()));
     }
 
-    /** generateBoard creates a new board using the BoardGenerator class to generate a new board
-     *
-     */
+
     public void generateBoard(){
         board = new BoardGenerator().generate();
     }
 
-    /** printBoard prints the entire current board of monopoly
 
-     */
     public void printBoard(){
         for(Space space: board){
             System.out.println(space.getName() + " " + space.getLocation() + "\n");
         }
     }
 
-    /** printBoardStatus prints the status of all players, what they own, how much money they have and where they are
 
-     */
     public void printBoardStatus(){
         System.out.println("----Board Status----");
         for (Player player : players){
@@ -286,3 +249,4 @@ public class Game {
 
 
 }
+*/

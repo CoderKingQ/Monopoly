@@ -17,10 +17,6 @@ public class MonopolyController implements ActionListener {
 
         }
 
-        if(button.equals("buy")){
-            model.buyProperty();
-        }
-
         if(button.equals("status")){
             //MonopolyFrame.printStatus();
         }

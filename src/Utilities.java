@@ -1,5 +1,6 @@
 public class Utilities extends Space{
     private int cost = 150;
+    private Player owner;
 
     /** The constructor for Utilities
      *
@@ -8,6 +9,7 @@ public class Utilities extends Space{
      */
     public Utilities(int location, String name) {
         super(location, name);
+        this.owner = null;
     }
 
     /** getCost returns the cost of the Utility
@@ -28,5 +30,21 @@ public class Utilities extends Space{
         if (utilities == 1){
             return 4 * die.getCurrentRoll();
         } else return 10 * die.getCurrentRoll();
+    }
+
+    /** getOwner returns the player that owns that space
+     *
+     * @return Player, owner
+     */
+    public Player getOwner() {
+        return owner;
+    }
+
+    /** setOwner sets the owner of the space
+     *
+     * @param owner Player, the player to own the space
+     */
+    public void setOwner(Player owner) {
+        this.owner = owner;
     }
 }

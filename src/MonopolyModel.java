@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MonopolyModel {
     private ArrayList<Space> board;
@@ -9,33 +8,11 @@ public class MonopolyModel {
     private Dice die;
     private Player winner;
 
-    private boolean buyable;
+    private boolean bought;
 
     public int currentPlayer;
 
     private List<MonopolyView> views;
-
-    /** main to run the game
-     *
-     * @param args
-     * @return void
-     */
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int NOPlayers;
-        int minPlayers = 2;
-        int maxPlayers = 8;
-        System.out.println("Hello, enter number of players:" );
-        NOPlayers = scanner.nextInt();
-        while (NOPlayers < 2 || NOPlayers > 8 ){
-            System.out.println("Number of player must be between 2 and 8 players");
-            System.out.println("Enter number of players:" );
-            NOPlayers = scanner.nextInt();
-        }
-        Game g = new Game(NOPlayers);
-        g.generateBoard();
-        g.play();
-    }
 
     public ArrayList<Space> getBoard(){
         return this.board;
@@ -71,6 +48,7 @@ public class MonopolyModel {
      *
      */
     public void roll() {
+        //TODO handle doubles and pass it off to another player
         die.roll();
 
         //double handling
@@ -84,13 +62,25 @@ public class MonopolyModel {
             players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
 
 
-            //check if property is purchasable
-            buyable = false;
-            if(board.get(players.get(currentPlayer).getLocation()).getOwner() == null && ((board.get(players.get(currentPlayer).getLocation()) instanceof Property) ||(board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)||(board.get(players.get(currentPlayer).getLocation()) instanceof Utilities))){
-                buyable = views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()));
+            //check if property is purchasable and what kind it is
+            bought = false;
+            if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
+                if(views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))){ // if they say yes to buying the property
+                    if(((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                        buyProperty();
+                    }
+                }
+            } else if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
+                //TODO
+            } else if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
+                //TODO
             }
-            if(buyable){
+
+            if(bought){ // && player has enough money
                 buyProperty();
+                players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+                //printBoardStatus();
+
             }
 
         }else if(players.get(currentPlayer).isTurn() == false) {
@@ -99,28 +89,32 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     *
+     */
+    private void buyProperty() {
+            //set the properties owner
+            players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
+            ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
+            players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+    }
+
     /** combine all player info into a string to send to frame
      *
      * @return
      */
     public String status(){
+        //TODO
         String allinfo = "";
 
         return allinfo;
-    }
-
-    /** get yes or no from frame and do buying operations
-     *
-     */
-    public void buyProperty(){
-        players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
     }
 
     /**
      *
      */
     public void payPlayer(){
-
+        //TODO
     }
 
     /**
@@ -167,7 +161,31 @@ public class MonopolyModel {
         return currentPlayer;
     }
 
-    public boolean isBuyable() {
-        return buyable;
+    public boolean isBought() {
+        return bought;
     }
+
+    /** remove me after how we used to print status
+
+
+    public void printBoardStatus(){
+        System.out.println("----Board Status----");
+        for (Player player : players){
+            System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\nAnd the following properties: \n" );
+            if(player.getProperties().isEmpty()){ // check if player has no properties
+                System.out.println("No Properties found");
+            }else for(Space property: player.getProperties()){ // go through all players properties
+                if(property.getClass().equals(Property.class)){ // print set properties
+                    System.out.println(property.getName() + " with "+ ((Property) property.getHouses()) + " houses");
+                } else { // print utillities and railroads
+                    System.out.println(property.getName());
+                }
+
+            }
+            System.out.println("The Player is currently on " + board.get(player.getLocation()).getName() +"\n--End of Player "+ player.getName() + "--");
+        }
+        System.out.println("----End of Board Status----");
+
+    }
+     */
 }

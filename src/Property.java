@@ -5,6 +5,7 @@ public class Property extends Space{
     private int cost;
     private int rent;
     private int houses;
+    private Player owner;
 
     /** The constructor for property
      *
@@ -20,6 +21,7 @@ public class Property extends Space{
         this.set = set;
         this.rent = rent;
         this.houses = 0;
+        this.owner = null;
     }
 
     /** getSet returns the set that the property is apart of
@@ -66,4 +68,21 @@ public class Property extends Space{
     public int getHouses() {
         return houses;
     }
+
+    /** getOwner returns the player that owns that space
+     *
+     * @return Player, owner
+     */
+    public Player getOwner() {
+        return owner;
+    }
+
+    /** setOwner sets the owner of the space
+     *
+     * @param owner Player, the player to own the space
+     */
+    public void setOwner(Player owner) {
+        this.owner = owner;
+    }
+
 }
