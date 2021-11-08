@@ -67,6 +67,7 @@ public class MonopolyModel {
                         }
                     } else {
                         payPropertyRent();
+                        views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Property) board.get(players.get(currentPlayer).getLocation())).getCost()));
                     }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
@@ -78,6 +79,7 @@ public class MonopolyModel {
                         }
                     } else {
                         payRailroadRent();
+                        views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()));
                     }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
@@ -89,6 +91,7 @@ public class MonopolyModel {
                         }
                     } else {
                         payUtilitiesRent();
+                        views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()));
                     }
                 }
 
