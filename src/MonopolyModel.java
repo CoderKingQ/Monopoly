@@ -48,7 +48,7 @@ public class MonopolyModel {
 
         //double handling
         if (die.getDoubleCount() > 2) {
-            players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+           // players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
             players.get(currentPlayer).setTurn(false);
         }
 
@@ -69,13 +69,13 @@ public class MonopolyModel {
                     }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
-                if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
-                        if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
-                            if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
-                                buyRailroad();
+                    if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                            if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                                if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                                    buyRailroad();
+                                }
                             }
                         }
-                    }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
                     if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
@@ -90,7 +90,10 @@ public class MonopolyModel {
                     }
                 }
         }
-        else if (players.get(currentPlayer).isTurn() == false) {
+        if(die.isDoubles()){
+            players.get(currentPlayer).setTurn(true);
+        }else{players.get(currentPlayer).setTurn(false);}
+        if (players.get(currentPlayer).isTurn() == false) {
             nextTurn();
             die.resetDoubles();
         }
@@ -177,7 +180,7 @@ public class MonopolyModel {
     private void nextTurn() {
         int i = 0;
         for(Player player : players){
-            if(players.equals(currentPlayer)){
+            if(player.getName().equals(players.get(currentPlayer).getName())){
                 break;
             } else i++;
 
@@ -185,7 +188,7 @@ public class MonopolyModel {
 
         //setting the current player
         if(i + 1 < players.size()){
-            currentPlayer = i;
+            currentPlayer = i + 1;
         } else {
             currentPlayer = 0;
         }
@@ -255,5 +258,8 @@ public class MonopolyModel {
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
         ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
         players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+    }
+    public Player getPlayer(){
+        return players.get(currentPlayer);
     }
 }

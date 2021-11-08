@@ -236,6 +236,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void printStatus() {
         //combine strings of player messages and output to the jpane dialog box
         JOptionPane.showMessageDialog(this, "status message");
+        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName());
     }
 
     public void handleRoll(Player player) {
