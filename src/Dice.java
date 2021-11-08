@@ -63,5 +63,7 @@ public class Dice {
     public void resetDoubles(){
         doubleCount = 0;
     }
-
+    public void setDie(int die){
+       currentRoll = die;
+    }
 }
