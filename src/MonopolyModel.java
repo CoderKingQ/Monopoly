@@ -65,32 +65,35 @@ public class MonopolyModel {
                                 buyProperty();
                             }
                         }
+                    } else {
+                        payPropertyRent();
                     }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
                     if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
-                            if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
-                                if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
-                                    buyRailroad();
-                                }
+                        if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                            if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                                buyRailroad();
                             }
                         }
+                    } else {
+                        payRailroadRent();
+                    }
                 }
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
                     if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
-
                         if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
                             if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
                                 buyUtilities();
                             }
                         }
-
-
+                    } else {
+                        payUtilitiesRent();
                     }
                 }
 
                 //check if player is on event space
-            if((board.get(players.get(currentPlayer).getLocation()) instanceof Event)){
+            if((board.get(players.get(currentPlayer).getLocation()).getName().equals("Luxury Tax")) || (board.get(players.get(currentPlayer).getLocation()).getName().equals("Income tax"))){
                 payEvent();
                 views.get(0).handlePayEvent(board.get(players.get(currentPlayer).getLocation()));
             }
@@ -114,13 +117,16 @@ public class MonopolyModel {
      * @return
      */
     public void status(){
-        //TODO
-        String allinfo = "";
+        StringBuilder sb = new StringBuilder("");
         for (Player player : players){
-            allinfo.concat("Player: " + player.getName() + "has: \n$" + player.getMoney() + "\nAnd the following properties: \n");
+            sb.append("Player: " + player.getName() + "has: \n$" + player.getMoney() + " \nAnd the following properties: \n");
+            for (Space property : player.getProperties()){
+                sb.append(property.getName() + "\n");
+            }
+            sb.append("\n");
         }
 
-        views.get(0).handleStatus(allinfo);
+        views.get(0).handleStatus(sb);
 
 
     }
