@@ -9,6 +9,8 @@ public class MonopolyModel {
     private Dice die;
     private Player winner;
 
+    private boolean buyable;
+
     public int currentPlayer;
 
     private List<MonopolyView> views;
@@ -53,6 +55,7 @@ public class MonopolyModel {
 
         views = new ArrayList<>();
         this.gameNotOver = true;
+        players.get(0).setTurn(true);
     }
 
     /** how a person will play their turn
@@ -67,20 +70,30 @@ public class MonopolyModel {
     /** how a person will play their turn
      *
      */
-    public void roll(int player) {
+    public void roll() {
         die.roll();
+
+        //double handling
         if(die.getDoubleCount() > 2){
-            //System.out.println("Oh no you rolled three doubles go to jail!");
-            players.get(player).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
-            players.get(player).setTurn(false);
+            players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            players.get(currentPlayer).setTurn(false);
         }
 
-        if(players.get(player).isTurn()){
-            players.get(player).setLocation(players.get(player).getLocation() + die.getCurrentRoll());
-            if(board.get(players.get(player).getLocation()).getOwner() == null && ((board.get(players.get(player).getLocation()) instanceof Property) ||(board.get(players.get(player).getLocation()) instanceof Railroad)||(board.get(players.get(player).getLocation()) instanceof Utilities))){
 
+        if(players.get(currentPlayer).isTurn()){
+            players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
+
+
+            //check if property is purchasable
+            buyable = false;
+            if(board.get(players.get(currentPlayer).getLocation()).getOwner() == null && ((board.get(players.get(currentPlayer).getLocation()) instanceof Property) ||(board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)||(board.get(players.get(currentPlayer).getLocation()) instanceof Utilities))){
+                buyable = views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()));
             }
-        }else if(players.get(player).isTurn() == false) {
+            if(buyable){
+                buyProperty();
+            }
+
+        }else if(players.get(currentPlayer).isTurn() == false) {
             nextTurn();
             die.resetDoubles();
         }
@@ -100,7 +113,7 @@ public class MonopolyModel {
      *
      */
     public void buyProperty(){
-
+        players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
     }
 
     /**
@@ -152,5 +165,9 @@ public class MonopolyModel {
 
     public int getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public boolean isBuyable() {
+        return buyable;
     }
 }

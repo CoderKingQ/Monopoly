@@ -13,8 +13,12 @@ public class MonopolyController implements ActionListener {
         String button = e.getActionCommand();
 
         if(button.equals("roll")){
-        //model.play(model.getCurrentplayer) ?
+            model.roll();
 
+        }
+
+        if(button.equals("buy")){
+            model.buyProperty();
         }
 
         if(button.equals("status")){

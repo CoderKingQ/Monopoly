@@ -26,8 +26,8 @@ public class Dice {
             doubles = true;
             doubleCount++;
         }
-        System.out.println(d1);
-        System.out.println(d2);
+        //System.out.println(d1);
+        //System.out.println(d2);
         currentRoll = d1 + d2;
         return getCurrentRoll();
     }

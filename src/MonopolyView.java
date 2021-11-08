@@ -1,4 +1,6 @@
 public interface MonopolyView {
-    void handleRoll(Game game, Player player);
+    void handleRoll( Player player);
+
+    boolean handleBuyProperty(Space space);
 
 }

@@ -237,11 +237,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         JOptionPane.showMessageDialog(this, "status message");
     }
 
-    public void handleRoll(Game game, Player player) {
+    public void handleRoll(Player player) {
 
     }
 
     public boolean handleBuyProperty(Space space){
+        System.out.println("hello1");
         int result = JOptionPane.showConfirmDialog(this,"Would you like to buy " + space.getName() + "?", "Would you like to buy property",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
