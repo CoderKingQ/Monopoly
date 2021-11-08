@@ -144,4 +144,20 @@ public class Player {
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
+
+    public int getLocationGUI(int locationArrayList) {
+        if (locationArrayList < 11) {
+            return locationArrayList;
+        } else if (locationArrayList < 20) {
+            return (locationArrayList - 10);
+        } else if (locationArrayList < 31) {
+            int lastdig = 0;
+            lastdig = (locationArrayList%10);
+            return (locationArrayList - (10 - lastdig));
+        } else {
+            int lastdig = 0;
+            lastdig = (locationArrayList%10);
+            return (locationArrayList - (22 -lastdig));
+        }
+    }
 }
