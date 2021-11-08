@@ -15,12 +15,12 @@ public class MonopolyController implements ActionListener {
 
         if(button.equals("roll")){
             model.roll();
-            JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName());
+            JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
 
         }
 
         if(button.equals("status")){
-            //MonopolyFrame.printStatus();
+            model.status();
         }
 
         if(button.equals("houses")){

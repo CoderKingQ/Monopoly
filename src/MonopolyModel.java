@@ -57,8 +57,7 @@ public class MonopolyModel {
             players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
 
 
-            //check if property is purchasable and what kind it is
-
+                //check if property is purchasable and what kind it is
                 if((board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
                     if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
                         if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
@@ -89,10 +88,21 @@ public class MonopolyModel {
 
                     }
                 }
+
+                //check if player is on event space
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Event)){
+                payEvent();
+                views.get(0).handlePayEvent(board.get(players.get(currentPlayer).getLocation()));
+            }
+
+
+
         }
         if(die.isDoubles()){
+            System.out.println("got doubles");
             players.get(currentPlayer).setTurn(true);
         }else{players.get(currentPlayer).setTurn(false);}
+
         if (players.get(currentPlayer).isTurn() == false) {
             nextTurn();
             die.resetDoubles();
@@ -103,12 +113,41 @@ public class MonopolyModel {
      *
      * @return
      */
-    public String status(){
+    public void status(){
         //TODO
         String allinfo = "";
+        for (Player player : players){
+            allinfo.concat("Player: " + player.getName() + "has: \n$" + player.getMoney() + "\nAnd the following properties: \n");
+        }
 
-        return allinfo;
+        views.get(0).handleStatus(allinfo);
+
+
     }
+
+    /** remove me after how we used to print status
+
+
+     public void printBoardStatus(){
+     System.out.println("----Board Status----");
+     for (Player player : players){
+     System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\nAnd the following properties: \n" );
+     if(player.getProperties().isEmpty()){ // check if player has no properties
+     System.out.println("No Properties found");
+     }else for(Space property: player.getProperties()){ // go through all players properties
+     if(property.getClass().equals(Property.class)){ // print set properties
+     System.out.println(property.getName() + " with "+ ((Property) property.getHouses()) + " houses");
+     } else { // print utillities and railroads
+     System.out.println(property.getName());
+     }
+
+     }
+     System.out.println("The Player is currently on " + board.get(player.getLocation()).getName() +"\n--End of Player "+ player.getName() + "--");
+     }
+     System.out.println("----End of Board Status----");
+
+     }
+     */
 
     /**
      *
@@ -174,7 +213,7 @@ public class MonopolyModel {
      *
      */
     public void payEvent(){
-
+        players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Event) board.get(players.get(currentPlayer).getLocation())).getPayment());
     }
 
     private void nextTurn() {
@@ -189,8 +228,11 @@ public class MonopolyModel {
         //setting the current player
         if(i + 1 < players.size()){
             currentPlayer = i + 1;
+            players.get(currentPlayer).setTurn(true);
+
         } else {
             currentPlayer = 0;
+            players.get(currentPlayer).setTurn(true);
         }
     }
 
@@ -215,29 +257,7 @@ public class MonopolyModel {
     }
 
 
-    /** remove me after how we used to print status
 
-
-    public void printBoardStatus(){
-        System.out.println("----Board Status----");
-        for (Player player : players){
-            System.out.println("Player: " + player.getName() + " has: \n$" + player.getMoney() + "\nAnd the following properties: \n" );
-            if(player.getProperties().isEmpty()){ // check if player has no properties
-                System.out.println("No Properties found");
-            }else for(Space property: player.getProperties()){ // go through all players properties
-                if(property.getClass().equals(Property.class)){ // print set properties
-                    System.out.println(property.getName() + " with "+ ((Property) property.getHouses()) + " houses");
-                } else { // print utillities and railroads
-                    System.out.println(property.getName());
-                }
-
-            }
-            System.out.println("The Player is currently on " + board.get(player.getLocation()).getName() +"\n--End of Player "+ player.getName() + "--");
-        }
-        System.out.println("----End of Board Status----");
-
-    }
-     */
 
     private void buyUtilities(){
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
