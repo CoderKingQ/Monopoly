@@ -1,3 +1,5 @@
+import sun.nio.ch.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,51 +54,51 @@ public class MonopolyModel {
         die.roll();
 
         //double handling
-        if(die.getDoubleCount() > 2){
+        if (die.getDoubleCount() > 2) {
             players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
             players.get(currentPlayer).setTurn(false);
         }
 
 
-        if(players.get(currentPlayer).isTurn()){
+        if (players.get(currentPlayer).isTurn()) {
             players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
 
 
             //check if property is purchasable and what kind it is
             bought = false;
-            if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
-                if(views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))){ // if they say yes to buying the property
-                    if(((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+            if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Property)) {
+                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
+                    if (((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
                         buyProperty();
                     }
                 }
-            } else if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
+            } else if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)) {
                 //TODO
-            } else if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
+                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                    if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                        buyRailroad();
+                    }
+                }
+            } else if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null && (board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)) {
                 //TODO
+                if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                    if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                        buyUtilities();
+                    }
+                }
+
+                if (bought) { // && player has enough money
+                    buyProperty();
+                    players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+                    //printBoardStatus();
+
+                }
+
+            } else if (players.get(currentPlayer).isTurn() == false) {
+                nextTurn();
+                die.resetDoubles();
             }
-
-            if(bought){ // && player has enough money
-                buyProperty();
-                players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
-                //printBoardStatus();
-
-            }
-
-        }else if(players.get(currentPlayer).isTurn() == false) {
-            nextTurn();
-            die.resetDoubles();
         }
-    }
-
-    /**
-     *
-     */
-    private void buyProperty() {
-            //set the properties owner
-            players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
-            ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
-            players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
     }
 
     /** combine all player info into a string to send to frame
@@ -115,6 +117,24 @@ public class MonopolyModel {
      */
     public void payPlayer(){
         //TODO
+        if(((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Property) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+            payPropertyRent();
+        }
+
+        if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+            payRailroadRent();
+        }
+
+        if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && (players.get(currentPlayer) != ((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner())){
+            payUtilitiesRent();
+        }
+    }
+
+    private void payPropertyRent() {
+    }
+    private void payRailroadRent(){
+    }
+    private void payUtilitiesRent(){
     }
 
     /**
@@ -188,4 +208,23 @@ public class MonopolyModel {
 
     }
      */
+
+    private void buyUtilities(){
+        players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
+        ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
+        players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
+    }
+    private void buyRailroad() {
+        players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()); //update money
+        ((Railroad) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer)); //update owner
+        players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation())); //add property to player
+    }
+
+
+    private void buyProperty(){
+        //set the properties owner
+        players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Property) board.get(players.get(currentPlayer).getLocation())).getCost());
+        ((Property) board.get(players.get(currentPlayer).getLocation())).setOwner(players.get(currentPlayer));
+        players.get(currentPlayer).addProperty(board.get(players.get(currentPlayer).getLocation()));
+    }
 }
