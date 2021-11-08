@@ -233,8 +233,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.setVisible(true);
     }
 
-    public void handleStatus(String status) {
-        //combine strings of player messages and output to the jpane dialog box
+    public void handleStatus(StringBuilder status) {
         JOptionPane.showMessageDialog(this, status);
     }
 
@@ -253,6 +252,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     public void handlePayEvent(Space space){
         JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+    }
+
+    public void handlePayPlayer(Player p1, Player p2){
+
     }
 
 
