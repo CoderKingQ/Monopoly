@@ -86,6 +86,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
             }
 
+
             if(model.getBoard().get(j) instanceof Railroad){
                 JLabel rent1 = new JLabel("Rent: 25, 50, 100, 200");
                 JLabel price = new JLabel("Price: 200");
@@ -231,8 +232,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.setVisible(true);
     }
 
-
-
     public void printStatus() {
         //combine strings of player messages and output to the jpane dialog box
         JOptionPane.showMessageDialog(this, "status message");
@@ -241,6 +240,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void handleRoll(Game game, Player player) {
 
     }
+
+    public boolean handleBuyProperty(Space space){
+        int result = JOptionPane.showConfirmDialog(this,"Would you like to buy " + space.getName() + "?", "Would you like to buy property",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION){
+            return true;
+        } else return false;
+    }
+
+
 
     public static void main(String[] args) { new MonopolyFrame();}
 }
