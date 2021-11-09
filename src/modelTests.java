@@ -54,6 +54,8 @@ public class modelTests extends TestCase {
         assertEquals(model.getPlayer(),((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //tests for ownership
         //add test for money transfers
     }
+
+
     public void testRentProperty(){
         int rent;
         die = new Dice();
@@ -82,24 +84,42 @@ public class modelTests extends TestCase {
         int rent;
         die = new Dice();
         die.roll();
-        System.out.println(die);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
         model = new MonopolyModel(players);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
-        System.out.println(moneyR);
-        System.out.println(moneyO);
         model.getPlayer().setLocation(12);
-        ((Utilities) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));
-        System.out.println(((Utilities)model.getBoard().get(model.getPlayer().getLocation())).getOwner());
 
-        rent = ((Utilities) model.getBoard().get(model.getPlayers().get(0).getLocation())).getRent(die);
+        ((Utilities) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));
+        rent = ((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getRent(die);
 
         model.payUtilitiesRent(die);
 
         assertEquals(moneyR - rent,model.getPlayer().getMoney());
         assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney() );
+    }
+    public void testRentRailroad(){
+        int rent;
+        players = new ArrayList<String>();
+        players.add("Paul");
+        players.add("Raul");
+
+        model = new MonopolyModel(players);
+
+        model.getPlayer().setLocation(5);
+        ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));
+        rent = ((Railroad) model.getBoard().get(model.getPlayers().get(0).getLocation())).getRent();
+
+
+
+        int moneyO = model.getPlayers().get(1).getMoney();
+        int moneyR = model.getPlayers().get(0).getMoney();
+
+        model.payRailroadRent();
+
+        assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney());
+
     }
 }
