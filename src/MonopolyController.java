@@ -20,6 +20,7 @@ public class MonopolyController implements ActionListener {
         }
 
         if(button.equals("status")){
+            //JOptionPane.showMessageDialog(null, model.status());
             model.status();
         }
 

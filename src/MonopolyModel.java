@@ -213,6 +213,7 @@ public class MonopolyModel {
      *
      */
     public void payEvent(){
+
         players.get(currentPlayer).setMoney(players.get(currentPlayer).getMoney() - ((Event) board.get(players.get(currentPlayer).getLocation())).getPayment());
     }
 
