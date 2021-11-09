@@ -557,6 +557,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void printStatus() {
         //combine strings of player messages and output to the jpane dialog box
         JOptionPane.showMessageDialog(this, "status message");
+    }
 
     public void handleStatus(StringBuilder status) {
         JOptionPane.showMessageDialog(this, status);
@@ -573,7 +574,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     }
 
     public boolean handleBuyProperty(Space space){
-        int result = JOptionPane.showConfirmDialog(this,"Would you like to buy " + space.getName() + "?", "Would you like to buy property",
+        int result = JOptionPane.showConfirmDialog(this,"Hey "+ model.getPlayer().getName() + " you just landed on " + space.getName() + " would you like to buy it?", "Would you like to buy property",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION){
