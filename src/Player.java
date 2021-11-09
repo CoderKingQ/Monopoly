@@ -66,6 +66,12 @@ public class Player {
     public int getMoney() {
         return money;
     }
+    public void addMoney(int payment){
+        money += payment;
+    }
+    public void removeMoney(int payment){
+        money -= payment;
+    }
 
     /** setMoney sets the money of the player
      *
@@ -152,13 +158,17 @@ public class Player {
         } else if (locationArrayList < 20) {
             return (locationArrayList - 10);
         } else if (locationArrayList < 31) {
-            int lastdig = 0;
-            lastdig = (locationArrayList%10);
-            return (locationArrayList - (10 - lastdig));
+            int count = 0;
+            for(int i = 30; i > locationArrayList; i--){
+                count++;
+            }
+            return (count);
         } else {
-            int lastdig = 0;
-            lastdig = (locationArrayList%10);
-            return (locationArrayList - (22 -lastdig));
+            int count = 1;
+            for(int i = 39; i > locationArrayList; i--){
+                count++;
+            }
+            return (count);
         }
     }
 }

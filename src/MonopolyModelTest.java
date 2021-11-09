@@ -23,7 +23,7 @@ public class MonopolyModelTest {
 
     @Test
     public void testGetBoard() {
-       //gameBoard  generateBoard();
+        //gameBoard  generateBoard();
     }
 
     @Test
@@ -63,7 +63,7 @@ public class MonopolyModelTest {
         int actualBalance = playerMoney - amountToBeRemoved;
         int expectedBalance = 1300;
 
-       assertEquals(expectedBalance,actualBalance);
+        assertEquals(expectedBalance,actualBalance);
 
     }
 
@@ -85,27 +85,27 @@ public class MonopolyModelTest {
         assertEquals(expectedBalance,actualBalance);
     }
 
-   /* @Test
-    public void testPayRailroadRent(){
-        model.getPlayer().setLocation(5);
-        model.buyRailroad();
-        model.get(currentPlayer).isTurn() == false;
+    /* @Test
+     public void testPayRailroadRent(){
+         model.getPlayer().setLocation(5);
+         model.buyRailroad();
+         model.get(currentPlayer).isTurn() == false;
 
-        int location = model.getPlayer().getLocation();
+         int location = model.getPlayer().getLocation();
 
-        //Get money of current player
-        int playerMoney = model.getPlayer().getMoney();
+         //Get money of current player
+         int playerMoney = model.getPlayer().getMoney();
 
-        //get amount to be removed
-        int amountToBeRemoved = ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getRent();
+         //get amount to be removed
+         int amountToBeRemoved = ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getRent();
 
-        //Update players money
-        int actualBalance = playerMoney - amountToBeRemoved;
-        int expectedBalance = 1494;
+         //Update players money
+         int actualBalance = playerMoney - amountToBeRemoved;
+         int expectedBalance = 1494;
 
-        assertEquals(expectedBalance,actualBalance);
-    }
-*/
+         assertEquals(expectedBalance,actualBalance);
+     }
+ */
     @Test
     public void testAddMonopolyView() {
     }
