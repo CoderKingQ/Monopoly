@@ -35,13 +35,85 @@ public class MonopolyModel {
      */
     public void play(int player) {
 
-
-
     }
+    public void roll() {
+        //TODO handle doubles and pass it off to another player
+        die.roll();
 
+        //double handling
+        if (die.getDoubleCount() > 2) {
+            // players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            players.get(currentPlayer).setTurn(false);
+        }
+
+
+        if (players.get(currentPlayer).isTurn()) {
+            players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
+
+            views.get(0).handleDisplayChar(currentPlayer, players.get(currentPlayer).getLocation(), players.get(currentPlayer).getLocationGUI(players.get(currentPlayer).getLocation()));
+            views.get(0).handleDisplay();
+
+            //check if property is purchasable and what kind it is
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
+                if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
+                        if (((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyProperty();
+                        }
+                    }
+                } else {
+                    payPropertyRent();
+                    //views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Property) board.get(players.get(currentPlayer).getLocation())).getCost()));
+                }
+            }
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
+                if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                        if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyRailroad();
+                        }
+                    }
+                } else {
+                    payRailroadRent();
+                    //views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost()));
+                }
+            }
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
+                if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                        if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyUtilities();
+                        }
+                    }
+                } else {
+                    payUtilitiesRent();
+                    //views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()));
+                }
+            }
+
+            //check if player is on event space
+            if((board.get(players.get(currentPlayer).getLocation()).getName().equals("Luxury Tax")) || (board.get(players.get(currentPlayer).getLocation()).getName().equals("Income tax"))){
+                payEvent();
+                //views.get(0).handlePayEvent(board.get(players.get(currentPlayer).getLocation()));
+            }
+
+
+
+        }
+        if(die.isDoubles()){
+            System.out.println("got doubles");
+            players.get(currentPlayer).setTurn(true);
+        }else{players.get(currentPlayer).setTurn(false);}
+
+        if (players.get(currentPlayer).isTurn() == false) {
+            nextTurn();
+            die.resetDoubles();
+        }
+    }
     /** how a person will play their turn
      *
      */
+    /*
     public void roll() {
         //TODO handle doubles and pass it off to another player
         die.roll();
@@ -95,6 +167,7 @@ public class MonopolyModel {
             die.resetDoubles();
         }
     }
+    */
 
     /** combine all player info into a string to send to frame
      *
@@ -177,7 +250,7 @@ public class MonopolyModel {
     private void nextTurn() {
         int i = 0;
         for(Player player : players){
-            if(players.equals(currentPlayer)){
+            if(player.getName().equals(players.get(currentPlayer).getName())){
                 break;
             } else i++;
 
@@ -185,11 +258,15 @@ public class MonopolyModel {
 
         //setting the current player
         if(i + 1 < players.size()){
-            currentPlayer = i;
+            currentPlayer = i + 1;
+            players.get(currentPlayer).setTurn(true);
+
         } else {
             currentPlayer = 0;
+            players.get(currentPlayer).setTurn(true);
         }
     }
+
 
     public void addMonopolyView(MonopolyView view){
         views.add(view);
