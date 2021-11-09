@@ -85,7 +85,7 @@ public class MonopolyModelTest {
         assertEquals(expectedBalance,actualBalance);
     }
 
-    @Test
+   /* @Test
     public void testPayRailroadRent(){
         model.getPlayer().setLocation(5);
         model.buyRailroad();
@@ -105,7 +105,7 @@ public class MonopolyModelTest {
 
         assertEquals(expectedBalance,actualBalance);
     }
-
+*/
     @Test
     public void testAddMonopolyView() {
     }
