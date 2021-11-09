@@ -152,6 +152,11 @@ public class Player {
         this.turn = turn;
     }
 
+    /** getLocationGUI returns the array of the player on the grid bassed on their location in the array list
+     *
+     * @param locationArrayList int, there location in the arraylist
+     * @return int, location on the grid
+     */
     public int getLocationGUI(int locationArrayList) {
         if (locationArrayList < 11) {
             return locationArrayList;
