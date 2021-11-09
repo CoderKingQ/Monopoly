@@ -9,6 +9,6 @@ public interface MonopolyView {
 
     void handleStatus(StringBuilder status);
 
-    void handlePayPlayer(Player p1, Player p2);
+    void handlePayPlayer(Player p1, Player p2, int payment);
 
 }
