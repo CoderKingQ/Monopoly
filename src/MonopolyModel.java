@@ -86,7 +86,7 @@ public class MonopolyModel {
                         }
                     }
                 } else {
-                    payUtilitiesRent();
+                    payUtilitiesRent(die);
                     //views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost()));
                 }
             }
