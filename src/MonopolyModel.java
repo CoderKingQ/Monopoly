@@ -88,7 +88,7 @@ public class MonopolyModel {
                             }
                         }
                     } else {
-                        payUtilitiesRent();
+                        payUtilitiesRent(die);
                     }
                 }
 
@@ -168,16 +168,16 @@ public class MonopolyModel {
         }
 
         if(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() != null && !(players.get(currentPlayer) .equals(((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()))){
-            payUtilitiesRent();
+            payUtilitiesRent(die);
         }
     }
 
     public void payPropertyRent() {
-        int cost = ((Property) board.get(this.getPlayer().getLocation())).getRent();
+        int rent = ((Property) board.get(this.getPlayer().getLocation())).getRent();
         //add money to landlord
-        ((Property) board.get(this.getPlayer().getLocation())).getOwner().addMoney(cost);
+        ((Property) board.get(this.getPlayer().getLocation())).getOwner().addMoney(rent);
         //remove rent from current player
-        this.getPlayer().removeMoney(cost);
+        this.getPlayer().removeMoney(rent);
     }
     public void payRailroadRent(){
         //NoOfRailroads = 1,2,3,4
@@ -206,13 +206,14 @@ public class MonopolyModel {
 
         }
     }
-    public void payUtilitiesRent(){
+    public void payUtilitiesRent(Dice d){
         //cost of rent
-       int cost = ((Utilities) board.get(this.getPlayer().getLocation())).getRent(die);
+       int rent = ((Utilities) board.get(this.getPlayer().getLocation())).getRent(d);
+       //((Utilities) board.get(model.getPlayers().get(0).getLocation())).getRent(die);
         //add money to landlord
-        ((Utilities) board.get(this.getPlayer().getLocation())).getOwner().addMoney(cost);
+        ((Utilities) board.get(this.getPlayer().getLocation())).getOwner().addMoney(rent);
         //remove rent from current player
-        this.getPlayer().removeMoney(cost);
+        this.getPlayer().removeMoney(rent);
     }
 
     /**

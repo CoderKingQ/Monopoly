@@ -27,6 +27,7 @@ public class modelTests extends TestCase {
      model.getPlayer().setLocation(5);
      model.buyRailroad();
      assertEquals(model.getPlayer(),((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getOwner());
+     //add money transfer check
      }
 
     public void testBuyProperty(){
@@ -65,14 +66,12 @@ public class modelTests extends TestCase {
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
         ((Property) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));
-        System.out.println(moneyR);
-        System.out.println(moneyO);
-        rent = ((Property) model.getBoard().get(model.getPlayers().get(0).getLocation())).getRent();
 
+        rent = ((Property) model.getBoard().get(model.getPlayers().get(0).getLocation())).getRent();
         model.payPropertyRent();
 
-        assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney());
-        assertEquals(moneyR - rent, model.getPlayer().getMoney());
+        assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney()); // Owner received money
+        assertEquals(moneyR - rent, model.getPlayer().getMoney()); //current player gave money
 
 
 
@@ -82,7 +81,8 @@ public class modelTests extends TestCase {
     public void testRentUtility(){
         int rent;
         die = new Dice();
-        die.setDie(10);
+        die.roll();
+        System.out.println(die);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
@@ -94,16 +94,12 @@ public class modelTests extends TestCase {
         model.getPlayer().setLocation(12);
         ((Utilities) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));
         System.out.println(((Utilities)model.getBoard().get(model.getPlayer().getLocation())).getOwner());
+
         rent = ((Utilities) model.getBoard().get(model.getPlayers().get(0).getLocation())).getRent(die);
-        System.out.println(rent);
-        model.payUtilitiesRent();
-        System.out.println(moneyR);
-        System.out.println(moneyO);
-        System.out.println(model.currentPlayer);
+
+        model.payUtilitiesRent(die);
+
         assertEquals(moneyR - rent,model.getPlayer().getMoney());
         assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney() );
-        System.out.println(moneyR);
-        System.out.println(moneyO);
-
     }
 }
