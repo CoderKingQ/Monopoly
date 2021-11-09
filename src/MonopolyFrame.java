@@ -254,8 +254,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
     }
 
-    public void handlePayPlayer(Player p1, Player p2){
-
+    public void handlePayPlayer(Player p1, Player p2, int payment){
+        JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
     }
 
 
