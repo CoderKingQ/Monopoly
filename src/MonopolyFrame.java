@@ -307,6 +307,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         this.setVisible(true);
     }
 
+
     public void handleDisplay(){
 
         top = new JPanel(new GridLayout(BoardLength, BoardLength));
@@ -556,6 +557,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void printStatus() {
         //combine strings of player messages and output to the jpane dialog box
         JOptionPane.showMessageDialog(this, "status message");
+
+    public void handleStatus(StringBuilder status) {
+        JOptionPane.showMessageDialog(this, status);
+
     }
 
     public void handleRoll(Player player) {
@@ -574,6 +579,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         if(result == JOptionPane.YES_OPTION){
             return true;
         } else return false;
+    }
+
+    public void handlePayEvent(Space space){
+        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+    }
+
+    public void handlePayPlayer(Player p1, Player p2, int payment){
+        JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
     }
 
 

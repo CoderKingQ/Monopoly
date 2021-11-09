@@ -66,6 +66,12 @@ public class Player {
     public int getMoney() {
         return money;
     }
+    public void addMoney(int payment){
+        money += payment;
+    }
+    public void removeMoney(int payment){
+        money -= payment;
+    }
 
     /** setMoney sets the money of the player
      *
