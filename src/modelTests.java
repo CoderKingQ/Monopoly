@@ -24,11 +24,16 @@ public class modelTests extends TestCase {
      players = new ArrayList<String>();
      players.add("Paul");
      players.add("Raul");
+     aiNumber = new ArrayList<>();
+     aiNumber.add(0);
+     aiNumber.add(0);
      model = new MonopolyModel(players, aiNumber);
      model.getPlayer().setLocation(5);
+     int moneyO = model.getPlayer().getMoney();
+     int cost = ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getCost();
      model.buyRailroad();
      assertEquals(model.getPlayer(),((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getOwner());
-     //add money transfer check
+     assertEquals(moneyO - cost, model.getPlayer().getMoney());
      }
 
     public void testBuyProperty(){
@@ -39,9 +44,9 @@ public class modelTests extends TestCase {
         aiNumber.add(0);
         aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
-        int moneyO = model.getPlayers().get(1).getMoney();
+        int moneyO = model.getPlayer().getMoney();
         model.getPlayer().setLocation(8);
-        int cost = ((Property) model.getBoard().get(model.getPlayers().get(0).getLocation())).getCost();
+        int cost = ((Property) model.getBoard().get(model.getPlayer().getLocation())).getCost();
         model.buyProperty();
         assertEquals(model.getPlayer(),((Property) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //checking ownership
         assertEquals(moneyO - cost, model.getPlayer().getMoney()); // checking money change
@@ -59,7 +64,7 @@ public class modelTests extends TestCase {
         model.getPlayer().setLocation(12);
         model.buyUtilities();
         assertEquals(model.getPlayer(),((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //tests for ownership
-        //add test for money transfers
+        assertEquals(moneyO - (((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getCost()),model.getPlayer().getMoney() );
     }
 
 

@@ -355,7 +355,7 @@ public class MonopolyModel {
     public void handleAIHouses() {
         String colourSet;
         //Checks if AI owns the set he is currently on.
-        if((board.get(this.getPlayer().getLocation())) instanceof Property) {
+        if((board.get(getPlayer().getLocation())) instanceof Property) {
 
             colourSet = (((Property) board.get(getPlayer().getLocation())).getSet());
         }else{colourSet = "";}
