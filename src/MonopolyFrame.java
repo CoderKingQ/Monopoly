@@ -36,6 +36,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             NOplayers = JOptionPane.showInputDialog(this, "Enter a number of players (2-8): ", 2);
         }
 
+
         //set player locations
 
         int pnum = Integer.parseInt(NOplayers);
@@ -56,8 +57,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         //Enter name of each player
         displayName = new ArrayList<>();
         ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> aiNumber = new ArrayList<>();
         for(int i = 0; i < Integer.parseInt( NOplayers); i++){
             String name = JOptionPane.showInputDialog(this, "Enter name of Player " + (i + 1) + ":" );
+            //Joption pane yesno for is current player AI?
+            int result = JOptionPane.showConfirmDialog(this,"Would you like for this player to be a robot?","Add AI oponent?",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if(result == JOptionPane.YES_OPTION){
+                aiNumber.add(1);
+            } else{
+                aiNumber.add(0);
+            }
                 //JLabel f = new JLabel(name);
                 //f.setFont(new Font("Verdana", 1, 11));
                 //JName.add(f);
@@ -65,7 +76,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 names.add(name);
         }
 
-        model = new MonopolyModel(names);
+        model = new MonopolyModel(names,aiNumber);
         model.addMonopolyView(this);
 
         handleDisplay();
