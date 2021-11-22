@@ -140,7 +140,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int j = 0; j < BoardLength; j++){
             String house = "";
             if(model.getBoard().get(j) instanceof Property){
-                house = new String(new char[((Property) model.getBoard().get(j)).getHouses()]).replace("\0", "*");
+                if(((Property) model.getBoard().get(j)).getHouses() < 5) {
+                    house = new String(new char[((Property) model.getBoard().get(j)).getHouses()]).replace("\0", "*");
+                }
+                else{
+                    house = "H";
+                }
             }
 
             String temp = model.getBoard().get(j).getName() + " " + house;
@@ -196,7 +201,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int j = 0; j < BoardLength; j++){
             String house = "";
             if(model.getBoard().get(count2) instanceof Property){
-                house = new String(new char[((Property) model.getBoard().get(count2)).getHouses()]).replace("\0", "*");
+                if(((Property) model.getBoard().get(count2)).getHouses() < 5) {
+                    house = new String(new char[((Property) model.getBoard().get(count2)).getHouses()]).replace("\0", "*");
+                }
+                else{
+                    house = "H";
+                }
             }
             String temp = model.getBoard().get(count2).getName() + " " + house;
             JLabel pName = new JLabel(temp, JLabel.CENTER);
@@ -250,7 +260,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int i = 1; i < (BoardLength-1); i++){
             String house = "";
             if(model.getBoard().get(count3) instanceof Property){
-                house = new String(new char[((Property) model.getBoard().get(count3)).getHouses()]).replace("\0", "*");
+                if(((Property) model.getBoard().get(count3)).getHouses() < 5) {
+                    house = new String(new char[((Property) model.getBoard().get(count3)).getHouses()]).replace("\0", "*");
+                }
+                else{
+                    house = "H";
+                }
             }
             String temp = model.getBoard().get(count3).getName() + " " + house;
             JLabel pName = new JLabel(temp, JLabel.CENTER);
@@ -304,7 +319,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         for(int i = 1; i < (BoardLength-1); i++){
             String house = "";
             if(model.getBoard().get(count) instanceof Property){
-                house = new String(new char[((Property) model.getBoard().get(count)).getHouses()]).replace("\0", "*");
+                if(((Property) model.getBoard().get(count)).getHouses() < 5) {
+                    house = new String(new char[((Property) model.getBoard().get(count)).getHouses()]).replace("\0", "*");
+                }
+                else{
+                    house = "H";
+                }
             }
             String temp = model.getBoard().get(count).getName() + " " + house;
             JLabel a = new JLabel(temp, JLabel.CENTER );

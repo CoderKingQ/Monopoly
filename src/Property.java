@@ -5,6 +5,7 @@ public class Property extends Space{
     private int cost;
     private int rent;
     private int houses;
+    private int hotel;
     private Player owner;
 
     /** The constructor for property
@@ -21,6 +22,7 @@ public class Property extends Space{
         this.set = set;
         this.rent = rent;
         this.houses = 0;
+        this.hotel = 0;
         this.owner = null;
     }
 
