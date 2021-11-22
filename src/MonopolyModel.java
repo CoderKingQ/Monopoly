@@ -528,6 +528,8 @@ public class MonopolyModel {
         }
 
         views.get(0).housesAdded(addedHouse);
+        views.get(0).handleDisplay();
+
 
     }
 

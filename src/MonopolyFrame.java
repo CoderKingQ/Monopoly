@@ -148,7 +148,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 }
             }
 
-            String temp = model.getBoard().get(j).getName() + " " + house;
+            String temp = house + " " + model.getBoard().get(j).getName();
             JLabel pName = new JLabel(temp, JLabel.CENTER);
             pName.setFont(new Font("Verdana",1,9));
             spaces[0][j].add(pName);
@@ -208,7 +208,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     house = "H";
                 }
             }
-            String temp = model.getBoard().get(count2).getName() + " " + house;
+            String temp = house + " " + model.getBoard().get(count2).getName();
             JLabel pName = new JLabel(temp, JLabel.CENTER);
             pName.setFont(new Font("Verdana",1,9));
             spaces[10][j].add(pName);
@@ -267,7 +267,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     house = "H";
                 }
             }
-            String temp = model.getBoard().get(count3).getName() + " " + house;
+            String temp = house + " " + model.getBoard().get(count3).getName();
             JLabel pName = new JLabel(temp, JLabel.CENTER);
             pName.setFont(new Font("Verdana",1,9));
             spaces[i][0].add(pName);
@@ -326,7 +326,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                     house = "H";
                 }
             }
-            String temp = model.getBoard().get(count).getName() + " " + house;
+            String temp = house + " " + model.getBoard().get(count).getName();
             JLabel a = new JLabel(temp, JLabel.CENTER );
             a.setFont(new Font("Verdana",1,9));
             spaces[i][10].add(a);
