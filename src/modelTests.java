@@ -151,7 +151,9 @@ public class modelTests extends TestCase {
         ((Property) model.getBoard().get(1)).setOwner(model.getPlayers().get(0));
         model.getPlayer().addProperty((model.getBoard().get(3)));
         model.getPlayer().addProperty((model.getBoard().get(1)));
+        model.getPlayer().setLocation(3);
         model.handleAIHouses();
+
 
         assertEquals(1,((Property) model.getBoard().get(3)).getHouses() ); //refactor buy houses for this test to maybe work
 
