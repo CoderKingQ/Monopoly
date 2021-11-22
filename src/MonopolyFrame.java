@@ -98,10 +98,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         JButton statusB = new JButton("Status");
         statusB.setActionCommand("status");
         statusB.addActionListener(mc);
+
+        //TODO remove mod R
+        JButton modR = new JButton("ModRoll");
+        modR.setActionCommand("modRoll");
+        modR.addActionListener(mc);
+
         bot.add(rollB);
         bot.add(housesB);
         bot.add(new JPanel());
-        bot.add(new JPanel());
+        //TODO remove mod R
+        bot.add(modR);
         bot.add(statusB);
         //add grab color
 
@@ -384,6 +391,28 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
      */
     public void handlePayPlayer(Player p1, Player p2, int payment){
         JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
+    }
+
+    public String propertyToAddHouses(){
+        String[] options = {"Brown", "Light Blue", "Purple", "Orange", "Red", "Yellow", "Green", "Dark Blue"};
+        Object selectionObject = JOptionPane.showInputDialog(this, "Choose the colour set you wish to add a set of houses to:", "House Selection", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+        String colourSet = selectionObject.toString();
+        return colourSet;
+    }
+
+    public void housesAdded(boolean housesAdded){
+        if(housesAdded){
+            JOptionPane.showMessageDialog(this, "Houses were successfully added");
+        } else {
+            JOptionPane.showMessageDialog(this, "Houses could not be added");
+        }
+    }
+
+    public int modRollValue(){
+        String rollValue = JOptionPane.showInputDialog(this, "Enter a roll number ", 2);
+        int rollV = Integer.parseInt(rollValue);
+
+        return rollV;
     }
 
     public static void main(String[] args) { new MonopolyFrame();}

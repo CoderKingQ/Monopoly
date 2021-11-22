@@ -15,4 +15,10 @@ public interface MonopolyView {
 
     void declareBankruptPlayer();
 
+    String propertyToAddHouses();
+
+    void housesAdded(boolean housesAdded);
+
+    int modRollValue();
+
 }

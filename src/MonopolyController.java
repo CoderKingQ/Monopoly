@@ -32,7 +32,11 @@ public class MonopolyController implements ActionListener {
         }
 
         if(button.equals("houses")){
+            model.buyHouses();
+        }
 
+        if(button.equals("modRoll")){
+            model.modRoll();
         }
     }
 }

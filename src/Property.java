@@ -55,10 +55,13 @@ public class Property extends Space{
      */
     public boolean addHouse(int houses){
         //max 5 houses so make sure they don't add more than allowed
-        if(this.houses + houses >= 5){
+        if(this.houses + houses <= 5){
             this.houses += houses;
             return true;
-        } else return false;
+
+        } else {
+            return false;
+        }
     }
 
     /** getHouses returns the number of houses on the property
@@ -84,5 +87,4 @@ public class Property extends Space{
     public void setOwner(Player owner) {
         this.owner = owner;
     }
-
 }

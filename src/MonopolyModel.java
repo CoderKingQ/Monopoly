@@ -38,7 +38,7 @@ public class MonopolyModel {
 
         //double handling
         if (die.getDoubleCount() > 2) {
-            // players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            //players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
             players.get(currentPlayer).setTurn(false);
         }
 
@@ -120,7 +120,9 @@ public class MonopolyModel {
         for (Player player : players){
             sb.append("Player: " + player.getName() + "has: \n$" + player.getMoney() + " \nAnd the following properties: \n");
             for (Space property : player.getProperties()){
-                sb.append(property.getName() + "\n");
+                if(property instanceof Property) {
+                    sb.append(property.getName() + " with " + ((Property) property).getHouses() + " houses \n");
+                } else sb.append(property.getName() +  "\n");
             }
             sb.append("\n");
         }
@@ -333,4 +335,181 @@ public class MonopolyModel {
     public Player getPlayer(){
         return players.get(currentPlayer);
     }
+
+    public void buyHouses(){
+        String colourSet = views.get(0).propertyToAddHouses();
+        int setCount = 0;
+
+        if(colourSet.equals("Brown")){
+            colourSet = "#964B00";
+        } else if(colourSet.equals("Light Blue")){
+            colourSet = "#add8e6";
+        } else if(colourSet.equals("Purple")){
+            colourSet = "#E36B89";
+        } else if(colourSet.equals("Orange")){
+            colourSet = "#FFA500";
+        } else if(colourSet.equals("Red")){
+            colourSet = "#FF0000";
+        } else if(colourSet.equals("Yellow")){
+            colourSet = "#FFFF00";
+        } else if(colourSet.equals("Green")){
+            colourSet = "#228B22";
+        } else if(colourSet.equals("Dark Blue")){
+            colourSet = "#00008B";
+        }
+
+        for(Space property: getPlayer().getProperties()){
+            if(((Property) property).getSet().equals(colourSet)){
+                setCount++;
+            }
+        }
+
+        boolean addedHouse = false;
+        //brown or light blue set
+        if(setCount == 2 && colourSet.equals("#00008B") || setCount == 2 && colourSet.equals("#964B00")){
+            if(colourSet.equals("#00008B") && getPlayer().getMoney() >= (200 * 2)){ //dark blue
+                players.get(currentPlayer).removeMoney(400);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(getPlayer().getMoney() >= (50 * 2)){ //brown
+                System.out.println("break 222");
+                players.get(currentPlayer).removeMoney(100);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            }
+
+        } else  if(setCount == 3){ //all the other sets
+            if(colourSet.equals("#add8e6") && getPlayer().getMoney() >= (50 * 3)){ //light blue
+                players.get(currentPlayer).removeMoney(150);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#E36B89") && getPlayer().getMoney() >= (100 * 3)){ //purple
+                players.get(currentPlayer).removeMoney(300);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FFA500") && getPlayer().getMoney() >= (100 * 3)){ //orange
+                players.get(currentPlayer).removeMoney(300);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FF0000") && getPlayer().getMoney() >= (150 * 3)){ //red
+                players.get(currentPlayer).removeMoney(450);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FFFF00") && getPlayer().getMoney() >= (150 * 3)){ //yellow
+                players.get(currentPlayer).removeMoney(450);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#228B22") && getPlayer().getMoney() >= (200 * 3)){ //green
+                players.get(currentPlayer).removeMoney(600);
+                for(Space property: players.get(currentPlayer).getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            }
+        }
+
+        views.get(0).housesAdded(addedHouse);
+
+    }
+
+    public void modRoll(){
+        //setting dice 2
+        die.setDie(views.get(0).modRollValue());
+
+        if (die.getDoubleCount() > 2) {
+            //players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            players.get(currentPlayer).setTurn(false);
+        }
+
+
+        if (players.get(currentPlayer).isTurn()) {
+            players.get(currentPlayer).setLocation(players.get(currentPlayer).getLocation() + die.getCurrentRoll());
+
+            views.get(0).handleDisplayChar(currentPlayer, players.get(currentPlayer).getLocation(), players.get(currentPlayer).getLocationGUI(players.get(currentPlayer).getLocation()));
+            views.get(0).handleDisplay();
+
+            //check if property is purchasable and what kind it is
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Property)){
+                if (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) { // if they say yes to buying the property
+                        if (((Property) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyProperty();
+                        }
+                    }
+                } else {
+                    payPropertyRent();
+                    views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Property) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Property) board.get(players.get(currentPlayer).getLocation())).getRent()));
+                    checkBankrupt();
+                }
+            }
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Railroad)){
+                if(((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                        if (((Railroad) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyRailroad();
+                        }
+                    }
+                } else {
+                    payRailroadRent();
+                    views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Railroad) board.get(players.get(currentPlayer).getLocation())).getRent()));
+                    checkBankrupt();
+                }
+            }
+            if((board.get(players.get(currentPlayer).getLocation()) instanceof Utilities)){
+                if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner() == null) {
+                    if (views.get(0).handleBuyProperty(board.get(players.get(currentPlayer).getLocation()))) {
+                        if (((Utilities) board.get(players.get(currentPlayer).getLocation())).getCost() <= players.get(currentPlayer).getMoney()) {
+                            buyUtilities();
+                        }
+                    }
+                } else {
+                    payUtilitiesRent(die);
+                    views.get(0).handlePayPlayer(players.get(currentPlayer) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getOwner()) , (((Utilities) board.get(players.get(currentPlayer).getLocation())).getRent(die)));
+                    checkBankrupt();
+                }
+            }
+
+            //check if player is on event space
+            if((board.get(players.get(currentPlayer).getLocation()).getName().equals("Luxury Tax")) || (board.get(players.get(currentPlayer).getLocation()).getName().equals("Income tax"))){
+                payEvent();
+                views.get(0).handlePayEvent(board.get(players.get(currentPlayer).getLocation()));
+                checkBankrupt();
+            }
+
+
+
+        }
+        if(die.isDoubles()){
+            System.out.println("got doubles");
+            players.get(currentPlayer).setTurn(true);
+        }else{players.get(currentPlayer).setTurn(false);}
+
+        if (players.get(currentPlayer).isTurn() == false) {
+            nextTurn();
+            die.resetDoubles();
+        }
+    }
+
 }
