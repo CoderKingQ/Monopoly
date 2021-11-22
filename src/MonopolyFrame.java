@@ -36,7 +36,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             NOplayers = JOptionPane.showInputDialog(this, "Enter a number of players (2-8): ", 2);
         }
 
-
         //set player locations
 
         int pnum = Integer.parseInt(NOplayers);
@@ -416,7 +415,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
      * @param space Space, which event space the player landed on
      */
     public void handlePayEvent(Space space){
-        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+        if (space.getLocation() == 10){
+            JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just paid the " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " fine of " + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+        }
+        else {
+            JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+        }
     }
 
     /** declareWinner displays who won the game
@@ -443,6 +447,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
     }
 
+
+
     public String propertyToAddHouses(){
         String[] options = {"Brown", "Light Blue", "Purple", "Orange", "Red", "Yellow", "Green", "Dark Blue"};
         Object selectionObject = JOptionPane.showInputDialog(this, "Choose the colour set you wish to add a set of houses to:", "House Selection", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
@@ -463,6 +469,31 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         int rollV = Integer.parseInt(rollValue);
 
         return rollV;
+    }
+
+    /**
+     *
+     * @param player
+     * @param playerLocation
+     */
+    @Override
+    public void handleJailEvent(Player player, int playerLocation) {
+        int result = JOptionPane.showConfirmDialog(this,"Hey "+ player.getName()+ ", you are in jail. You can either skip your turn 3 times or pay a fine of $50. Would you like to skip turn?", "Would you like to skip turn",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION){
+            model.getPlayer().setTurn(false);
+
+            //Add player to prisoners (prisoners are in the jail class)
+            //model.getBoard().get(10).addPrisoner(player);
+            player.jailCount();
+            //put another jal count after the rounds following this event. Whenever a players jailCount
+            JOptionPane.showMessageDialog(this, player.getName() + " just skipped a turn.");
+        }
+        else{ //pay fine
+            //player.removeMoney(the fine of jail);
+        }
+
     }
 
     public static void main(String[] args) { new MonopolyFrame();}
