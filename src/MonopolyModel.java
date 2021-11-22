@@ -325,6 +325,10 @@ public class MonopolyModel {
         this.getPlayer().removeMoney(((Event) board.get(players.get(currentPlayer).getLocation())).getPayment());
     }
 
+    public void payJailFine(){
+        this.getPlayer().removeMoney(jail.getFine());
+    }
+
     /** nextTurn passes the turn off to the next player
      *
      */
@@ -643,8 +647,9 @@ public class MonopolyModel {
                 //skip turn
                 count++;
             }
-            else(){
+            else{
                 //pay fine
+                payJailFine();
                 jail.removePrisoner(players.get(currentPlayer));
                 inJail = false;
             }
