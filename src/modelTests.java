@@ -21,24 +21,32 @@ public class modelTests extends TestCase {
      }
 */
      public void testBuyRailroad(){
-         players = new ArrayList<String>();
-         players.add("Paul");
-         players.add("Raul");
+     players = new ArrayList<String>();
+     players.add("Paul");
+     players.add("Raul");
+     aiNumber = new ArrayList<>();
+     aiNumber.add(0);
+     aiNumber.add(0);
      model = new MonopolyModel(players, aiNumber);
      model.getPlayer().setLocation(5);
+     int moneyO = model.getPlayer().getMoney();
+     int cost = ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getCost();
      model.buyRailroad();
      assertEquals(model.getPlayer(),((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getOwner());
-     //add money transfer check
+     assertEquals(moneyO - cost, model.getPlayer().getMoney());
      }
 
     public void testBuyProperty(){
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
-        int moneyO = model.getPlayers().get(1).getMoney();
+        int moneyO = model.getPlayer().getMoney();
         model.getPlayer().setLocation(8);
-        int cost = ((Property) model.getBoard().get(model.getPlayers().get(0).getLocation())).getCost();
+        int cost = ((Property) model.getBoard().get(model.getPlayer().getLocation())).getCost();
         model.buyProperty();
         assertEquals(model.getPlayer(),((Property) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //checking ownership
         assertEquals(moneyO - cost, model.getPlayer().getMoney()); // checking money change
@@ -47,13 +55,16 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
         model.getPlayer().setLocation(12);
         model.buyUtilities();
         assertEquals(model.getPlayer(),((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //tests for ownership
-        //add test for money transfers
+        assertEquals(moneyO - (((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getCost()),model.getPlayer().getMoney() );
     }
 
 
@@ -61,6 +72,9 @@ public class modelTests extends TestCase {
         int rent;
         die = new Dice();
         die.setDie(10);
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
@@ -85,6 +99,9 @@ public class modelTests extends TestCase {
         int rent;
         die = new Dice();
         die.roll();
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
@@ -103,10 +120,12 @@ public class modelTests extends TestCase {
     }
     public void testRentRailroad(){
         int rent;
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-
         model = new MonopolyModel(players, aiNumber);
 
         model.getPlayer().setLocation(5);
@@ -122,22 +141,26 @@ public class modelTests extends TestCase {
 
         assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney());
 
-    }/*
+    }
     public void testAiBuyHouses(){
-         aiNumber = new ArrayList<>();
-         aiNumber.add(1);
-         aiNumber.add(0);
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(1);
         players = new ArrayList<String>();
-        players.add("Bot");
         players.add("Paul");
+        players.add("Bot");
 
         model = new MonopolyModel(players, aiNumber);
-
+        model.nextTurn();
         ((Property) model.getBoard().get(3)).setOwner(model.getPlayers().get(0));
         ((Property) model.getBoard().get(1)).setOwner(model.getPlayers().get(0));
-        model.buyHouses();
+        model.getPlayer().addProperty((model.getBoard().get(3)));
+        model.getPlayer().addProperty((model.getBoard().get(1)));
+        model.getPlayer().setLocation(3);
+        model.handleAIHouses();
 
-        assertEquals(((Property) model.getBoard().get(1)).getHouses(), 1); //refactor buy houses for this test to maybe work
 
-    }*/
+        assertEquals(1,((Property) model.getBoard().get(3)).getHouses() ); //refactor buy houses for this test to maybe work
+
+    }
 }
