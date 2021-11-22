@@ -6,9 +6,17 @@ public class MonopolyController implements ActionListener {
 
     MonopolyModel model;
 
+    /** MonopolyController is the constructor for the class
+     *
+     * @param model MonopolyModel, the model to be controlled
+     */
     public MonopolyController(MonopolyModel model){this.model = model;}
 
 
+    /** triggers on button press and handles input
+     *
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String button = e.getActionCommand();
@@ -25,7 +33,11 @@ public class MonopolyController implements ActionListener {
         }
 
         if(button.equals("houses")){
+            model.buyHouses();
+        }
 
+        if(button.equals("modRoll")){
+            model.modRoll();
         }
     }
 }
