@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class modelTests extends TestCase {
     //variable declarations
     private ArrayList<String> players;
+    private ArrayList<Integer> aiNumber;
     private Dice die;
     MonopolyModel model;
     //optional fixtures
@@ -23,7 +24,7 @@ public class modelTests extends TestCase {
          players = new ArrayList<String>();
          players.add("Paul");
          players.add("Raul");
-     model = new MonopolyModel(players);
+     model = new MonopolyModel(players, aiNumber);
      model.getPlayer().setLocation(5);
      model.buyRailroad();
      assertEquals(model.getPlayer(),((Railroad) model.getBoard().get(model.getPlayer().getLocation())).getOwner());
@@ -34,7 +35,7 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-        model = new MonopolyModel(players);
+        model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         model.getPlayer().setLocation(8);
         int cost = ((Property) model.getBoard().get(model.getPlayers().get(0).getLocation())).getCost();
@@ -46,7 +47,7 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-        model = new MonopolyModel(players);
+        model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
         model.getPlayer().setLocation(12);
@@ -63,7 +64,7 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-        model = new MonopolyModel(players);
+        model = new MonopolyModel(players, aiNumber);
         model.getPlayer().setLocation(8);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
@@ -87,7 +88,7 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-        model = new MonopolyModel(players);
+        model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
         model.getPlayer().setLocation(12);
@@ -106,7 +107,7 @@ public class modelTests extends TestCase {
         players.add("Paul");
         players.add("Raul");
 
-        model = new MonopolyModel(players);
+        model = new MonopolyModel(players, aiNumber);
 
         model.getPlayer().setLocation(5);
         ((Railroad) model.getBoard().get(model.getPlayer().getLocation())).setOwner(model.getPlayers().get(1));

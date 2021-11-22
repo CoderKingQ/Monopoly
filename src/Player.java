@@ -7,20 +7,23 @@ public class Player {
     private String name;
     private boolean playing;
     private boolean turn;
+    private boolean isAi;
 
     /** Constructor for player
      *
      * @param name String, name of the player
      */
 
-    public Player(String name) {
+    public Player(String name, int isAi) {
         this.name = name;
         this.properties = new ArrayList<Space>();
         this.money = 1500;
         this.location = 0;
         this.playing = true;
         this.turn = false;
-
+        if(isAi == 1) {
+            this.isAi = true;
+        } else{this.isAi = false;}
     }
 
     /** getNoRailroads returns the number of Railroads the player owns
@@ -175,5 +178,12 @@ public class Player {
             }
             return (count);
         }
+    }
+    public boolean isAi() {
+        return isAi;
+    }
+
+    public void setAi(boolean ai) {
+        isAi = ai;
     }
 }
