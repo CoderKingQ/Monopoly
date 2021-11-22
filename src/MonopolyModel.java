@@ -125,9 +125,10 @@ public class MonopolyModel {
         }
         if (getPlayer().isTurn()) {
             getPlayer().setLocation(getPlayer().getLocation() + die.getCurrentRoll());
-
-            views.get(0).handleDisplayChar(currentPlayer, getPlayer().getLocation(), getPlayer().getLocationGUI(getPlayer().getLocation()));
-            views.get(0).handleDisplay();
+            if(!views.isEmpty()) {
+                views.get(0).handleDisplayChar(currentPlayer, getPlayer().getLocation(), getPlayer().getLocationGUI(getPlayer().getLocation()));
+                views.get(0).handleDisplay();
+            }
 
             //check if property is purchasable and what kind it is
             if((board.get(getPlayer().getLocation()) instanceof Property)){
