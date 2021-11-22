@@ -21,9 +21,9 @@ public class modelTests extends TestCase {
      }
 */
      public void testBuyRailroad(){
-         players = new ArrayList<String>();
-         players.add("Paul");
-         players.add("Raul");
+     players = new ArrayList<String>();
+     players.add("Paul");
+     players.add("Raul");
      model = new MonopolyModel(players, aiNumber);
      model.getPlayer().setLocation(5);
      model.buyRailroad();
@@ -35,6 +35,9 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         model.getPlayer().setLocation(8);
@@ -47,6 +50,9 @@ public class modelTests extends TestCase {
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
         int moneyR = model.getPlayers().get(0).getMoney();
@@ -61,6 +67,9 @@ public class modelTests extends TestCase {
         int rent;
         die = new Dice();
         die.setDie(10);
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
@@ -85,6 +94,9 @@ public class modelTests extends TestCase {
         int rent;
         die = new Dice();
         die.roll();
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
@@ -103,10 +115,12 @@ public class modelTests extends TestCase {
     }
     public void testRentRailroad(){
         int rent;
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(0);
         players = new ArrayList<String>();
         players.add("Paul");
         players.add("Raul");
-
         model = new MonopolyModel(players, aiNumber);
 
         model.getPlayer().setLocation(5);
@@ -122,22 +136,24 @@ public class modelTests extends TestCase {
 
         assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney());
 
-    }/*
+    }
     public void testAiBuyHouses(){
-         aiNumber = new ArrayList<>();
-         aiNumber.add(1);
-         aiNumber.add(0);
+        aiNumber = new ArrayList<>();
+        aiNumber.add(0);
+        aiNumber.add(1);
         players = new ArrayList<String>();
-        players.add("Bot");
         players.add("Paul");
+        players.add("Bot");
 
         model = new MonopolyModel(players, aiNumber);
-
+        model.nextTurn();
         ((Property) model.getBoard().get(3)).setOwner(model.getPlayers().get(0));
         ((Property) model.getBoard().get(1)).setOwner(model.getPlayers().get(0));
-        model.buyHouses();
+        model.getPlayer().addProperty((model.getBoard().get(3)));
+        model.getPlayer().addProperty((model.getBoard().get(1)));
+        model.handleAIHouses();
 
-        assertEquals(((Property) model.getBoard().get(1)).getHouses(), 1); //refactor buy houses for this test to maybe work
+        assertEquals(1,((Property) model.getBoard().get(3)).getHouses() ); //refactor buy houses for this test to maybe work
 
-    }*/
+    }
 }
