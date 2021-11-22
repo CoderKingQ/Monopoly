@@ -138,9 +138,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         int flag4 = 1;
         //for first row
         for(int j = 0; j < BoardLength; j++){
-            String temp = model.getBoard().get(j).getName();
+            String house = "";
+            if(model.getBoard().get(j) instanceof Property){
+                house = new String(new char[((Property) model.getBoard().get(j)).getHouses()]).replace("\0", "*");
+            }
+
+            String temp = model.getBoard().get(j).getName() + " " + house;
             JLabel pName = new JLabel(temp, JLabel.CENTER);
-            pName.setFont(new Font("Verdana",1,11));
+            pName.setFont(new Font("Verdana",1,9));
             spaces[0][j].add(pName);
 
             if(model.getBoard().get(j) instanceof Event){
@@ -189,9 +194,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         count2 = 30;
         //for last row
         for(int j = 0; j < BoardLength; j++){
-            String temp = model.getBoard().get(count2).getName();
+            String house = "";
+            if(model.getBoard().get(count2) instanceof Property){
+                house = new String(new char[((Property) model.getBoard().get(count2)).getHouses()]).replace("\0", "*");
+            }
+            String temp = model.getBoard().get(count2).getName() + " " + house;
             JLabel pName = new JLabel(temp, JLabel.CENTER);
-            pName.setFont(new Font("Verdana",1,11));
+            pName.setFont(new Font("Verdana",1,9));
             spaces[10][j].add(pName);
 
 
@@ -239,9 +248,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         int count3 = 39;
         //for first column
         for(int i = 1; i < (BoardLength-1); i++){
-            String temp = model.getBoard().get(count3).getName();
+            String house = "";
+            if(model.getBoard().get(count3) instanceof Property){
+                house = new String(new char[((Property) model.getBoard().get(count3)).getHouses()]).replace("\0", "*");
+            }
+            String temp = model.getBoard().get(count3).getName() + " " + house;
             JLabel pName = new JLabel(temp, JLabel.CENTER);
-            pName.setFont(new Font("Verdana",1,11));
+            pName.setFont(new Font("Verdana",1,9));
             spaces[i][0].add(pName);
 
 
@@ -289,9 +302,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         //for second column
         int count = 11;
         for(int i = 1; i < (BoardLength-1); i++){
-            String temp = model.getBoard().get(count).getName();
+            String house = "";
+            if(model.getBoard().get(count) instanceof Property){
+                house = new String(new char[((Property) model.getBoard().get(count)).getHouses()]).replace("\0", "*");
+            }
+            String temp = model.getBoard().get(count).getName() + " " + house;
             JLabel a = new JLabel(temp, JLabel.CENTER );
-            a.setFont(new Font("Verdana",1,11));
+            a.setFont(new Font("Verdana",1,9));
             spaces[i][10].add(a);
 
             if(model.getBoard().get(count) instanceof Utilities){
@@ -335,8 +352,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             count++;
         }
 
+
         this.setVisible(true);
     }
+
 
     /** handleStatus will display a popup with the all the players information
      *
