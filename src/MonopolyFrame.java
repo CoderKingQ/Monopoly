@@ -19,6 +19,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     private int count3;
     private int count;
     private int locationGUI;
+    private Jail jail;
 
     /** the construct for MonopolyFrame which draws the initial board
      *
@@ -421,6 +422,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         else {
             JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
         }
+    }
+
+    public void handlePayJail(Space space){
+
     }
 
     /** declareWinner displays who won the game

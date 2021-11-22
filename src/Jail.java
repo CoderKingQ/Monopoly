@@ -11,7 +11,7 @@ to disable player, player.getplayer(currentPlayer).setTurn(false)
  */
 
 public class Jail extends Space{
-    private ArrayList<Player> prisoners;
+    private ArrayList<Player> prisoner;
     private int fine;
 
     public Jail(int location, String name, int fine)
@@ -20,16 +20,17 @@ public class Jail extends Space{
         this.fine = fine;
     }
     public void addPrisoner(Player player){
-        prisoners.add(player);
+        prisoner.add(player);
     }
 
     public void removePrisoner(Player player){
-        prisoners.remove(player);
+        prisoner.remove(player);
     }
 
     public int getFine() {
         return fine;
     }
+
 }
 
 
