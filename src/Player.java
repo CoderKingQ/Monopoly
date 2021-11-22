@@ -195,6 +195,10 @@ public class Player {
         jailCount ++;
     }
 
+    public int getJailCount() {
+        return jailCount;
+    }
+
     public void resetCount(){
         jailCount = 0;
     }

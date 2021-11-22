@@ -640,12 +640,13 @@ public class MonopolyModel {
         players.get(currentPlayer).setLocation(10);
         jail.addPrisoner(players.get(currentPlayer));
         boolean inJail = true;
-        int count = 0;
 
-        while (inJail && count <=3){
+
+        while (inJail && players.get(currentPlayer).getJailCount() <=3){
             if (){
-                //skip turn
-                count++;
+
+                nextTurn();
+                players.get(currentPlayer).jailCount();
             }
             else{
                 //pay fine
