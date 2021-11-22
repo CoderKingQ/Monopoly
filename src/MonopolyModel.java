@@ -39,7 +39,7 @@ public class MonopolyModel {
 
         //double handling
         if (die.getDoubleCount() > 2) {
-            //players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
+            players.get(currentPlayer).setLocation(10); // jail location - to be implemented lock in jail for 3 turns
             players.get(currentPlayer).setTurn(false);
             }
 
@@ -199,7 +199,7 @@ public class MonopolyModel {
     public void status(){
         StringBuilder sb = new StringBuilder("");
         for (Player player : players){
-            sb.append("Player: " + player.getName() + "has: \n$" + player.getMoney() + " \nAnd the following properties: \n");
+            sb.append("Player: " + player.getName() + " has: \n$" + player.getMoney() + " \nAnd the following properties: \n");
             for (Space property : player.getProperties()){
                 if(property instanceof Property) {
                     sb.append(property.getName() + " with " + ((Property) property).getHouses() + " houses \n");
