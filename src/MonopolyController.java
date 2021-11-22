@@ -32,7 +32,6 @@ public class MonopolyController implements ActionListener {
             else {
                 JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
             }
-
         }
 
         if(button.equals("status")){
