@@ -344,7 +344,7 @@ public class MonopolyModel {
 
     private void makeDecision() {
         //try to buy houses
-        handleAIHouses();
+        buyHouses();
         //roll
         handleAiRoll();
         
@@ -456,7 +456,7 @@ public class MonopolyModel {
         }
 
         for(Space property: getPlayer().getProperties()){
-            if(((Property) property).getSet().equals(colourSet)){
+            if(((Property) property).getSet().equals(colourSet)){ //make sure not possible for game to pass something other than properties IE: railroad util
                 setCount++;
             }
         }
@@ -465,15 +465,15 @@ public class MonopolyModel {
         //brown or light blue set
         if(setCount == 2 && colourSet.equals("#00008B") || setCount == 2 && colourSet.equals("#964B00")){
             if(colourSet.equals("#00008B") && getPlayer().getMoney() >= (200 * 2)){ //dark blue
-                players.get(currentPlayer).removeMoney(400);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(400);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(getPlayer().getMoney() >= (50 * 2)){ //brown
                 System.out.println("break 222");
-                players.get(currentPlayer).removeMoney(100);
+                getPlayer().removeMoney(100);
                 for(Space property: players.get(currentPlayer).getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
@@ -483,43 +483,43 @@ public class MonopolyModel {
 
         } else  if(setCount == 3){ //all the other sets
             if(colourSet.equals("#add8e6") && getPlayer().getMoney() >= (50 * 3)){ //light blue
-                players.get(currentPlayer).removeMoney(150);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(150);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(colourSet.equals("#E36B89") && getPlayer().getMoney() >= (100 * 3)){ //purple
-                players.get(currentPlayer).removeMoney(300);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(300);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(colourSet.equals("#FFA500") && getPlayer().getMoney() >= (100 * 3)){ //orange
-                players.get(currentPlayer).removeMoney(300);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(300);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(colourSet.equals("#FF0000") && getPlayer().getMoney() >= (150 * 3)){ //red
-                players.get(currentPlayer).removeMoney(450);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(450);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(colourSet.equals("#FFFF00") && getPlayer().getMoney() >= (150 * 3)){ //yellow
-                players.get(currentPlayer).removeMoney(450);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(450);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }
                 }
             } else if(colourSet.equals("#228B22") && getPlayer().getMoney() >= (200 * 3)){ //green
-                players.get(currentPlayer).removeMoney(600);
-                for(Space property: players.get(currentPlayer).getProperties()){
+                getPlayer().removeMoney(600);
+                for(Space property: getPlayer().getProperties()){
                     if(((Property) property).getSet().equals(colourSet)){
                         addedHouse = ((Property) property).addHouse(1);
                     }

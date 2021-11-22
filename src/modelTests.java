@@ -122,5 +122,22 @@ public class modelTests extends TestCase {
 
         assertEquals(moneyO + rent, model.getPlayers().get(1).getMoney());
 
-    }
+    }/*
+    public void testAiBuyHouses(){
+         aiNumber = new ArrayList<>();
+         aiNumber.add(1);
+         aiNumber.add(0);
+        players = new ArrayList<String>();
+        players.add("Bot");
+        players.add("Paul");
+
+        model = new MonopolyModel(players, aiNumber);
+
+        ((Property) model.getBoard().get(3)).setOwner(model.getPlayers().get(0));
+        ((Property) model.getBoard().get(1)).setOwner(model.getPlayers().get(0));
+        model.buyHouses();
+
+        assertEquals(((Property) model.getBoard().get(1)).getHouses(), 1); //refactor buy houses for this test to maybe work
+
+    }*/
 }
