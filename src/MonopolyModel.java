@@ -39,6 +39,11 @@ public class MonopolyModel {
         die.roll();
 
         //double handling
+        if (die.getDoubleCount()> 2){
+            players.get(currentPlayer).setLocation(10);
+            players.get(currentPlayer).setTurn(false);
+        }
+        /*
         if (die.getDoubleCount() > 2) {
             players.get(currentPlayer);
             for(MonopolyView views : views){
@@ -48,6 +53,8 @@ public class MonopolyModel {
             //players.get(currentPlayer).setTurn(false);
             nextTurn();
         }
+
+         */
 
 
         if (players.get(currentPlayer).isTurn()) {
@@ -623,5 +630,25 @@ public class MonopolyModel {
             nextTurn();
             die.resetDoubles();
         }
+    }
+
+    void goToJail (){
+        players.get(currentPlayer).setLocation(10);
+        jail.addPrisoner(players.get(currentPlayer));
+        boolean inJail = true;
+        int count = 0;
+
+        while (inJail && count <=3){
+            if (){
+                //skip turn
+                count++;
+            }
+            else(){
+                //pay fine
+                jail.removePrisoner(players.get(currentPlayer));
+                inJail = false;
+            }
+        }
+
     }
 }
