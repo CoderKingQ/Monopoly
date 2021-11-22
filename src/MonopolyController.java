@@ -23,11 +23,20 @@ public class MonopolyController implements ActionListener {
 
         if(button.equals("roll")){
             model.roll();
-            JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
+            if (model.getBoard().get(model.getPlayer().getLocation()).getName().equals("Jail")) {
+                JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is just visiting " + model.getBoard().get(model.getPlayer().getLocation()).getName());
+            }
+            else if (model.getBoard().get(model.getPlayer().getLocation()).getName().equals("Go To Jail")){
+                JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is going to Jail");
+            }
+            else {
+                JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
+            }
 
         }
 
         if(button.equals("status")){
+            //JOptionPane.showMessageDialog(null, model.status());
             model.status();
         }
 
