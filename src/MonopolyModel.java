@@ -194,8 +194,6 @@ public class MonopolyModel {
         if (getPlayer().isTurn() && (getPlayer().getLockdown()) == false) {
             getPlayer().setLocation(getPlayer().getLocation() + die.getCurrentRoll());
             System.out.println(getPlayer().getLocation());
-            views.get(0).handleDisplayChar(currentPlayer, getPlayer().getLocation(), getPlayer().getLocationGUI(getPlayer().getLocation()));
-            views.get(0).handleDisplay();
 
             //check if property is purchasable and what kind it is
             if ((board.get(getPlayer().getLocation()) instanceof Property)) {

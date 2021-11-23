@@ -20,5 +20,4 @@ public interface MonopolyView {
 
     int modRollValue();
 
-    void handleJailEvent(Player player, int playerLocation);
 }
