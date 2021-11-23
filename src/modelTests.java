@@ -1,5 +1,5 @@
 
-/*
+
 import junit.framework.*;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class modelTests extends TestCase {
 
      }
 */
-/*
+
      public void testBuyRailroad(){
      players = new ArrayList<String>();
      players.add("Paul");
@@ -169,4 +169,3 @@ public class modelTests extends TestCase {
     }
 }
 
- */
