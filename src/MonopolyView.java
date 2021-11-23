@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public interface MonopolyView {
     void handleDisplayChar(int curPlayer, int location, int locationGUI);
     void handleDisplay();
@@ -21,4 +19,5 @@ public interface MonopolyView {
 
     int modRollValue();
 
+    void handleJailEvent(Player player, int playerLocation);
 }
