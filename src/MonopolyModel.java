@@ -342,7 +342,10 @@ public class MonopolyModel {
             views.get(0).declareWinner();
         }
     }
-
+/*
+AI will attempt to buy a house on already owned property then roll the dice to finally either pay someone rent or buy the next property
+after the Roll.
+ */
     private void makeDecision() {
         //try to buy houses
         handleAIHouses();
@@ -351,7 +354,9 @@ public class MonopolyModel {
         
 
     }
-
+    /*
+    Attempts to buy a single house on each of the set properties the AI is currently on
+     */
     public void handleAIHouses() {
         String colourSet;
         //Checks if AI owns the set he is currently on.
@@ -497,9 +502,9 @@ public class MonopolyModel {
       *
      */
     public void buyUtilities(){
-        this.getPlayer().removeMoney(((Utilities) board.get(this.getPlayer().getLocation())).getCost()); //update money
+        getPlayer().removeMoney(((Utilities) board.get(this.getPlayer().getLocation())).getCost()); //update money
         ((Utilities) board.get(this.getPlayer().getLocation())).setOwner(this.getPlayer()); //update owner
-        this.getPlayer().addProperty(board.get(this.getPlayer().getLocation())); //add property to player
+        getPlayer().addProperty(board.get(this.getPlayer().getLocation())); //add property to player
 
     }
 
