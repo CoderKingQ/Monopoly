@@ -96,6 +96,10 @@ public class Player {
     public int getLockCount(){
         return this.lockCount;
     }
+
+    /**
+     *  resetLockCount resets the lockdown counter to zero
+     */
     public void resetLockCount(){
         this.lockCount = 0;
     }
@@ -212,7 +216,6 @@ public class Player {
         this.turn = turn;
     }
 
-    public void skipTurn(){ setTurn(false);}
 
     /** getLocationGUI returns the array of the player on the grid bassed on their location in the array list
      *
@@ -245,26 +248,6 @@ public class Player {
      */
     public boolean isAi() {
         return isAi;
-    }
-
-    /**
-     * sets the player as an AI
-     * @param ai boolean, if the player is an ai or not
-     */
-    public void setAi(boolean ai) {
-        isAi = ai;
-    }
-
-    public void jailCount() {
-        jailCount ++;
-    }
-
-    public int getJailCount() {
-        return jailCount;
-    }
-
-    public void resetCount(){
-        jailCount = 0;
     }
 
 

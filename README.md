@@ -32,12 +32,9 @@ In this milestone, in addition to the features added, changes were made to the c
   - MonopolyFrame 
   - MonopolyModel
   - MonopolyView
-  - Board Generator 
-  - Command
   - Dice
   - Event
   - Game
-  - Jail
   - Player
   - Property
   - Railroad
@@ -48,14 +45,15 @@ In this milestone, in addition to the features added, changes were made to the c
 A UML Class Diagram which shows and describes the structure of our monopoly system. It shows the classes, their attributes and methods. It also shows the relationship between classes.
 
 ### UML Sequence Diagram:
-There are 3 sequence diagrams that show the interactions for when a  
+There are 4 sequence diagrams that show the interactions for when a  
   - A player buys a property/railroad/utility
   - A player pays rent on a property and goes bankrupt
   - An A.I buys a property
+  - A Player buys a house
 
 # Issues to be addressed
-- Organize code better
-- Display player names in a more visually appealling way 
+- Update frames better
+
 
 # Future Milestones/Roadmap:
 As the project progresses, the following would be added:         

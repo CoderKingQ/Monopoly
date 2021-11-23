@@ -20,4 +20,6 @@ public interface MonopolyView {
 
     int modRollValue();
 
+    void alertWhoseTurn();
+
 }

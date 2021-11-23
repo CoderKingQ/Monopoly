@@ -484,11 +484,22 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         }
     }
 
+    /** modRollValue prompts the user to input a distance they wish to travel, this is only used for testing and not for actual gameplay
+     *
+     * @return int, the Value the player entered
+     */
     public int modRollValue(){
         String rollValue = JOptionPane.showInputDialog(this, "Enter a roll number ", 2);
         int rollV = Integer.parseInt(rollValue);
 
         return rollV;
+    }
+
+    /** alertWhoseTurn alerts a player when it is their turn
+     *
+     */
+    public void alertWhoseTurn() {
+        JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
     }
 
 
