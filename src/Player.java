@@ -4,6 +4,7 @@ public class Player {
     private ArrayList<Space> properties;
     private int location;
     private int money;
+    private int jailCount;
     private String name;
     private boolean playing;
     private boolean turn;
@@ -20,6 +21,7 @@ public class Player {
         this.name = name;
         this.properties = new ArrayList<Space>();
         this.money = 1500;
+        this.jailCount = 0;
         this.location = 0;
         this.playing = true;
         this.turn = false;
@@ -210,6 +212,8 @@ public class Player {
         this.turn = turn;
     }
 
+    public void skipTurn(){ setTurn(false);}
+
     /** getLocationGUI returns the array of the player on the grid bassed on their location in the array list
      *
      * @param locationArrayList int, there location in the arraylist
@@ -250,4 +254,18 @@ public class Player {
     public void setAi(boolean ai) {
         isAi = ai;
     }
+
+    public void jailCount() {
+        jailCount ++;
+    }
+
+    public int getJailCount() {
+        return jailCount;
+    }
+
+    public void resetCount(){
+        jailCount = 0;
+    }
+
+
 }

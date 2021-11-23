@@ -23,7 +23,7 @@ public class BoardGenerator {
         board.add(new Property(8,"Vermont Avenue", "#add8e6", 100, 6));
         board.add(new Property(9,"Connecticut Avenue", "#add8e6", 120, 8));
 
-        board.add(new Event(10, "Jail", 0));
+        board.add(new Jail(10, "Jail", 50));
         board.add(new Property(11,"St. Charles Place", "#E36B89", 140, 10));
         board.add(new Utilities(12,"Electric Company"));
         board.add(new Property(13,"States Avenue", "#E36B89", 140, 10));

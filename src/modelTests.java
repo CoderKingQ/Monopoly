@@ -63,11 +63,12 @@ public class modelTests extends TestCase {
         aiNumber.add(0);
         model = new MonopolyModel(players, aiNumber);
         int moneyO = model.getPlayers().get(1).getMoney();
-        int moneyR = model.getPlayers().get(0).getMoney();
         model.getPlayer().setLocation(12);
         model.buyUtilities();
-        assertEquals(model.getPlayer(),((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getOwner()); //tests for ownership
-        assertEquals(moneyO - (((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getCost()),model.getPlayer().getMoney() );
+        int cost = (((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getCost());
+        Player owner = ((Utilities) model.getBoard().get(model.getPlayer().getLocation())).getOwner();
+        assertEquals(model.getPlayer(),owner); //tests for ownership
+        assertEquals(moneyO - cost,model.getPlayer().getMoney() );
     }
 
 
@@ -163,7 +164,7 @@ public class modelTests extends TestCase {
         model.handleAIHouses();
 
 
-        assertEquals(1,((Property) model.getBoard().get(3)).getHouses() ); //refactor buy houses for this test to maybe work
+        assertEquals(1,((Property) model.getBoard().get(3)).getHouses() );
 
     }
 }
