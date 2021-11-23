@@ -368,7 +368,10 @@ public class MonopolyModel {
             views.get(0).declareWinner();
         }
     }
-
+/*
+AI will attempt to buy a house on already owned property then roll the dice to finally either pay someone rent or buy the next property
+after the Roll.
+ */
     private void makeDecision() {
         //try to buy houses
         buyHouses();
@@ -378,7 +381,107 @@ public class MonopolyModel {
 
     }
 
-    private void handleAIHouses() {
+    /*
+    Attempts to buy a single house on each of the set properties the AI is currently on
+     */
+    public void handleAIHouses() {
+        String colourSet;
+        //Checks if AI owns the set he is currently on.
+        if((board.get(getPlayer().getLocation())) instanceof Property) {
+
+            colourSet = (((Property) board.get(getPlayer().getLocation())).getSet());
+        }else{colourSet = "";}
+        int setCount = 0;
+
+        if(colourSet.equals("Brown")){
+            colourSet = "#964B00";
+        } else if(colourSet.equals("Light Blue")){
+            colourSet = "#add8e6";
+        } else if(colourSet.equals("Purple")){
+            colourSet = "#E36B89";
+        } else if(colourSet.equals("Orange")){
+            colourSet = "#FFA500";
+        } else if(colourSet.equals("Red")){
+            colourSet = "#FF0000";
+        } else if(colourSet.equals("Yellow")){
+            colourSet = "#FFFF00";
+        } else if(colourSet.equals("Green")){
+            colourSet = "#228B22";
+        } else if(colourSet.equals("Dark Blue")){
+            colourSet = "#00008B";
+        }
+
+        for(Space property: getPlayer().getProperties()){
+            if(((Property) property).getSet().equals(colourSet)){ //make sure not p
+                setCount++;
+            }
+        }
+
+        boolean addedHouse = false;
+        //brown or light blue set
+        if(setCount == 2 && colourSet.equals("#00008B") || setCount == 2 && colourSet.equals("#964B00")){
+            if(colourSet.equals("#00008B") && getPlayer().getMoney() >= (200 * 2)){ //dark blue
+                getPlayer().removeMoney(400);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(getPlayer().getMoney() >= (50 * 2)){ //brown
+                System.out.println("break 222");
+                getPlayer().removeMoney(100);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            }
+
+        } else  if(setCount == 3){ //all the other sets
+            if(colourSet.equals("#add8e6") && getPlayer().getMoney() >= (50 * 3)){ //light blue
+                getPlayer().removeMoney(150);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#E36B89") && getPlayer().getMoney() >= (100 * 3)){ //purple
+                getPlayer().removeMoney(300);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FFA500") && getPlayer().getMoney() >= (100 * 3)){ //orange
+                getPlayer().removeMoney(300);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FF0000") && getPlayer().getMoney() >= (150 * 3)){ //red
+                getPlayer().removeMoney(450);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#FFFF00") && getPlayer().getMoney() >= (150 * 3)){ //yellow
+                getPlayer().removeMoney(450);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            } else if(colourSet.equals("#228B22") && getPlayer().getMoney() >= (200 * 3)){ //green
+                getPlayer().removeMoney(600);
+                for(Space property: getPlayer().getProperties()){
+                    if(((Property) property).getSet().equals(colourSet)){
+                        addedHouse = ((Property) property).addHouse(1);
+                    }
+                }
+            }
+        }
     }
 
 
@@ -426,9 +529,9 @@ public class MonopolyModel {
       *
      */
     public void buyUtilities(){
-        this.getPlayer().removeMoney(((Utilities) board.get(this.getPlayer().getLocation())).getCost()); //update money
+        getPlayer().removeMoney(((Utilities) board.get(this.getPlayer().getLocation())).getCost()); //update money
         ((Utilities) board.get(this.getPlayer().getLocation())).setOwner(this.getPlayer()); //update owner
-        this.getPlayer().addProperty(board.get(this.getPlayer().getLocation())); //add property to player
+        getPlayer().addProperty(board.get(this.getPlayer().getLocation())); //add property to player
 
     }
 
