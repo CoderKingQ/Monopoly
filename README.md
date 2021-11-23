@@ -22,7 +22,7 @@ The houses and hotels feature enables the players to build houses on their prope
 The jail is used when players roll a double or land on "Go To Jail". They are sent to jail. Here they coudld either skip three turns, roll a double or pay the fine to get out of jail.   
 Players can add A.I players to play the game with them. The A.I players would be able to play the game just like any other player woudld. They'll be able to purchased properties, build houses and hotels, pay rent, go to jail, etc.  
 Changes Made:  
-In this milestone, in addition to the features added, changes were made to the constructors of MonopolyModel and Player classes to include A.I. Also the access modifiers for method nextTurn() was changed from private to public to enable more efficient access to nextTurn().
+In this milestone, in addition to the features added, changes were made to the constructors of MonopolyModel and Player classes to include the A.I players. Also the access modifiers for method nextTurn() was changed from private to public to enable more efficient access to nextTurn().
 
 # Deliverables:
 ### Project Code:  
