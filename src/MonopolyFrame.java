@@ -400,7 +400,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     /** handleBuyProperty prompts the player to buy or pass on the property
      *
      * @param space Space, the purchasable space
-     * @return boolean, wether the property has been purchased or not
+     * @return boolean, whether the property has been purchased or not
      */
     public boolean handleBuyProperty(Space space){
         int result = JOptionPane.showConfirmDialog(this,"Hey "+ model.getPlayer().getName() + " you just landed on " + space.getName() + " would you like to buy it?", "Would you like to buy property",
@@ -410,6 +410,22 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             return true;
         } else return false;
     }
+
+    /**
+     * handleJ prompts the player to pay 50 to get out of jail
+     * @return boolean, whether they payed 50 or not
+     */
+
+    public boolean handleJ(){
+        int result = JOptionPane.showConfirmDialog(this,"Do you want to pay 50 to get out of jail?", "pay to get out of jail?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if(result == JOptionPane.YES_OPTION){
+            return true;
+        } else return false;
+    }
+
+
 
     /** handlePayEvent displays what event the player landed on and how much they pay out
      *
@@ -443,12 +459,22 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
     }
 
+
+    /**
+     * propertyToAddHouses prompt the user to select which set to add houses to
+     * @return String, colourSet the set that the user wishes to add houses to
+     */
     public String propertyToAddHouses(){
         String[] options = {"Brown", "Light Blue", "Purple", "Orange", "Red", "Yellow", "Green", "Dark Blue"};
         Object selectionObject = JOptionPane.showInputDialog(this, "Choose the colour set you wish to add a set of houses to:", "House Selection", JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
         String colourSet = selectionObject.toString();
         return colourSet;
     }
+
+    /**
+     * housesAdded checks if the houses were successfully added or not
+     * @param housesAdded boolean, if the transaction was a success or not
+     */
 
     public void housesAdded(boolean housesAdded){
         if(housesAdded){
@@ -464,6 +490,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
         return rollV;
     }
+
 
     public static void main(String[] args) { new MonopolyFrame();}
 }

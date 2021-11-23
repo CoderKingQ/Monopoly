@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public interface MonopolyView {
+    boolean handleJ();
     void handleDisplayChar(int curPlayer, int location, int locationGUI);
     void handleDisplay();
     boolean handleBuyProperty(Space space);

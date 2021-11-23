@@ -8,6 +8,8 @@ public class Player {
     private boolean playing;
     private boolean turn;
     private boolean isAi;
+    private boolean lockdown;
+    private int lockCount;
 
     /** Constructor for player
      *
@@ -21,6 +23,8 @@ public class Player {
         this.location = 0;
         this.playing = true;
         this.turn = false;
+        this.lockdown = false;
+        this.lockCount = 0;
         if(isAi == 1) {
             this.isAi = true;
         } else{this.isAi = false;}
@@ -54,6 +58,47 @@ public class Player {
         return i;
     }
 
+    /**
+     * getLockdown returns if the player is in jail
+     * @return
+     */
+    public boolean getLockdown(){
+        return this.lockdown;
+    }
+
+    /**
+     * setLockdown sets the player as being in jail
+     */
+    public void setLockdown(){
+        this.lockdown = true;
+    }
+
+    /**
+     * removeLockdown removes the player from being in jail
+     */
+    public void removeLockdown(){
+        this.lockdown = false;
+    }
+
+    /**
+     * increaseLockCount increments the lockCount by 1
+     */
+    public void increaseLockCount(){
+        lockCount++;
+    }
+
+    /**
+     * getLockCount returns the current lockCount of the player
+     * @return int lockCount, the amount of turns the player has been locked up
+     */
+    public int getLockCount(){
+        return this.lockCount;
+    }
+    public void resetLockCount(){
+        this.lockCount = 0;
+    }
+
+
     /** getName returns the name of the player
      *
      * @return String, name
@@ -69,9 +114,19 @@ public class Player {
     public int getMoney() {
         return money;
     }
+
+    /**
+     * adds money to the player
+     * @param payment int, the money to be added
+     */
     public void addMoney(int payment){
         money += payment;
     }
+
+    /**
+     * removes money from the player
+     * @param payment int, the money to be removed
+     */
     public void removeMoney(int payment){
         money -= payment;
     }
@@ -179,10 +234,19 @@ public class Player {
             return (count);
         }
     }
+
+    /**
+     * checks if the player is an AI
+     * @return boolean isAi, is the player and AI or not
+     */
     public boolean isAi() {
         return isAi;
     }
 
+    /**
+     * sets the player as an AI
+     * @param ai boolean, if the player is an ai or not
+     */
     public void setAi(boolean ai) {
         isAi = ai;
     }
