@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class MonopolyController implements ActionListener {
 
@@ -36,6 +37,25 @@ public class MonopolyController implements ActionListener {
 
         if(button.equals("modRoll")){
             model.modRoll();
+        }
+
+        if(button.equals("load")){
+            try {
+                model.load();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        if(button.equals("save")){
+            try {
+                model.save();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         }
     }
 }

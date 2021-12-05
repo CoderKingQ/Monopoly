@@ -1,5 +1,9 @@
-public class Event extends Space{
+import java.io.Serializable;
+
+public class Event extends Space implements Serializable {
     private int payment;
+
+    private static final long serialVersionUID = 8197539486241140019L;
 
     /** The constructor for Event
      *

@@ -1,6 +1,10 @@
-public class Utilities extends Space{
+import java.io.Serializable;
+
+public class Utilities extends Space implements Serializable {
     private int cost = 150;
     private Player owner;
+
+    //private static final long serialVersionUID = 6222539486241140019L;
 
     /** The constructor for Utilities
      *
@@ -46,5 +50,13 @@ public class Utilities extends Space{
      */
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Utilities{" + this.getName() +
+                "cost=" + cost +
+                ", owner=" + owner.getName() +
+                '}';
     }
 }

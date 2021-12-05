@@ -1,13 +1,16 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonopolyModel {
+public class MonopolyModel implements Serializable{
     private ArrayList<Space> board;
     private ArrayList<Player> players;
     private Dice die;
     public int currentPlayer;
     private List<MonopolyView> views;
 
+
+    private static final long serialVersionUID = 6267539486241140019L;
     /**
      * getBoard creates the game board
      * @return ArrayList<Space>, board the monopoly board
@@ -859,4 +862,18 @@ public class MonopolyModel {
             die.resetDoubles();
         }
     }
+
+    public void save() throws IOException {
+        views.get(0).saveModel();
+    }
+
+    public void load() throws IOException, ClassNotFoundException {
+        views.get(0).loadModel();
+    }
+
+    public void setView(MonopolyView view){
+        this.views.set(0, view);
+    }
+
+
 }

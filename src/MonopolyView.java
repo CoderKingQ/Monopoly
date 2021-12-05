@@ -1,3 +1,6 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public interface MonopolyView {
     boolean handleJ();
     void handleDisplayChar(int curPlayer, int location, int locationGUI);
@@ -21,5 +24,9 @@ public interface MonopolyView {
     int modRollValue();
 
     void alertWhoseTurn();
+
+    void loadModel() throws IOException, ClassNotFoundException;
+
+    void saveModel() throws IOException;
 
 }

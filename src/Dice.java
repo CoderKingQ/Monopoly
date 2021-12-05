@@ -1,9 +1,12 @@
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dice {
+public class Dice implements Serializable {
     private int currentRoll;
     private boolean doubles;
     private int doubleCount = 0;
+
+    private static final long serialVersionUID = 4897539486241140019L;
 
     /** rollDie generates and returns a random number from 1-6 inclusive
      *

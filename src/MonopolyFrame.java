@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 public class MonopolyFrame extends JFrame implements MonopolyView{
@@ -78,7 +79,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
         model = new MonopolyModel(names,aiNumber);
         model.addMonopolyView(this);
-
         handleDisplay();
     }
 
@@ -372,6 +372,24 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
             count++;
         }
 
+        //Menu Stuff
+        JMenuBar menu = new JMenuBar();
+        this.setJMenuBar(menu);
+
+        JMenu file = new JMenu("File");
+        menu.add(file);
+
+        JMenuItem load = new JMenuItem("Load");
+        file.add(load);
+        load.setActionCommand("load");
+        load.addActionListener(mc);
+
+        JMenuItem save = new JMenuItem("Save");
+        file.add(save);
+        save.setActionCommand("save");
+        save.addActionListener(mc);
+
+
 
         this.setVisible(true);
     }
@@ -499,9 +517,45 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
      *
      */
     public void alertWhoseTurn() {
-        JOptionPane.showMessageDialog(null, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
+        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " is at " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " it is now your turn");
     }
 
 
     public static void main(String[] args) { new MonopolyFrame();}
+
+
+
+    public void saveModel() throws IOException {
+        String fileName = JOptionPane.showInputDialog(this, "Enter a file name");
+
+        FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".ser");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        objectOutputStream.writeObject(model);
+        objectOutputStream.close();
+        fileOutputStream.close();
+
+        handleDisplay();
+    }
+
+    public void loadModel() throws IOException, ClassNotFoundException {
+        String fileName = JOptionPane.showInputDialog(this, "Enter the file name you wish to load");
+
+        FileInputStream fileInputStream = new FileInputStream(fileName + ".ser");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        MonopolyModel loadedModel = (MonopolyModel) objectInputStream.readObject();
+
+        this.model = loadedModel;
+
+        ArrayList<String> names = new ArrayList<>();
+        for(Player player : model.getPlayers()){
+            names.add(player.getName());
+        }
+        this.displayName = names;
+        model.setView(this);
+
+        objectInputStream.close();
+        fileInputStream.close();
+
+    }
+
 }

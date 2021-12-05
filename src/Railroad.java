@@ -1,6 +1,10 @@
-public class Railroad extends Space{
+import java.io.Serializable;
+
+public class Railroad extends Space implements Serializable {
     private int cost = 200;
     private Player owner;
+
+    //private static final long serialVersionUID = 6267539999241140019L;
 
     /** The constructor for Railroad
      *
@@ -51,4 +55,11 @@ public class Railroad extends Space{
         this.owner = owner;
     }
 
+    @Override
+    public String toString() {
+        return "Railroad{" +
+                "cost=" + cost +
+                ", owner=" + owner.getName() +
+                '}';
+    }
 }

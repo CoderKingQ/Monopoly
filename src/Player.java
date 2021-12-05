@@ -1,6 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
+
+    //private static final long serialVersionUID = 6267539466641140019L;
+
     private ArrayList<Space> properties;
     private int location;
     private int money;
@@ -250,5 +254,19 @@ public class Player {
         return isAi;
     }
 
-
+    @Override
+    public String toString() {
+        return "Player{" +
+                "properties=" + properties.toString() +
+                ", location=" + location +
+                ", money=" + money +
+                ", jailCount=" + jailCount +
+                ", name='" + name + '\'' +
+                ", playing=" + playing +
+                ", turn=" + turn +
+                ", isAi=" + isAi +
+                ", lockdown=" + lockdown +
+                ", lockCount=" + lockCount +
+                '}';
+    }
 }

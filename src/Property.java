@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Property extends Space{
+public class Property extends Space implements Serializable {
 
     private String set;
     private int cost;
@@ -7,6 +8,8 @@ public class Property extends Space{
     private int houses;
     private int hotel;
     private Player owner;
+
+    //private static final long serialVersionUID = 6267539400041140019L;
 
     /** The constructor for property
      *
@@ -88,5 +91,17 @@ public class Property extends Space{
      */
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "Property{" +
+                "set='" + set + '\'' +
+                ", cost=" + cost +
+                ", rent=" + rent +
+                ", houses=" + houses +
+                ", hotel=" + hotel +
+                ", owner=" + owner.getName() +
+                '}';
     }
 }

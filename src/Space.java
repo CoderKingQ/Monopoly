@@ -1,6 +1,10 @@
-public class Space {
+import java.io.Serializable;
+
+public class Space implements Serializable {
     private String name;
     private int location;
+
+    //private static final long serialVersionUID = 6267539486245980019L;
 
     /** The constructor for space
      *
@@ -28,5 +32,11 @@ public class Space {
         return location;
     }
 
-
+    @Override
+    public String toString() {
+        return "Space{" +
+                "name='" + name + '\'' +
+                ", location=" + location +
+                '}';
+    }
 }
