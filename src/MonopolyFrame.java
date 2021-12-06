@@ -20,17 +20,19 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     private int count3;
     private int count;
     private int locationGUI;
+    private int isCustomMap;
+    private boolean cMap;
 
     /** the construct for MonopolyFrame which draws the initial board
      *
      */
-    public MonopolyFrame(){
+    public MonopolyFrame() throws IOException {
         super("Monopoly 0.5");
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800,900);
 
-
+        isCustomMap = JOptionPane.showConfirmDialog(this,"Would you like to load a custom map?","Custom Map?",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
         //Set up number of players;
         String NOplayers = "1";
         while(Integer.parseInt( NOplayers) < 2 || Integer.parseInt( NOplayers) > 8 ) {
@@ -76,8 +78,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 displayName.add(name);
                 names.add(name);
         }
-
-        model = new MonopolyModel(names,aiNumber);
+        if(isCustomMap == JOptionPane.YES_OPTION){
+            cMap = true;
+        }else{cMap=false;}
+        model = new MonopolyModel(names,aiNumber,cMap);
         model.addMonopolyView(this);
         handleDisplay();
     }
@@ -521,7 +525,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     }
 
 
-    public static void main(String[] args) { new MonopolyFrame();}
+    public static void main(String[] args) throws IOException { new MonopolyFrame();}
 
 
 

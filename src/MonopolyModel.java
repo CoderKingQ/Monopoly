@@ -8,6 +8,12 @@ public class MonopolyModel implements Serializable{
     private Dice die;
     public int currentPlayer;
     private List<MonopolyView> views;
+    private ArrayList<String> customMap;
+    private ArrayList<Integer> customMapCost;
+    private ArrayList<Integer> customMapRent;
+    private boolean isCustomMap;
+    private String currency;
+    private File mapFile;
 
 
     private static final long serialVersionUID = 6267539486241140019L;
@@ -22,10 +28,24 @@ public class MonopolyModel implements Serializable{
     /**
      * Game's constructor creating a new game
      */
-    public MonopolyModel(ArrayList<String> names, ArrayList<Integer> aiNumber) {
+    public MonopolyModel(ArrayList<String> names, ArrayList<Integer> aiNumber,boolean isCustomMap) throws IOException {
         this.die = new Dice();
         this.board = new ArrayList<Space>();
-        this.generateBoard();
+        this.customMap = new ArrayList<>();
+        this.customMapCost = new ArrayList<>();
+        this.customMapRent = new ArrayList<>();
+        this.isCustomMap = isCustomMap;
+
+
+        if(!isCustomMap) {
+            this.generateBoard();
+        }else{
+
+            mapFile = new File("src/maptest.txt");
+            customMap(mapFile);
+            this.generateCustomBoard();
+
+        }
         this.players = new ArrayList<>();
         for (int i = 0; i < names.size(); i++) {
             players.add(new Player(names.get(i), aiNumber.get(i)));
@@ -581,6 +601,52 @@ public class MonopolyModel implements Serializable{
         board.add(new Property(39,"Boardwalk", "#00008B", 400, 50));
     }
 
+    public void generateCustomBoard(){
+        board.add(new Event(0, customMap.get(0), 0));
+        board.add(new Property(1,customMap.get(1), "#964B00", customMapCost.get(1), customMapRent.get(1)));
+        board.add(new Event(2, customMap.get(2), 0));
+        board.add(new Property(3,customMap.get(3), "#964B00", customMapCost.get(3), customMapRent.get(3)));
+        board.add(new Event(4, customMap.get(4), 200));
+        board.add(new Railroad(5,customMap.get(5)));
+        board.add(new Property(6,customMap.get(6), "#add8e6", customMapCost.get(6), customMapRent.get(6)));
+        board.add(new Event(7, customMap.get(7), 0));
+        board.add(new Property(8,customMap.get(8), "#add8e6", customMapCost.get(8), customMapRent.get(8)));
+        board.add(new Property(9,customMap.get(9), "#add8e6", customMapCost.get(9), customMapRent.get(9)));
+
+        board.add(new Event(10, customMap.get(10), 0));
+        board.add(new Property(11,customMap.get(11), "#E36B89", customMapCost.get(11), customMapRent.get(11)));
+        board.add(new Utilities(12,customMap.get(12)));
+        board.add(new Property(13,customMap.get(13), "#E36B89", customMapCost.get(13), customMapRent.get(13)));
+        board.add(new Property(14,customMap.get(14), "#E36B89", customMapCost.get(14), customMapRent.get(14)));
+        board.add(new Railroad(15,customMap.get(15)));
+        board.add(new Property(16,customMap.get(16), "#FFA500", customMapCost.get(16), customMapRent.get(16)));
+        board.add(new Event(17, customMap.get(17), 0));
+        board.add(new Property(18,customMap.get(18), "#FFA500", customMapCost.get(18), customMapRent.get(18)));
+        board.add(new Property(19,customMap.get(19), "#FFA500", customMapCost.get(19), customMapRent.get(19)));
+
+        board.add(new Event(20, customMap.get(20), 0));
+        board.add(new Property(21,customMap.get(21), "#FF0000", customMapCost.get(21), customMapRent.get(21)));
+        board.add(new Event(22, customMap.get(22), 0));
+        board.add(new Property(23,customMap.get(23), "#FF0000", customMapCost.get(23), customMapRent.get(23)));
+        board.add(new Property(24,customMap.get(24), "#FF0000", customMapCost.get(24), customMapRent.get(24)));
+        board.add(new Railroad(25,customMap.get(25)));
+        board.add(new Property(26,customMap.get(26), "#FFFF00", customMapCost.get(26), customMapRent.get(26)));
+        board.add(new Property(27,customMap.get(27), "#FFFF00", customMapCost.get(27), customMapRent.get(27)));
+        board.add(new Utilities(28,customMap.get(28)));
+        board.add(new Property(29,customMap.get(29), "#FFFF00", customMapCost.get(29), customMapRent.get(29)));
+
+        board.add(new Event(30, customMap.get(30), 0));
+        board.add(new Property(31,customMap.get(31), "#228B22", customMapCost.get(31), customMapRent.get(31)));
+        board.add(new Property(32,customMap.get(32), "#228B22", customMapCost.get(32), customMapRent.get(32)));
+        board.add(new Event(33, customMap.get(33), 0));
+        board.add(new Property(34,customMap.get(34), "#228B22", customMapCost.get(34), customMapRent.get(34)));
+        board.add(new Railroad(35,customMap.get(35)));
+        board.add(new Event(36, customMap.get(36), 0));
+        board.add(new Property(37,customMap.get(37), "#00008B", customMapCost.get(37), customMapRent.get(37)));
+        board.add(new Event(38, customMap.get(38), 100));
+        board.add(new Property(39,customMap.get(39), "#00008B", customMapCost.get(39), customMapRent.get(39)));
+    }
+
     /**
      * getPLayers returns the arraylist of players
      *
@@ -869,6 +935,34 @@ public class MonopolyModel implements Serializable{
 
     public void load() throws IOException, ClassNotFoundException {
         views.get(0).loadModel();
+    }
+    public void customMap(File map) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(map));
+
+        try{
+            String line;
+            while((line = reader.readLine())!= null){
+                if(line.charAt(0) == ' '){ //&& line.charAt(1) == '@'
+                    String[] location = line.split("[.]");
+                    customMap.add(location[1]);
+                    if(location.length>2) {
+                        customMapRent.add(Integer.parseInt(location[3]));
+                        customMapCost.add(Integer.parseInt(location[2]));
+                    }else{
+                        customMapRent.add(0); //for non-property spaces to maintain index:location relationship
+                        customMapCost.add(0);
+                    }
+                }else if(line.charAt(0) == '@'){//&& line.charAt(1) != '@'
+                    String[] curr = line.split("[.]");
+                    currency = curr[1];
+                }
+            }
+
+        }finally {
+            reader.close();
+           // views.get(0).handleDisplay();
+        }
+        //handle a message dialog for map loaded
     }
 
     public void setView(MonopolyView view){
