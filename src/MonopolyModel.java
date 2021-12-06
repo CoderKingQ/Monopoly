@@ -2,15 +2,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonopolyModel implements Serializable{
+public class MonopolyModel {
     private ArrayList<Space> board;
     private ArrayList<Player> players;
     private Dice die;
     public int currentPlayer;
     private List<MonopolyView> views;
 
-
-    private static final long serialVersionUID = 6267539486241140019L;
     /**
      * getBoard creates the game board
      * @return ArrayList<Space>, board the monopoly board
@@ -871,9 +869,26 @@ public class MonopolyModel implements Serializable{
         views.get(0).loadModel();
     }
 
-    public void setView(MonopolyView view){
-        this.views.set(0, view);
+    public Dice getDie(){
+        return die;
     }
+
+    public void setBoard(ArrayList board){
+        this.board = board;
+    }
+
+    public void setPlayers(ArrayList players){
+        this.players = players;
+    }
+
+    public void setDie(Dice die){
+        this.die = die;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
 
 
 }
