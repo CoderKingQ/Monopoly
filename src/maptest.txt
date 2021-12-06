@@ -1,0 +1,41 @@
+ .GO
+ .b.1.2
+ .Community Chest
+ .b.1.2
+ .income Tax
+ .Reading Railroad
+ .b.1.2
+ .Chance
+ .b.1.2
+ .b.1.2
+ .Jail
+ .b.1.2
+ .Electric Company
+ .b.1.2
+ .b.1.2
+ .Pen Railroad
+ .b.1.2
+ .Community Chest
+ .b.1.2
+ .b.1.2
+ .FreeParking
+ .b.1.2
+ .Chance
+ .b.1.2
+ .b.1.2
+ .BandO Railroad
+ .b.1.2
+ .b.1.2
+ .Electric Company
+ .b.1.2
+ .Go To Jail
+ .b.1.2
+ .b.1.2
+ .Community Chest
+ .b.1.2
+ .Shortline RailRoad
+ .Chance
+ .b.1.2
+ .Luxury Tax
+ .a.1.2
+@.USD
