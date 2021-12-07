@@ -66,6 +66,11 @@ public class Dice implements Serializable {
     public void resetDoubles(){
         doubleCount = 0;
     }
+
+    /**
+     * sets currentRoll to die
+     * @param die
+     */
     public void setDie(int die){
        currentRoll = die;
     }
