@@ -929,13 +929,30 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     * save,  saves the game to a file.
+     * @throws IOException
+     */
     public void save() throws IOException {
         views.get(0).saveModel();
     }
 
+    /**
+     * load, loads a saved game from a file.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void load() throws IOException, ClassNotFoundException {
         views.get(0).loadModel();
     }
+
+    /**
+     *customMap reads the structured custom map text file and stores the names,
+     * cost and rent of properties the players choose when the players decide to
+     * use custom street names and a different currency.
+     * @param map
+     * @throws IOException
+     */
     public void customMap(File map) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(map));
 
