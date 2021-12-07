@@ -534,11 +534,33 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void saveModel() throws IOException {
         String fileName = JOptionPane.showInputDialog(this, "Enter a file name");
 
-        FileOutputStream fileOutputStream = new FileOutputStream(fileName + ".ser");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        objectOutputStream.writeObject(model);
-        objectOutputStream.close();
-        fileOutputStream.close();
+        //Save board
+        FileOutputStream fileOutputStreamBoard = new FileOutputStream(fileName + "_board.ser");
+        ObjectOutputStream objectOutputStreamBoard = new ObjectOutputStream(fileOutputStreamBoard);
+        objectOutputStreamBoard.writeObject(model.getBoard());
+        objectOutputStreamBoard.close();
+        fileOutputStreamBoard.close();
+
+        //Save players
+        FileOutputStream fileOutputStreamPlayers = new FileOutputStream(fileName + "_players.ser");
+        ObjectOutputStream objectOutputStreamPlayers = new ObjectOutputStream(fileOutputStreamPlayers);
+        objectOutputStreamPlayers.writeObject(model.getPlayers());
+        objectOutputStreamPlayers.close();
+        fileOutputStreamPlayers.close();
+
+        //Save die
+        FileOutputStream fileOutputStreamDie = new FileOutputStream(fileName + "_die.ser");
+        ObjectOutputStream objectOutputStreamDie = new ObjectOutputStream(fileOutputStreamDie);
+        objectOutputStreamDie.writeObject(model.getDie());
+        objectOutputStreamDie.close();
+        fileOutputStreamDie.close();
+
+        //Save curPlayer
+        FileOutputStream fileOutputStreamCurPlayer = new FileOutputStream(fileName + "_curPlayer.ser");
+        ObjectOutputStream objectOutputStreamCurPlayer = new ObjectOutputStream(fileOutputStreamCurPlayer);
+        objectOutputStreamCurPlayer.writeObject(model.getCurrentPlayer());
+        objectOutputStreamCurPlayer.close();
+        fileOutputStreamCurPlayer.close();
 
         handleDisplay();
     }
@@ -551,21 +573,52 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void loadModel() throws IOException, ClassNotFoundException {
         String fileName = JOptionPane.showInputDialog(this, "Enter the file name you wish to load");
 
-        FileInputStream fileInputStream = new FileInputStream(fileName + ".ser");
-        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-        MonopolyModel loadedModel = (MonopolyModel) objectInputStream.readObject();
+        //load board
+        FileInputStream fileInputStreamBoard = new FileInputStream(fileName + "_board.ser");
+        ObjectInputStream objectInputStreamBoard = new ObjectInputStream(fileInputStreamBoard);
+        ArrayList<Space> loadedBoard = (ArrayList) objectInputStreamBoard.readObject();
+        model.setBoard(loadedBoard);
+        objectInputStreamBoard.close();
+        fileInputStreamBoard.close();
 
-        this.model = loadedModel;
+        //load players
+        FileInputStream fileInputStreamPlayers = new FileInputStream(fileName + "_players.ser");
+        ObjectInputStream objectInputStreamPlayers = new ObjectInputStream(fileInputStreamPlayers);
+        ArrayList<Player> loadedPlayers = (ArrayList) objectInputStreamPlayers.readObject();
+        model.setPlayers(loadedPlayers);
 
+        //get the display variables updated
         ArrayList<String> names = new ArrayList<>();
-        for(Player player : model.getPlayers()){
+        ArrayList<Integer> locations = new ArrayList<>();
+        int i = 0;
+        for(Player player: loadedPlayers){
             names.add(player.getName());
+            handleDisplayChar(i, player.getLocation(), player.getLocationGUI(player.getLocation()));
+            i++;
         }
-        this.displayName = names;
-        model.setView(this);
+        displayName = names;
+        objectInputStreamPlayers.close();
+        fileInputStreamPlayers.close();
 
-        objectInputStream.close();
-        fileInputStream.close();
+        //load die
+        FileInputStream fileInputStreamDie = new FileInputStream(fileName + "_die.ser");
+        ObjectInputStream objectInputStreamDie = new ObjectInputStream(fileInputStreamDie);
+        Dice loadedDice = (Dice) objectInputStreamDie.readObject();
+        model.setDie(loadedDice);
+        objectInputStreamDie.close();
+        fileInputStreamDie.close();
+
+        //load current player
+        FileInputStream fileInputStreamCP = new FileInputStream(fileName + "_curPlayer.ser");
+        ObjectInputStream objectInputStreamCP = new ObjectInputStream(fileInputStreamCP);
+        int CP = (int) objectInputStreamCP.readObject();
+        model.setCurrentPlayer(CP);
+        objectInputStreamCP.close();
+        fileInputStreamCP.close();
+
+        //update the screen with the loaded game and alert whose turn it is
+        handleDisplay();
+        alertWhoseTurn();
 
     }
 
