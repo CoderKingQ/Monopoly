@@ -53,8 +53,8 @@ public class Utilities extends Space implements Serializable {
     }
 
     /**
-     * A toString method to display the name, cost and owner of a utility
-     * @return
+     * toString changes the utilities info into a String
+     * @return String, the utilities info as a String
      */
     @Override
     public String toString() {

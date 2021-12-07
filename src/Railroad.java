@@ -55,6 +55,10 @@ public class Railroad extends Space implements Serializable {
         this.owner = owner;
     }
 
+    /**
+     * toString changes the railroad info into a String
+     * @return String, the railroad info as a String
+     */
     @Override
     public String toString() {
         return "Railroad{" +

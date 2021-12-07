@@ -600,7 +600,9 @@ public class MonopolyModel {
         board.add(new Event(38, "Luxury Tax", 100));
         board.add(new Property(39,"Boardwalk", "#00008B", 400, 50));
     }
-
+    /**
+     * generateBoard generates a new custom board
+     */
     public void generateCustomBoard(){
         board.add(new Event(0, customMap.get(0), 0));
         board.add(new Property(1,customMap.get(1), "#964B00", customMapCost.get(1), customMapRent.get(1)));
@@ -930,28 +932,26 @@ public class MonopolyModel {
     }
 
     /**
-     * save,  saves the game to a file.
-     * @throws IOException
+     * save invokes the save method in Frame
+     * @throws IOException if there is an error with creating/reading the file
      */
     public void save() throws IOException {
         views.get(0).saveModel();
     }
 
     /**
-     * load, loads a saved game from a file.
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * load invokes the load method in Frame
+     * @throws IOException if there is an error with finding or writing into the file
+     * @throws ClassNotFoundException if there is an error with loading a specific class
      */
     public void load() throws IOException, ClassNotFoundException {
         views.get(0).loadModel();
     }
 
     /**
-     *customMap reads the structured custom map text file and stores the names,
-     * cost and rent of properties the players choose when the players decide to
-     * use custom street names and a different currency.
-     * @param map
-     * @throws IOException
+     * customMap reads through the text file and creates the custom map
+     * @param map File, the file to read
+     * @throws IOException if there is an error with reading from the map
      */
     public void customMap(File map) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(map));
