@@ -93,6 +93,10 @@ public class Property extends Space implements Serializable {
         this.owner = owner;
     }
 
+    /**
+     *A toString method to display the details of Property
+     */
+
     @Override
     public String toString() {
         return "Property{" +

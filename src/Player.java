@@ -261,7 +261,6 @@ public class Player implements Serializable {
 
     /**
      * A toString method to display information/status of a player
-     * @return player
      */
     @Override
     public String toString() {
