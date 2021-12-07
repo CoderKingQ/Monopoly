@@ -529,7 +529,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     public static void main(String[] args) throws IOException { new MonopolyFrame();}
 
-
+/*
+Saves the game to a textfile.
+ */
 
     public void saveModel() throws IOException {
         String fileName = JOptionPane.showInputDialog(this, "Enter a file name");
@@ -569,7 +571,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     public void handleCurrency(String currency) {
         currencySymbol = currency;
     }
-
+/*
+Prompts the user for a filename and loads the file as a game save.
+ */
     public void loadModel() throws IOException, ClassNotFoundException {
         String fileName = JOptionPane.showInputDialog(this, "Enter the file name you wish to load");
 
