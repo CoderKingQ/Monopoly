@@ -12,9 +12,10 @@ public class MonopolyModel {
     private ArrayList<Integer> customMapCost;
     private ArrayList<Integer> customMapRent;
     private boolean isCustomMap;
-    private String currency;
+    public String currency;
     private File mapFile;
-
+    private String currencySymbol;
+  
     /**
      * getBoard creates the game board
      * @return ArrayList<Space>, board the monopoly board
@@ -28,7 +29,7 @@ public class MonopolyModel {
      */
     public MonopolyModel(ArrayList<String> names, ArrayList<Integer> aiNumber,boolean isCustomMap) throws IOException {
         this.die = new Dice();
-        this.board = new ArrayList<Space>();
+        this.board = new ArrayList<>();
         this.customMap = new ArrayList<>();
         this.customMapCost = new ArrayList<>();
         this.customMapRent = new ArrayList<>();
@@ -306,7 +307,7 @@ public class MonopolyModel {
     public void status() {
         StringBuilder sb = new StringBuilder("");
         for (Player player : players) {
-            sb.append("Player: " + player.getName() + " has: \n$" + player.getMoney() + " \nAnd the following properties: \n");
+            sb.append("Player: " + player.getName() + " has: \n"+ currencySymbol + player.getMoney() + " \nAnd the following properties: \n");
             for (Space property : player.getProperties()) {
                 if (property instanceof Property) {
                     sb.append(property.getName() + " with " + ((Property) property).getHouses() + " houses \n");
@@ -316,6 +317,7 @@ public class MonopolyModel {
         }
 
         views.get(0).handleStatus(sb);
+        views.get(0).handleCurrency(currencySymbol);
 
 
     }
@@ -958,9 +960,12 @@ public class MonopolyModel {
 
         }finally {
             reader.close();
-           // views.get(0).handleDisplay();
         }
-        //handle a message dialog for map loaded
+        if(currency.equals("EUR")){
+            currencySymbol = "€";
+        }else{
+            currencySymbol="$";
+        }
     }
 
     public Dice getDie(){

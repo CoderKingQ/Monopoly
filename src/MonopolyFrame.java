@@ -22,6 +22,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
     private int locationGUI;
     private int isCustomMap;
     private boolean cMap;
+    private String currencySymbol;
 
     /** the construct for MonopolyFrame which draws the initial board
      *
@@ -83,6 +84,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         }else{cMap=false;}
         model = new MonopolyModel(names,aiNumber,cMap);
         model.addMonopolyView(this);
+
         handleDisplay();
     }
 
@@ -454,7 +456,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
      * @param space Space, which event space the player landed on
      */
     public void handlePayEvent(Space space){
-        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay $" + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
+        JOptionPane.showMessageDialog(this, model.getPlayer().getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay "+ currencySymbol + ((Event) model.getBoard().get(model.getPlayer().getLocation())).getPayment());
     }
 
     /** declareWinner displays who won the game
@@ -478,7 +480,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
      * @param payment int, how much money was transacted
      */
     public void handlePayPlayer(Player p1, Player p2, int payment){
-        JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + " $" + payment);
+        JOptionPane.showMessageDialog(this, p1.getName() + " you just landed on " + model.getBoard().get(model.getPlayer().getLocation()).getName() + " and had to pay " + p2.getName() + currencySymbol + payment);
     }
 
 
@@ -561,6 +563,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
         fileOutputStreamCurPlayer.close();
 
         handleDisplay();
+    }
+
+    @Override
+    public void handleCurrency(String currency) {
+        currencySymbol = currency;
     }
 
     public void loadModel() throws IOException, ClassNotFoundException {

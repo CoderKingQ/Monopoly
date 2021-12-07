@@ -29,4 +29,5 @@ public interface MonopolyView {
 
     void saveModel() throws IOException;
 
+    void handleCurrency(String currency);
 }
