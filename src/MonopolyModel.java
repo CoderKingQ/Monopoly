@@ -985,22 +985,42 @@ public class MonopolyModel {
         }
     }
 
+    /** get die returns the games die
+     *
+     * @return Die
+     */
     public Dice getDie(){
         return die;
     }
 
+    /** setBoard sets the board to an inputted board
+     *
+     * @param board ArrayList
+     */
     public void setBoard(ArrayList board){
         this.board = board;
     }
 
+    /** setPlayers sets the list of players
+     *
+     * @param players
+     */
     public void setPlayers(ArrayList players){
         this.players = players;
     }
 
+    /** setDie sets the die
+     *
+     * @param die
+     */
     public void setDie(Dice die){
         this.die = die;
     }
 
+    /** setCurrentPlayer sets the current player
+     *
+     * @param currentPlayer
+     */
     public void setCurrentPlayer(int currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
