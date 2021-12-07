@@ -32,6 +32,10 @@ public class Space implements Serializable {
         return location;
     }
 
+    /**
+     * A toString method to display the name and location of a space
+     * @return
+     */
     @Override
     public String toString() {
         return "Space{" +
