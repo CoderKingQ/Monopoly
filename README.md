@@ -33,15 +33,14 @@ Option to customize the board: This enables the player to be able to customise t
 
 # Deliverables:
 ### Project Code:  
-  The project code consist of 16 classes:
-  - modelTests
-  - MonopolyController
-  - MonopolyFrame 
+  The project code consist of 12 classes:
   - MonopolyModel
+  - MonopolyFrame 
+  - MonopolyController
   - MonopolyView
+  - modelTests
   - Dice
   - Event
-  - Game
   - Player
   - Property
   - Railroad
