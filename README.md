@@ -1,8 +1,8 @@
 # Monopoly
 
-*Version 3.0 *
+*Version 4.0 *
 
-Date: 22/11/21
+Date: 06/12/21
 
 # Team Members:
 Quinton Tracey  
@@ -23,6 +23,8 @@ The jail is used when players roll a double or land on "Go To Jail". They are se
 Players can add A.I players to play the game with them. The A.I players would be able to play the game just like any other player woudld. They'll be able to purchased properties, build houses and hotels, pay rent, go to jail, etc.  
 Changes Made:  
 In this milestone, in addition to the features added, changes were made to the constructors of MonopolyModel and Player classes to include the A.I players. Also the access modifiers for method nextTurn() was changed from private to public to enable more efficient access to nextTurn().
+
+# MILESTONE 4
 
 # Deliverables:
 ### Project Code:  
@@ -56,7 +58,3 @@ There are 4 sequence diagrams that show the interactions for when a
 
 
 # Future Milestones/Roadmap:
-As the project progresses, the following would be added:         
-In the next milestone, the game would have a save/load feature and international versions with custom street names, values and currencies.  
-
-
