@@ -55,6 +55,9 @@ public class Railroad extends Space implements Serializable {
         this.owner = owner;
     }
 
+    /**
+     * A toString method to display cost and owner of a Railroad
+     */
     @Override
     public String toString() {
         return "Railroad{" +
