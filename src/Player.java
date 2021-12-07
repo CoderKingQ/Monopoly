@@ -1,6 +1,11 @@
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Class player handles everything about a player. Their name, location on the board,
+ * how much money they have, which properties, houses and hotels they own, pass turn to next player etc.
+ */
 public class Player implements Serializable {
 
     //private static final long serialVersionUID = 6267539466641140019L;
@@ -254,6 +259,9 @@ public class Player implements Serializable {
         return isAi;
     }
 
+    /**
+     * A toString method to display information/status of a player
+     */
     @Override
     public String toString() {
         return "Player{" +

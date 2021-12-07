@@ -15,7 +15,7 @@ public class MonopolyController implements ActionListener {
 
     /** triggers on button press and handles input
      *
-     * @param e
+     * @param e ActionEvent, a button click
      */
     @Override
     public void actionPerformed(ActionEvent e) {

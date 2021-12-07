@@ -138,10 +138,39 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 top.add(space);
             }
         }
-        int flag = 1;
-        int flag2 = 1;
-        int flag3 = 1;
-        int flag4 = 1;
+        handleFirstRow();
+        handleLastRow();
+        handleFirstCol();
+        handleLastCol();
+
+        //Menu Stuff
+        JMenuBar menu = new JMenuBar();
+        this.setJMenuBar(menu);
+
+        JMenu file = new JMenu("File");
+        menu.add(file);
+
+        JMenuItem load = new JMenuItem("Load");
+        file.add(load);
+        load.setActionCommand("load");
+        load.addActionListener(mc);
+
+        JMenuItem save = new JMenuItem("Save");
+        file.add(save);
+        save.setActionCommand("save");
+        save.addActionListener(mc);
+
+
+
+        this.setVisible(true);
+    }
+
+    /**
+     * handleFirstRow controls all elements of the display of the first row of the game board
+     */
+    public void handleFirstRow(){
+
+        boolean controlEntryFirstRow = true;
         //for first row
         for(int j = 0; j < BoardLength; j++){
             String house = "";
@@ -189,7 +218,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
 
             }
-            if(flag == 1) {
+            if(controlEntryFirstRow == true) {
                 for (int counter = 0; counter < locations.size(); counter++) {
 
                     if (locations.get(counter) < 11 ) {
@@ -197,11 +226,17 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                         spaces[0][locationsGUI.get(counter)].add(test);
                     }
                 }
-                flag = 0;
+                controlEntryFirstRow = false;
             }
             spaces[0][j].setBorder(BorderFactory.createLineBorder(Color.black));
         }
 
+    }
+    /**
+     * handleLastRow controls all elements of the display of the last row of the game board
+     */
+    public void handleLastRow(){
+        boolean controlEntryLastRow = true;
         count2 = 30;
         //for last row
         for(int j = 0; j < BoardLength; j++){
@@ -247,20 +282,25 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 spaces[10][j].add(price);
                 spaces[10][j].setBackground(Color.decode(((Property) model.getBoard().get(count2)).getSet()));
             }
-            if(flag2 == 1) {
+            if(controlEntryLastRow == true) {
                 for (int counter = 0; counter < locations.size(); counter++) {
                     if ((locations.get(counter) < 31) && (locations.get(counter) > 19)) {
                         JLabel test = new JLabel(displayName.get(counter), JLabel.CENTER);
                         spaces[10][locationsGUI.get(counter)].add(test);
                     }
                 }
-                flag2 = 0;
+                controlEntryLastRow = false;
             }
 
             spaces[10][j].setBorder(BorderFactory.createLineBorder(Color.black));
             count2--;
         }
-
+    }
+    /**
+     * handleFirstCol controls all elements of the display of the first column of the game board
+     */
+    public void handleFirstCol(){
+        boolean controlEntryFirstCol = true;
         int count3 = 39;
         //for first column
         for(int i = 1; i < (BoardLength-1); i++){
@@ -307,19 +347,26 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 spaces[i][0].setBackground(Color.decode(((Property) model.getBoard().get(count3)).getSet()));
             }
 
-            if(flag3 == 1) {
+            if(controlEntryFirstCol == true) {
                 for (int counter = 0; counter < locations.size(); counter++) {
                     if ((locations.get(counter) <= 39) && (locations.get(counter) >= 31)) {
                         JLabel test = new JLabel(displayName.get(counter), JLabel.CENTER);
                         spaces[locationsGUI.get(counter)][0].add(test);
                     }
                 }
-                flag3 = 0;
+                controlEntryFirstCol = false;
             }
             spaces[i][0].setBorder(BorderFactory.createLineBorder(Color.black));
             count3--;
 
         }
+
+    }
+    /**
+     * handleLastCol controls all elements of the display of the last column of the game board
+     */
+    public void handleLastCol(){
+        boolean controlEntryLastCol = true;
         //for second column
         int count = 11;
         for(int i = 1; i < (BoardLength-1); i++){
@@ -365,40 +412,21 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
                 spaces[i][10].add(price);
                 spaces[i][10].setBackground(Color.decode(((Property) model.getBoard().get(count)).getSet()));
             }
-            if(flag4 == 1) {
+            if(controlEntryLastCol == true) {
                 for (int counter = 0; counter < locations.size(); counter++) {
                     if ((locations.get(counter) <= 19) && (locations.get(counter) >= 11)) {
                         JLabel test = new JLabel(displayName.get(counter), JLabel.CENTER);
                         spaces[locationsGUI.get(counter)][10].add(test);
                     }
                 }
-                flag4 = 0;
+                controlEntryLastCol = false;
             }
             spaces[i][10].setBorder(BorderFactory.createLineBorder(Color.black));
             count++;
         }
 
-        //Menu Stuff
-        JMenuBar menu = new JMenuBar();
-        this.setJMenuBar(menu);
-
-        JMenu file = new JMenu("File");
-        menu.add(file);
-
-        JMenuItem load = new JMenuItem("Load");
-        file.add(load);
-        load.setActionCommand("load");
-        load.addActionListener(mc);
-
-        JMenuItem save = new JMenuItem("Save");
-        file.add(save);
-        save.setActionCommand("save");
-        save.addActionListener(mc);
-
-
-
-        this.setVisible(true);
     }
+
 
 
     /** handleStatus will display a popup with the all the players information
@@ -529,10 +557,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView{
 
     public static void main(String[] args) throws IOException { new MonopolyFrame();}
 
-/*
-Saves the game to a textfile.
- */
 
+    /**
+     * saveModel will prompt the user to input a filename and then create save files and write game info into them
+     * @throws IOException if there is an issue with creating/reading the file
+     */
     public void saveModel() throws IOException {
         String fileName = JOptionPane.showInputDialog(this, "Enter a file name");
 
@@ -567,13 +596,20 @@ Saves the game to a textfile.
         handleDisplay();
     }
 
+    /**
+     * handleCurrency changes the dollar sign to the currency in the text file
+     * @param currency the currency to change to
+     */
     @Override
     public void handleCurrency(String currency) {
         currencySymbol = currency;
     }
-/*
-Prompts the user for a filename and loads the file as a game save.
- */
+
+    /**
+     * loadModel prompts the user for a filename and if the filename matches a game save it loads and sets the info in the Model.
+     * @throws IOException if there is an issue with finding the file or writing into it
+     * @throws ClassNotFoundException if there is an issue with loading a specific class
+     */
     public void loadModel() throws IOException, ClassNotFoundException {
         String fileName = JOptionPane.showInputDialog(this, "Enter the file name you wish to load");
 

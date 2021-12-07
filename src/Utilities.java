@@ -52,6 +52,10 @@ public class Utilities extends Space implements Serializable {
         this.owner = owner;
     }
 
+    /**
+     * toString changes the utilities info into a String
+     * @return String, the utilities info as a String
+     */
     @Override
     public String toString() {
         return "Utilities{" + this.getName() +
