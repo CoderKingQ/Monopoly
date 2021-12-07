@@ -1,0 +1,41 @@
+ .Aller
+ .Rue du Moulin.200.50
+ .coffre communautaire
+ .Rue de l'Église.100.25
+ .impôt sur le revenu
+ .Grand chemin de fer
+ .Rue de la République.150.45
+ .Chance
+ .Place de la Mairie.300.80
+ .Avenue Jean Moulin.350.95
+ .Prison
+ .Avenue Victor Hugo.150.35
+ .Compagnie d'électricité
+ .Rue Louis Pasteur.100.25
+ .Grande Rue.120.30
+ .Petit chemin de fer
+ .Place Charles de Gaulle.145.45
+ .Coffre communautaire
+ .Rue des Écoles.180.40
+ .Place Jean Jaurès.150.40
+ .Parking gratuit
+ .Rue du Gue Jacquet.200.60
+ .Chance
+ .Rue du Limas.310.100
+ .Rue du Clair Bocage.400.125
+ .longue chemin de fer
+ .Rue de Groussay.150.40
+ .Rue Adolphe Wurtz.100.25
+ .Electric Company
+ .Rue Léon Dierx.120.35
+ .Go To Jail
+ .Quai Saint-Nicolas.170.45
+ .Rue Roussy.190.40
+ .Coffre communautaire
+ .Rue de Lille.200.65
+ .Court chemin de fer
+ .Chance
+ .Avenue de Provence.100.20
+ .Taxe de lux
+ .Rue Gustave Eiffel.250.55
+@.EUR
